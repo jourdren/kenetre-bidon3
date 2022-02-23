@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>fr.ens.biologie.genomique</groupId>
+  <artifactId>kenetre</artifactId>
+  <name>Kenetre</name>
+  <packaging>pom</packaging>
+  <version>1.0</version>
+  <description>Common classes for Aozan and Eoulsan projects.</description>
+  <url>https://github.com/GenomiqueENS/kenetre</url>
+  <inceptionYear>2022</inceptionYear>
+  <organization>
+    <name>GenomiqueENS</name>
+    <url>https://www.genomique.biologie.ens.fr/</url>
+  </organization>
+  <developers>
+    <developer>
+      <id>jourdren</id>
+      <name>Laurent Jourdren</name>
+      <email>eoulsan 0 biologie ens fr</email>
+      <url />
+      <organization>École normale supérieure, IBENS, Genomics core facility</organization>
+      <organizationUrl>https://www.genomique.biologie.ens.fr/</organizationUrl>
+      <roles>
+        <role>Lead Developer</role>
+      </roles>
+      <timezone>1</timezone>
+      <properties>
+        <picUrl>https://avatars2.githubusercontent.com/u/3381031?s=60</picUrl>
+      </properties>
+    </developer>
+  </developers>
+  <properties>
+    <revision>0.1-SNAPSHOT</revision>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <didyouknow>Did you know that "kenetre" is the breton word for between?</didyouknow>
+  </properties>
+  <licenses>
+    <license>
+      <name>GNU Lesser General Public License v2.1</name>
+      <url>http://www.gnu.org/licenses/lgpl-2.1.txt</url>
+      <distribution>repo</distribution>
+      <comments />
+    </license>
+    <license>
+      <name>GNU Lesser General Public License v3.0</name>
+      <url>http://www.gnu.org/licenses/lgpl-3.0.txt</url>
+      <distribution>repo</distribution>
+      <comments />
+    </license>
+    <license>
+      <name>CeCILL-C Licence française de logiciel libre</name>
+      <url>http://www.cecill.info/licences/Licence_CeCILL-C_V1-en.txt</url>
+      <distribution>repo</distribution>
+      <comments />
+    </license>
+  </licenses>
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.13.1</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+  <modules>  
+    <module>kenetre-core</module>
+    <module>kenetre-illumina</module>
+    <module>kenetre-nanopore</module>
+  </modules>
+</project>
