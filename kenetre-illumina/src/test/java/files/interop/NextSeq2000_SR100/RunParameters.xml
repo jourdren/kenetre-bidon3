@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<RunParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <SampleSheetFilePath>/output/SampleSheet-run4.csv</SampleSheetFilePath>
+  <PlannedCycles>
+    <Read1>117</Read1>
+    <Index1>10</Index1>
+    <Index2>10</Index2>
+    <Read2>0</Read2>
+  </PlannedCycles>
+  <CompletedCycles>
+    <Read1>117</Read1>
+    <Index1>10</Index1>
+    <Index2>10</Index2>
+    <Read2>0</Read2>
+  </CompletedCycles>
+  <InstrumentSerialNumber>VH00567</InstrumentSerialNumber>
+  <InstrumentType>NextSeq 2000</InstrumentType>
+  <ApplicationName>NextSeq 1000/2000 Control Software</ApplicationName>
+  <ApplicationVersion>1.4.0.39521</ApplicationVersion>
+  <FlowCellSerialNumber>AAAMT2KM5</FlowCellSerialNumber>
+  <FlowCellPartNumber>20027770</FlowCellPartNumber>
+  <FlowCellLotNumber>20578625</FlowCellLotNumber>
+  <FlowCellExpirationDate>2022-11-10</FlowCellExpirationDate>
+  <FlowCellVersion>2</FlowCellVersion>
+  <FlowCellMode>NextSeq 1000/2000 P2 Flow Cell Cartridge</FlowCellMode>
+  <CartridgeSerialNumber>EC1040186-EC11</CartridgeSerialNumber>
+  <CartridgePartNumber>20044468</CartridgePartNumber>
+  <CartridgeLotNumber>20562315</CartridgeLotNumber>
+  <CartridgeExpirationDate>2022-08-28</CartridgeExpirationDate>
+  <CartridgeVersion>3</CartridgeVersion>
+  <CartridgeMode>NextSeq 1000/2000 P2 Reagent Cartridge (138 Cycles)</CartridgeMode>
+  <ExperimentName>Run004</ExperimentName>
+  <RecipeName>IlluminaStrandedmRNA_1DarkCycle_CustomRecipe_P2_v01</RecipeName>
+  <RecipeVersion>2.0_R1R2_DarkCycle</RecipeVersion>
+  <RtaVersion>3.9.2</RtaVersion>
+  <RunStartTime>2021-10-12T09:51:18.5051583Z</RunStartTime>
+  <RunEndTime>2021-10-13T00:49:33.638087Z</RunEndTime>
+  <RunElapsedTime>0:14:58:15:132 (d:hr:min:s:ms)</RunElapsedTime>
+  <RunCounter>4</RunCounter>
+  <CimVersion>cim@1.4.3</CimVersion>
+  <ChmVersion>chm@1.4.3</ChmVersion>
+  <ImbVersion>imb@1.4.3</ImbVersion>
+  <CibFpgaVersion>0x3200000a</CibFpgaVersion>
+  <CopyServiceRunId>186B63B14641D2CE</CopyServiceRunId>
+  <CopyServiceVersion>2.4.1.2497</CopyServiceVersion>
+  <BaseSpaceRunId />
+  <BsshMode>None</BsshMode>
+  <SecondaryAnalysisPlatformVersion>3.7.4</SecondaryAnalysisPlatformVersion>
+  <SecondaryAnalysisWorkflow>GenerateFastQ</SecondaryAnalysisWorkflow>
+  <RunSetupMode>SampleSheet</RunSetupMode>
+  <SecondaryAnalysisMode>Local</SecondaryAnalysisMode>
+  <OutputFolder>/output/211012_VH00567_4_AAAMT2KM5</OutputFolder>
+  <SkipObdd>false</SkipObdd>
+  <PurgeReagentCartridge>false</PurgeReagentCartridge>
+  <CustomPrimerSelections>
+    <Read1>None</Read1>
+    <Index1>None</Index1>
+    <Index2>None</Index2>
+    <Read2>None</Read2>
+  </CustomPrimerSelections>
+</RunParameters>

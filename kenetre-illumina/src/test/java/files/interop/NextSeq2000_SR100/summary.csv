@@ -1,0 +1,28 @@
+# Version: v1.1.23
+.
+Level          ,Yield          ,Projected Yield,Aligned        ,Error Rate     ,Intensity C1   ,%>=Q30         ,% Occupied     
+Read 1         ,63.86          ,63.86          ,3.76           ,0.21           ,277            ,93.26          ,99.11          
+Read 2 (I)     ,4.95           ,4.95           ,0.00           ,nan            ,239            ,91.69          ,99.11          
+Read 3 (I)     ,4.95           ,4.95           ,0.00           ,nan            ,206            ,91.81          ,99.11          
+Non-indexed    ,63.86          ,63.86          ,3.76           ,0.21           ,277            ,93.26          ,99.11          
+Total          ,73.77          ,73.77          ,3.76           ,0.21           ,241            ,93.05          ,99.11          
+
+
+Read 1
+Lane           ,Surface        ,Tiles          ,Density        ,Cluster PF     ,Legacy Phasing/Prephasing Rate,Phasing  slope/offset,Prephasing slope/offset,Reads          ,Reads PF       ,%>=Q30         ,Yield          ,Cycles Error   ,Aligned        ,Error          ,Error (35)     ,Error (75)     ,Error (100)    ,% Occupied     ,Intensity C1   
+1              ,-              ,132            ,4974 +/- 0     ,82.70 +/- 1.81 ,0.116 / 0.074  ,0.134 / 1.537  ,0.087 / 0.466  ,665.93         ,550.71         ,93.26          ,63.86          ,116            ,3.76 +/- 0.18  ,0.21 +/- 0.08  ,0.11 +/- 0.03  ,0.14 +/- 0.05  ,0.18 +/- 0.07  ,99.11 +/- 0.68 ,277 +/- 49     
+1              ,1              ,66             ,4974 +/- 0     ,84.26 +/- 0.96 ,0.108 / 0.078  ,0.130 / 1.385  ,0.088 / 0.473  ,332.97         ,280.56         ,93.82          ,32.55          ,-              ,3.90 +/- 0.11  ,0.17 +/- 0.05  ,0.10 +/- 0.01  ,0.12 +/- 0.03  ,0.15 +/- 0.04  ,99.32 +/- 0.60 ,324 +/- 18     
+1              ,2              ,66             ,4974 +/- 0     ,81.13 +/- 0.85 ,0.124 / 0.071  ,0.138 / 1.689  ,0.085 / 0.460  ,332.97         ,270.15         ,92.67          ,31.30          ,-              ,3.62 +/- 0.10  ,0.25 +/- 0.09  ,0.12 +/- 0.03  ,0.17 +/- 0.06  ,0.21 +/- 0.07  ,98.89 +/- 0.69 ,230 +/- 10     
+Read 2 (I)
+Lane           ,Surface        ,Tiles          ,Density        ,Cluster PF     ,Legacy Phasing/Prephasing Rate,Phasing  slope/offset,Prephasing slope/offset,Reads          ,Reads PF       ,%>=Q30         ,Yield          ,Cycles Error   ,Aligned        ,Error          ,Error (35)     ,Error (75)     ,Error (100)    ,% Occupied     ,Intensity C1   
+1              ,-              ,132            ,4974 +/- 0     ,82.70 +/- 1.81 ,nan / nan      ,nan / nan      ,nan / nan      ,665.93         ,550.71         ,91.69          ,4.95           ,0              ,nan +/- nan    ,nan +/- nan    ,nan +/- nan    ,nan +/- nan    ,nan +/- nan    ,99.11 +/- 0.68 ,239 +/- 37     
+1              ,1              ,66             ,4974 +/- 0     ,84.26 +/- 0.96 ,nan / nan      ,nan / nan      ,nan / nan      ,332.97         ,280.56         ,92.51          ,2.53           ,-              ,nan +/- nan    ,nan +/- nan    ,nan +/- nan    ,nan +/- nan    ,nan +/- nan    ,99.32 +/- 0.60 ,275 +/- 11     
+1              ,2              ,66             ,4974 +/- 0     ,81.13 +/- 0.85 ,nan / nan      ,nan / nan      ,nan / nan      ,332.97         ,270.15         ,90.84          ,2.43           ,-              ,nan +/- nan    ,nan +/- nan    ,nan +/- nan    ,nan +/- nan    ,nan +/- nan    ,98.89 +/- 0.69 ,204 +/- 7      
+Read 3 (I)
+Lane           ,Surface        ,Tiles          ,Density        ,Cluster PF     ,Legacy Phasing/Prephasing Rate,Phasing  slope/offset,Prephasing slope/offset,Reads          ,Reads PF       ,%>=Q30         ,Yield          ,Cycles Error   ,Aligned        ,Error          ,Error (35)     ,Error (75)     ,Error (100)    ,% Occupied     ,Intensity C1   
+1              ,-              ,132            ,4974 +/- 0     ,82.70 +/- 1.81 ,nan / nan      ,nan / nan      ,nan / nan      ,665.93         ,550.71         ,91.81          ,4.95           ,0              ,nan +/- nan    ,nan +/- nan    ,nan +/- nan    ,nan +/- nan    ,nan +/- nan    ,99.11 +/- 0.68 ,206 +/- 30     
+1              ,1              ,66             ,4974 +/- 0     ,84.26 +/- 0.96 ,nan / nan      ,nan / nan      ,nan / nan      ,332.97         ,280.56         ,92.29          ,2.53           ,-              ,nan +/- nan    ,nan +/- nan    ,nan +/- nan    ,nan +/- nan    ,nan +/- nan    ,99.32 +/- 0.60 ,235 +/- 8      
+1              ,2              ,66             ,4974 +/- 0     ,81.13 +/- 0.85 ,nan / nan      ,nan / nan      ,nan / nan      ,332.97         ,270.15         ,91.30          ,2.43           ,-              ,nan +/- nan    ,nan +/- nan    ,nan +/- nan    ,nan +/- nan    ,nan +/- nan    ,98.89 +/- 0.69 ,177 +/- 4      
+Extracted: 137
+Called: 137
+Scored: 137
