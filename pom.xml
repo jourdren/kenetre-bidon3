@@ -18,7 +18,7 @@
       <id>jourdren</id>
       <name>Laurent Jourdren</name>
       <email>eoulsan 0 biologie ens fr</email>
-      <url />
+      <url/>
       <organization>École normale supérieure, IBENS, Genomics core facility</organization>
       <organizationUrl>https://www.genomique.biologie.ens.fr/</organizationUrl>
       <roles>
@@ -31,7 +31,7 @@
     </developer>
   </developers>
   <properties>
-    <revision>0.1</revision>
+    <revision>0.2</revision>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -42,19 +42,19 @@
       <name>GNU Lesser General Public License v2.1</name>
       <url>http://www.gnu.org/licenses/lgpl-2.1.txt</url>
       <distribution>repo</distribution>
-      <comments />
+      <comments/>
     </license>
     <license>
       <name>GNU Lesser General Public License v3.0</name>
       <url>http://www.gnu.org/licenses/lgpl-3.0.txt</url>
       <distribution>repo</distribution>
-      <comments />
+      <comments/>
     </license>
     <license>
       <name>CeCILL-C Licence française de logiciel libre</name>
       <url>http://www.cecill.info/licences/Licence_CeCILL-C_V1-en.txt</url>
       <distribution>repo</distribution>
-      <comments />
+      <comments/>
     </license>
   </licenses>
   <distributionManagement>
