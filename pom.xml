@@ -31,11 +31,11 @@
     </developer>
   </developers>
   <properties>
-    <revision>0.3</revision>
+    <revision>0.4</revision>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <didyouknow>Did you know that "kenetre" is the breton word for between?</didyouknow>
+    <didyouknow>Did you know that "kenetre" is the breton word for "between"?</didyouknow>
   </properties>
   <licenses>
     <license>
