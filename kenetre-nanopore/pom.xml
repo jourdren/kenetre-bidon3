@@ -11,11 +11,21 @@
   <artifactId>kenetre-nanopore</artifactId>
   <version>${revision}</version>
   <name>kenetre-nanopore</name>
+  <repositories>
+    <repository>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <id>scijava</id>
+      <name>SciJava repository</name>
+      <url>https://maven.scijava.org/content/groups/public</url>
+    </repository>
+  </repositories>
   <dependencies>
     <dependency>
       <groupId>cisd</groupId>
       <artifactId>jhdf5</artifactId>
-      <version>19.04.0</version>
+      <version>19.04.1</version>
     </dependency>
     <dependency>
       <groupId>cisd</groupId>
@@ -27,7 +37,7 @@
       <artifactId>commons-io</artifactId>
       <version>2.7</version>
     </dependency>
-</dependencies>
+  </dependencies>
   <build>
     <directory>target</directory>
     <outputDirectory>target/classes</outputDirectory>
