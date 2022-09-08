@@ -36,6 +36,11 @@
     <maven.compiler.target>1.8</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <didyouknow>Did you know that "kenetre" is the breton word for "between"?</didyouknow>
+    <junit.version>4.13.1</junit.version>
+    <guava.version>15.0</guava.version>
+    <htsjdk.version>2.13.2</htsjdk.version>
+    <!--poi.version>3.12</poi.version-->
+    <poi.version>3.17</poi.version>
   </properties>
   <licenses>
     <license>
@@ -63,12 +68,22 @@
       <name>GitHub GenomiqueENS Apache Maven Packages</name>
       <url>https://maven.pkg.github.com/GenomiqueENS/Kenetre</url>
     </repository>
-    </distributionManagement>
+  </distributionManagement>
+  <repositories>
+    <repository>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <id>GenomiqueENS</id>
+      <name>GenomiqueENS repository</name>
+      <url>https://outils.genomique.biologie.ens.fr/maven2</url>
+    </repository>
+  </repositories>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.13.1</version>
+      <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -76,5 +91,8 @@
     <module>kenetre-core</module>
     <module>kenetre-illumina</module>
     <module>kenetre-nanopore</module>
+    <module>kenetre-bio</module>
+    <module>kenetre-expressioncounters</module>
+    <module>kenetre-translators</module>
   </modules>
 </project>

@@ -21,25 +21,25 @@
     <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
-      <version>15.0</version>
+      <version>${guava.version}</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.poi</groupId>
       <artifactId>poi</artifactId>
-      <version>3.12</version>
+      <version>${poi.version}</version>
       <scope>compile</scope>
     </dependency>
      <dependency>
       <groupId>org.apache.poi</groupId>
       <artifactId>poi-ooxml</artifactId>
-      <version>3.12</version>
+      <version>${poi.version}</version>
       <scope>compile</scope>
     </dependency>
      <dependency>
       <groupId>org.apache.poi</groupId>
       <artifactId>poi-ooxml-schemas</artifactId>
-      <version>3.12</version>
+      <version>${poi.version}</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
