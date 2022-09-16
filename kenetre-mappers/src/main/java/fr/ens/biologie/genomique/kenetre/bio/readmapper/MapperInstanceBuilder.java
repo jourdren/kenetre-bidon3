@@ -27,8 +27,6 @@ public class MapperInstanceBuilder {
    */
   public MapperInstanceBuilder withMapperVersion(String mapperVersion) {
 
-    requireNonNull(mapperVersion);
-
     this.mapperVersion = mapperVersion;
     return this;
   }
@@ -39,10 +37,7 @@ public class MapperInstanceBuilder {
    */
   public MapperInstanceBuilder withMapperFlavor(String mapperFlavor) {
 
-    requireNonNull(mapperFlavor);
-
     this.mapperFlavor = mapperFlavor;
-
     return this;
   }
 
