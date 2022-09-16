@@ -1,0 +1,9 @@
+fr.ens.biologie.genomique.kenetre.bio.alignmentfilter.RemoveUnmappedReadAlignmentFilter
+fr.ens.biologie.genomique.kenetre.bio.alignmentfilter.RemoveMultiMatchesReadAlignmentFilter
+fr.ens.biologie.genomique.kenetre.bio.alignmentfilter.KeepOneMatchReadAlignmentFilter
+fr.ens.biologie.genomique.kenetre.bio.alignmentfilter.QualityReadAlignmentFilter
+fr.ens.biologie.genomique.kenetre.bio.alignmentfilter.KeepNumberMatchReadAlignmentFilter
+fr.ens.biologie.genomique.kenetre.bio.alignmentfilter.DistanceFromReferenceReadAlignmentFilter
+fr.ens.biologie.genomique.kenetre.bio.alignmentfilter.GSNAPReadAlignmentFilter
+fr.ens.biologie.genomique.kenetre.bio.alignmentfilter.SupplementaryAlignmentRemoveFlagReadAlignmentFilter
+fr.ens.biologie.genomique.kenetre.bio.alignmentfilter.SecondaryAlignmentRemoveFlagReadAlignmentFilter
