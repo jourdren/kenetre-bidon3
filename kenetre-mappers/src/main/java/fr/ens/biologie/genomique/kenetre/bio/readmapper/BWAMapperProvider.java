@@ -22,7 +22,7 @@
  *
  */
 
-package fr.ens.biologie.genomique.kenetre.bio.readsmappers;
+package fr.ens.biologie.genomique.kenetre.bio.readmapper;
 
 import static fr.ens.biologie.genomique.kenetre.bio.FastqFormat.FASTQ_ILLUMINA;
 import static fr.ens.biologie.genomique.kenetre.bio.FastqFormat.FASTQ_ILLUMINA_1_5;

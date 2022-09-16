@@ -22,7 +22,7 @@
  *
  */
 
-package fr.ens.biologie.genomique.kenetre.bio.readsmappers;
+package fr.ens.biologie.genomique.kenetre.bio.readmapper;
 
 import java.io.File;
 import java.io.IOException;

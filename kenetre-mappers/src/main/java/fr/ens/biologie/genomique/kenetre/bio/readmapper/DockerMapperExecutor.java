@@ -22,7 +22,7 @@
  *
  */
 
-package fr.ens.biologie.genomique.kenetre.bio.readsmappers;
+package fr.ens.biologie.genomique.kenetre.bio.readmapper;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.collect.Lists.newArrayList;

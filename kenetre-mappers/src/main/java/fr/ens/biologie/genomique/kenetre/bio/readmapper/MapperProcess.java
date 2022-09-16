@@ -22,7 +22,7 @@
  *
  */
 
-package fr.ens.biologie.genomique.kenetre.bio.readsmappers;
+package fr.ens.biologie.genomique.kenetre.bio.readmapper;
 
 import static java.util.Objects.requireNonNull;
 
@@ -44,7 +44,7 @@ import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.LinkedBlockingDeque;
 
 import fr.ens.biologie.genomique.kenetre.bio.ReadSequence;
-import fr.ens.biologie.genomique.kenetre.bio.readsmappers.MapperExecutor.Result;
+import fr.ens.biologie.genomique.kenetre.bio.readmapper.MapperExecutor.Result;
 import fr.ens.biologie.genomique.kenetre.io.FileUtils;
 import fr.ens.biologie.genomique.kenetre.util.ReporterIncrementer;
 

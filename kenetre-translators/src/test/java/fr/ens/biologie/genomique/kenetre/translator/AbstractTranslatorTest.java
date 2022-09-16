@@ -10,9 +10,6 @@ import java.util.List;
 
 import org.junit.Test;
 
-import fr.ens.biologie.genomique.kenetre.translator.AddIdentifierTranslator;
-import fr.ens.biologie.genomique.kenetre.translator.MultiColumnTranslator;
-
 public class AbstractTranslatorTest {
 
   private static final String[] ARRAY_FIELD = {"Col1", "Col2", "Col3", "Col4"};

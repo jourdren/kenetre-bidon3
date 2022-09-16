@@ -178,12 +178,12 @@ public class MultiReadAlignmentFilterBuilder {
   }
 
   /**
-   * Create the final MultiAlignmentsFilter.
+   * Create the final MultiAlignmentFilter.
    * @return a new MultiAlignmentsFilter object
    * @throws EoulsanException if an error occurs while initialize one of the
    *           filter
    */
-  public MultiReadAlignmentFilter getAlignmentsFilter()
+  public MultiReadAlignmentFilter getAlignmentFilter()
       throws KenetreException {
 
     for (ReadAlignmentFilter f : this.listFilter) {
@@ -201,7 +201,7 @@ public class MultiReadAlignmentFilterBuilder {
    * @throws EoulsanException if an error occurs while initialize one of the
    *           filter
    */
-  public MultiReadAlignmentFilter getAlignmentsFilter(
+  public MultiReadAlignmentFilter getAlignmentFilter(
       final ReporterIncrementer incrementer, final String counterGroup)
       throws KenetreException {
 

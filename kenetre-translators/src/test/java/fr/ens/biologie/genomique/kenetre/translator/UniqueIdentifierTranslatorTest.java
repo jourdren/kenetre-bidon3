@@ -10,9 +10,6 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import fr.ens.biologie.genomique.kenetre.translator.MultiColumnTranslator;
-import fr.ens.biologie.genomique.kenetre.translator.UniqueIdentifierTranslator;
-
 public class UniqueIdentifierTranslatorTest {
 
   private static final String[] ARRAY_FIELD = {"Col1", "Col2", "Col3", "Col4"};

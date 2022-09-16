@@ -22,7 +22,7 @@
  *
  */
 
-package fr.ens.biologie.genomique.kenetre.bio.readsmappers;
+package fr.ens.biologie.genomique.kenetre.bio.readmapper;
 
 import static fr.ens.biologie.genomique.kenetre.io.FileUtils.checkExistingStandardFile;
 import static java.util.Objects.requireNonNull;
@@ -114,7 +114,7 @@ public class FileMapping extends EntryMapping {
    * @return an InputStream with SAM data
    * @throws IOException if an error occurs while mapping the reads
    */
-  private MapperProcess mapPE(final InputStream in1, final InputStream in2,
+  public MapperProcess mapPE(final InputStream in1, final InputStream in2,
       final File errorFile, final File logFile) throws IOException {
 
     requireNonNull(in1, "in1 argument is null");

@@ -22,7 +22,7 @@
  *
  */
 
-package fr.ens.biologie.genomique.kenetre.bio.readsmappers;
+package fr.ens.biologie.genomique.kenetre.bio.readmapper;
 
 import static java.util.Objects.requireNonNull;
 
@@ -33,8 +33,8 @@ import java.util.List;
 import com.google.common.base.Joiner;
 import com.google.common.base.MoreObjects;
 
-import fr.ens.biologie.genomique.kenetre.bio.readsmappers.BundledMapperExecutor.ProcessResult;
 import fr.ens.biologie.genomique.kenetre.log.GenericLogger;
+import fr.ens.biologie.genomique.kenetre.bio.readmapper.BundledMapperExecutor.ProcessResult;
 import fr.ens.biologie.genomique.kenetre.io.FileUtils;
 
 /**

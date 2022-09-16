@@ -22,49 +22,52 @@
  *
  */
 
-package fr.ens.biologie.genomique.kenetre.bio.readsmappers;
+package fr.ens.biologie.genomique.kenetre.bio.readmapper;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import com.google.common.collect.Lists;
 
+import fr.ens.biologie.genomique.kenetre.bio.FastqFormat;
+
 /**
- * This class define a wrapper on the STAR mapper.
- * @since 2.0
- * @author Laurent Jourdren
+ * This class define a wrapper on the GSNAP mapper.
+ * @since 1.2
+ * @author Claire Wallon
  */
-public class STARMapperProvider extends AbstractMapperProvider {
+public class GSNAPMapperProvider extends AbstractMapperProvider {
 
-  public static final String MAPPER_NAME = "STAR";
-  private static final String DEFAULT_VERSION = "2.7.2d";
+  public static final String MAPPER_NAME = "GSNAP";
+  private static final String DEFAULT_PACKAGE_VERSION = "2012-07-20";
+  private static final String GSNAP_MAPPER_EXECUTABLE = "gsnap";
+  private static final String GMAP_MAPPER_EXECUTABLE = "gmap";
+  private static final String[] INDEXER_EXECUTABLES =
+      new String[] {"fa_coords", "gmap_process", "gmapindex", "gmap_build"};
 
-  private static final String MAPPER_STANDARD_EXECUTABLE = "STAR";
-  private static final String MAPPER_LARGE_INDEX_EXECUTABLE = "STARlong";
+  public static final String DEFAULT_ARGUMENTS = "-N 1";
 
-  private static final String SHORT_INDEX_FLAVOR = "standard";
-  private static final String LARGE_INDEX_FLAVOR = "large-index";
-
-  public static final String DEFAULT_ARGUMENTS = "--outSAMunmapped Within";
-
-  private static final String SYNC = STARMapperProvider.class.getName();
+  private static final String SYNC = GSNAPMapperProvider.class.getName();
 
   @Override
   public String getName() {
+
     return MAPPER_NAME;
   }
 
   @Override
   public String getDefaultVersion() {
-    return DEFAULT_VERSION;
+
+    return DEFAULT_PACKAGE_VERSION;
   }
 
   @Override
   public String getDefaultFlavor() {
-    return SHORT_INDEX_FLAVOR;
+    return GSNAP_MAPPER_EXECUTABLE;
   }
 
   @Override
@@ -77,25 +80,27 @@ public class STARMapperProvider extends AbstractMapperProvider {
   public String readBinaryVersion(final MapperInstance mapperInstance) {
 
     try {
-      final String execPath;
+      final String gsnapPath;
 
       synchronized (SYNC) {
-        execPath = mapperInstance.getExecutor()
+        gsnapPath = mapperInstance.getExecutor()
             .install(flavoredBinary(mapperInstance.getFlavor()));
       }
 
-      final List<String> cmd = Lists.newArrayList(execPath, "--version");
+      final List<String> cmd = Lists.newArrayList(gsnapPath, " --version");
 
       final String s =
           MapperUtils.executeToString(mapperInstance.getExecutor(), cmd);
+
       final String[] lines = s.split("\n");
+
       if (lines.length == 0) {
         return null;
       }
 
-      final String[] tokens = lines[0].split("_");
-      if (tokens.length > 1) {
-        return tokens[1].trim();
+      final String[] tokens = lines[0].split(" version ");
+      if (tokens.length == 2) {
+        return tokens[1];
       }
 
       return null;
@@ -110,8 +115,7 @@ public class STARMapperProvider extends AbstractMapperProvider {
   public List<String> getIndexerExecutables(
       final MapperInstance mapperInstance) {
 
-    return Collections
-        .singletonList(flavoredBinary(mapperInstance.getFlavor()));
+    return Arrays.asList(INDEXER_EXECUTABLES);
   }
 
   @Override
@@ -123,27 +127,15 @@ public class STARMapperProvider extends AbstractMapperProvider {
   public boolean checkIfFlavorExists(final MapperInstance mapperInstance) {
 
     switch (mapperInstance.getFlavor().trim().toLowerCase()) {
-    case SHORT_INDEX_FLAVOR:
-    case LARGE_INDEX_FLAVOR:
+
+    case GSNAP_MAPPER_EXECUTABLE:
+    case GMAP_MAPPER_EXECUTABLE:
       return true;
 
     default:
       return false;
+
     }
-  }
-
-  /**
-   * Get the name of the flavored binary.
-   * @return the flavored binary name
-   */
-  private String flavoredBinary(final String flavor) {
-
-    if (flavor != null
-        && LARGE_INDEX_FLAVOR.equals(flavor.trim().toLowerCase())) {
-      return MAPPER_LARGE_INDEX_EXECUTABLE;
-    }
-    return MAPPER_STANDARD_EXECUTABLE;
-
   }
 
   @Override
@@ -152,55 +144,70 @@ public class STARMapperProvider extends AbstractMapperProvider {
       final int threads) {
 
     List<String> cmd = new ArrayList<>();
+    final String binariesDirectory =
+        indexerFile.getParentFile().getAbsolutePath();
+    final String genomeDirectory = genomeFile.getParentFile().getAbsolutePath();
+
     cmd.add(indexerFile.getAbsolutePath());
-    cmd.add("--runThreadN");
-    cmd.add("" + threads);
-    cmd.add("--runMode");
-    cmd.add("genomeGenerate");
-    cmd.add("--genomeDir");
-    cmd.add(genomeFile.getParentFile().getAbsolutePath());
-    cmd.add("--genomeFastaFiles");
+    cmd.add("-B");
+    cmd.add(binariesDirectory);
+    cmd.add("-D");
+    cmd.add(genomeDirectory);
+    cmd.add("-d");
+    cmd.add("genome");
     cmd.add(genomeFile.getAbsolutePath());
 
-    cmd.addAll(indexerArguments);
-
     return cmd;
+  }
+
+  /**
+   * Get the name of the flavored binary.
+   * @return the flavored binary name
+   */
+  private String flavoredBinary(final String flavor) {
+
+    if (flavor != null && "gmap".equals(flavor.trim().toLowerCase())) {
+      return GMAP_MAPPER_EXECUTABLE;
+    }
+    return GSNAP_MAPPER_EXECUTABLE;
+
   }
 
   @Override
   public MapperProcess mapSE(final EntryMapping mapping, final File inputFile,
       final File errorFile, final File logFile) throws IOException {
 
-    final String starPath;
+    final String gsnapPath;
 
     synchronized (SYNC) {
-      starPath =
+      gsnapPath =
           mapping.getExecutor().install(flavoredBinary(mapping.getFlavor()));
     }
 
-    return createMapperProcessSE(mapping, starPath, inputFile, errorFile,
-        logFile);
+    return createMapperProcessSE(mapping, gsnapPath,
+        getGSNAPQualityArgument(mapping.getFastqFormat()), inputFile,
+        errorFile);
   }
 
   @Override
   public MapperProcess mapPE(final EntryMapping mapping, final File inputFile1,
       final File inputFile2, final File errorFile, final File logFile)
       throws IOException {
-
-    final String starPath;
+    final String gsnapPath;
 
     synchronized (SYNC) {
-      starPath =
+      gsnapPath =
           mapping.getExecutor().install(flavoredBinary(mapping.getFlavor()));
     }
 
-    return createMapperProcessPE(mapping, starPath, inputFile1, inputFile2,
-        errorFile, logFile);
+    return createMapperProcessPE(mapping, gsnapPath,
+        getGSNAPQualityArgument(mapping.getFastqFormat()), inputFile1,
+        inputFile2, errorFile);
   }
 
   private MapperProcess createMapperProcessSE(final EntryMapping mapping,
-      final String starPath, final File inputFile, final File errorFile,
-      final File logFile) throws IOException {
+      final String gsnapPath, final String fastqFormat, final File inputFile,
+      final File errorFile) throws IOException {
 
     return new MapperProcess(mapping.getName(), mapping.getExecutor(),
         mapping.getTemporaryDirectory(), errorFile, false, inputFile) {
@@ -210,23 +217,28 @@ public class STARMapperProvider extends AbstractMapperProvider {
 
         // Build the command line
         final List<String> cmd = new ArrayList<>();
-        cmd.add(starPath);
-        cmd.add("--runThreadN");
-        cmd.add("" + mapping.getThreadNumber());
-        cmd.add("--genomeDir");
-        cmd.add(mapping.getIndexDirectory().getAbsolutePath());
+        cmd.add(gsnapPath);
 
-        if (logFile != null) {
-          cmd.add("--outFileNamePrefix");
-          cmd.add(logFile.getAbsolutePath());
+        if (GSNAP_MAPPER_EXECUTABLE
+            .equals(flavoredBinary(mapping.getFlavor()))) {
+          cmd.add("-A");
+          cmd.add("sam");
+        } else {
+          cmd.add("-f");
+          cmd.add("samse");
         }
 
-        cmd.add("--outStd");
-        cmd.add("SAM");
+        cmd.add(fastqFormat);
+        cmd.add("-t");
+        cmd.add(mapping.getThreadNumber() + "");
+        cmd.add("-D");
+        cmd.add(mapping.getIndexDirectory().getAbsolutePath());
+        cmd.add("-d");
+        cmd.add("genome");
 
+        // Set the user options
         cmd.addAll(mapping.getMapperArguments());
 
-        cmd.add("--readFilesIn");
         cmd.add(getNamedPipeFile1().getAbsolutePath());
 
         return Collections.singletonList(cmd);
@@ -236,11 +248,11 @@ public class STARMapperProvider extends AbstractMapperProvider {
   }
 
   private MapperProcess createMapperProcessPE(final EntryMapping mapping,
-      final String starPath, final File inputFile1, final File inputFile2,
-      final File errorFile, final File logFile) throws IOException {
+      final String gsnapPath, final String fastqFormat, final File inputFile1,
+      final File inputFile2, final File errorFile) throws IOException {
 
     return new MapperProcess(mapping.getName(), mapping.getExecutor(),
-        mapping.getTemporaryDirectory(), errorFile, true, true, inputFile1,
+        mapping.getTemporaryDirectory(), errorFile, true, inputFile1,
         inputFile2) {
 
       @Override
@@ -248,23 +260,28 @@ public class STARMapperProvider extends AbstractMapperProvider {
 
         // Build the command line
         final List<String> cmd = new ArrayList<>();
-        cmd.add(starPath);
-        cmd.add("--runThreadN");
-        cmd.add("" + mapping.getThreadNumber());
-        cmd.add("--genomeDir");
-        cmd.add(mapping.getIndexDirectory().getAbsolutePath());
+        cmd.add(gsnapPath);
 
-        if (logFile != null) {
-          cmd.add("--outFileNamePrefix");
-          cmd.add(logFile.getAbsolutePath());
+        if (GSNAP_MAPPER_EXECUTABLE
+            .equals(flavoredBinary(mapping.getFlavor()))) {
+          cmd.add("-A");
+          cmd.add("sam");
+        } else {
+          cmd.add("-f");
+          cmd.add("sampe");
         }
 
-        cmd.add("--outStd");
-        cmd.add("SAM");
+        cmd.add(fastqFormat);
+        cmd.add("-t");
+        cmd.add(mapping.getThreadNumber() + "");
+        cmd.add("-D");
+        cmd.add(mapping.getIndexDirectory().getAbsolutePath());
+        cmd.add("-d");
+        cmd.add("genome");
 
+        // Set the user options
         cmd.addAll(mapping.getMapperArguments());
 
-        cmd.add("--readFilesIn");
         cmd.add(getNamedPipeFile1().getAbsolutePath());
         cmd.add(getNamedPipeFile2().getAbsolutePath());
 
@@ -272,6 +289,26 @@ public class STARMapperProvider extends AbstractMapperProvider {
       }
 
     };
+  }
+
+  private static String getGSNAPQualityArgument(final FastqFormat format)
+      throws IOException {
+
+    switch (format) {
+
+    case FASTQ_ILLUMINA:
+      return "--quality-protocol=illumina";
+
+    case FASTQ_ILLUMINA_1_5:
+      return "--quality-protocol=illumina";
+
+    case FASTQ_SOLEXA:
+      throw new IOException("GSNAP not handle the Solexa FASTQ format.");
+
+    case FASTQ_SANGER:
+    default:
+      return "--quality-protocol=sanger";
+    }
   }
 
 }

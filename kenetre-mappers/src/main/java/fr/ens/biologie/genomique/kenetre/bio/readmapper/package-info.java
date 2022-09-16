@@ -29,4 +29,4 @@
  *      "https://github.com/GenomicParisCentre/eoulsan/wiki/Writing-Mapper"
  *      target="_blank">Developer wiki about writing mapper wrapper</a>
  */
-package fr.ens.biologie.genomique.kenetre.bio.readsmappers;
+package fr.ens.biologie.genomique.kenetre.bio.readmapper;

@@ -22,7 +22,7 @@
  *
  */
 
-package fr.ens.biologie.genomique.kenetre.bio.readsmappers;
+package fr.ens.biologie.genomique.kenetre.bio.readmapper;
 
 import static java.util.Objects.requireNonNull;
 
@@ -63,7 +63,15 @@ public class Mapper {
    * @return the provider of the mapper
    */
   public MapperProvider getProvider() {
-    return provider;
+    return this.provider;
+  }
+
+  /**
+   * Get the logger of the mapper.
+   * @return the logger of the mapper
+   */
+  public GenericLogger getLogger() {
+    return this.logger;
   }
 
   /**
@@ -71,7 +79,7 @@ public class Mapper {
    * @return the temporary directory
    */
   public File getTemporaryDirectory() {
-    return tempDir;
+    return this.tempDir;
   }
 
   /**
@@ -80,6 +88,22 @@ public class Mapper {
    */
   public File getExecutablesTemporaryDirectory() {
     return this.executablesTempDir;
+  }
+
+  /**
+   * Get application name.
+   * @return the application name
+   */
+  public String getApplicationName() {
+    return this.applicationName;
+  }
+
+  /**
+   * Get application version.
+   * @return the application version
+   */
+  public String getApplicationVersion() {
+    return this.applicationVersion;
   }
 
   /**

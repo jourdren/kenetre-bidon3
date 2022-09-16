@@ -169,7 +169,7 @@ public class TranslatorUtils {
    * duplicate the Id if the the is an EnsemblID
    * @return a new translator
    */
-  private static Translator createDuplicatedEnsemblIdTranslator() {
+  public static Translator createDuplicatedEnsemblIdTranslator() {
 
     return new AbstractTranslator() {
 
