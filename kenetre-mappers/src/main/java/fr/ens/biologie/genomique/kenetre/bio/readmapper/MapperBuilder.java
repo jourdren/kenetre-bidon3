@@ -118,7 +118,12 @@ public class MapperBuilder {
   public Mapper build() {
 
     MapperProvider provider =
-        MapperProviderService.getInstance().newService(mapperName);
+        MapperProviderService.getInstance().newService(this.mapperName);
+
+    if (provider ==null) {
+      this.logger.error("Unknown mapper: " + this.mapperName);
+      return null;
+    }
 
     return new Mapper(provider, this.tempDir, this.executablesTempDir,
         this.logger, this.applicationName, this.applicationVersion);
