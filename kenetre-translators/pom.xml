@@ -19,7 +19,7 @@
       <version>${project.version}</version>
       <scope>compile</scope>
     </dependency>
-     <dependency>
+    <dependency>
       <groupId>fr.ens.biologie.genomique</groupId>
       <artifactId>kenetre-bio</artifactId>
       <version>${project.version}</version>
@@ -31,16 +31,29 @@
       <version>${poi.version}</version>
       <scope>compile</scope>
     </dependency>
-     <dependency>
+    <dependency>
       <groupId>org.apache.poi</groupId>
       <artifactId>poi-ooxml</artifactId>
       <version>${poi.version}</version>
       <scope>compile</scope>
     </dependency>
-     <dependency>
+    <dependency>
       <groupId>org.apache.poi</groupId>
       <artifactId>poi-ooxml-schemas</artifactId>
       <version>${poi.version}</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.odftoolkit</groupId>
+      <artifactId>odfdom-java</artifactId>
+      <version>0.8.8-incubating</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.odftoolkit</groupId>
+      <artifactId>simple-odf</artifactId>
+      <version>0.8.2-incubating</version>
+      <!--version>0.7-incubating</version-->
       <scope>compile</scope>
     </dependency>
     <dependency>
