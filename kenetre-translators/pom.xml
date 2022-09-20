@@ -11,7 +11,7 @@
   <artifactId>kenetre-translators</artifactId>
   <version>${revision}</version>
   <name>kenetre-translators</name>
-  <url>http://maven.apache.org</url>
+  <url>https://github.com/GenomiqueENS/Kenetre</url>
   <dependencies>
     <dependency>
       <groupId>fr.ens.biologie.genomique</groupId>
