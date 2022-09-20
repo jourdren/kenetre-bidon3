@@ -96,5 +96,6 @@
     <module>kenetre-translators</module>
     <module>kenetre-docker</module>
     <module>kenetre-mappers</module>
+    <module>kenetre-extra</module>
   </modules>
 </project>
