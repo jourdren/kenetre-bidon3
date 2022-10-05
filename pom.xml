@@ -97,5 +97,6 @@
     <module>kenetre-docker</module>
     <module>kenetre-mappers</module>
     <module>kenetre-extra</module>
+    <module>kenetre-storages</module>
   </modules>
 </project>
