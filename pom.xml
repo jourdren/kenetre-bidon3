@@ -98,5 +98,6 @@
     <module>kenetre-mappers</module>
     <module>kenetre-extra</module>
     <module>kenetre-storages</module>
+    <module>kenetre-it</module>
   </modules>
 </project>
