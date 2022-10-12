@@ -115,7 +115,7 @@ public class DockerManager {
    */
   public static DockerManager getInstance() throws IOException {
 
-    return getInstance(ClientType.FALLBACK,
+    return getInstance(ClientType.DEFAULT,
         URI.create("unix:///var/run/docker.sock"));
   }
 
