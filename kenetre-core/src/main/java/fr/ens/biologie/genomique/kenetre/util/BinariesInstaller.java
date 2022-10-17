@@ -65,7 +65,7 @@ public class BinariesInstaller {
   private GenericLogger logger;
   private String appName;
   private String appLowerCaseName;
-  private String version;
+  private String appVersion;
 
   private void install(final String inputPath, final String file,
       final String outputPath) throws IOException {
@@ -138,7 +138,7 @@ public class BinariesInstaller {
     }
 
     final String outputPath = tempDirFile.getAbsolutePath()
-        + "/" + this.appLowerCaseName + "/" + this.version + "/"
+        + "/" + this.appLowerCaseName + "/" + this.appVersion + "/"
         + softwarePackage + "/" + packageVersion;
 
     // Test if the file is already installed
@@ -250,17 +250,19 @@ public class BinariesInstaller {
   /**
    * Constructor.
    * @param applicationName application name
-   * @param version application version
+   * @param applicationVersion application version
    * @param logger logger
    */
-  public BinariesInstaller(String applicationName, String version,
+  public BinariesInstaller(String applicationName, String applicationVersion,
       GenericLogger logger) {
 
     requireNonNull(applicationName);
-    requireNonNull(version);
+    requireNonNull(applicationVersion);
 
     this.appName = applicationName.trim();
     this.appLowerCaseName = this.appName.toLowerCase();
+    this.appVersion = applicationVersion != null
+        ? applicationVersion.trim() : "unknown-version";
     this.logger = logger != null ? logger : new DummyLogger();
   }
 
