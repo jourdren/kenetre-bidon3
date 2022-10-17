@@ -1,6 +1,8 @@
 package fr.ens.biologie.genomique.kenetre.util.process;
 
 import static com.google.common.base.Preconditions.checkArgument;
+import static fr.ens.biologie.genomique.kenetre.util.Utils.filterNull;
+import static java.util.Arrays.asList;
 import static java.util.Objects.requireNonNull;
 
 import java.io.File;
@@ -12,7 +14,6 @@ import java.util.Map;
 
 import fr.ens.biologie.genomique.kenetre.log.GenericLogger;
 import fr.ens.biologie.genomique.kenetre.util.SystemUtils;
-import fr.ens.biologie.genomique.kenetre.util.Utils;
 
 /**
  * This class define a Docker image instance using the Docker command line.
@@ -63,7 +64,7 @@ public class FallBackDockerImageInstance extends AbstractSimpleProcess
     // File/directories to mount
     List<File> directoriesToBind = new ArrayList<>();
     if (filesUsed != null) {
-      directoriesToBind.addAll(Arrays.asList(Utils.filterNull(filesUsed)));
+      directoriesToBind.addAll(filterNull(asList(filesUsed)));
     }
 
     // Execution directory
