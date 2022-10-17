@@ -30,6 +30,8 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.Set;
 
+import fr.ens.biologie.genomique.kenetre.log.GenericLogger;
+
 /**
  * This class define a class that manage Eoulsan Docker connections.
  * @author Laurent Jourdren
@@ -127,11 +129,26 @@ public class DockerManager {
    * @throws IOException if an error occurs while creating the DockerManager
    *           instance
    */
-  public static synchronized DockerManager getInstance(ClientType clientType,
+  public static DockerManager getInstance(ClientType clientType,
       URI dockerConnection) throws IOException {
 
+    return getInstance(clientType, dockerConnection, null);
+  }
+
+  /**
+   * Get the instance of the DockerManager.
+   * @param clientType Docker client type
+   * @param dockerConnection URI of the docker connection
+   * @param logger the logger
+   * @return the instance of the DockerManager
+   * @throws IOException if an error occurs while creating the DockerManager
+   *           instance
+   */
+  public static synchronized DockerManager getInstance(ClientType clientType,
+      URI dockerConnection, GenericLogger logger) throws IOException {
+
     if (singleton == null) {
-      singleton = new DockerManager(clientType, dockerConnection);
+      singleton = new DockerManager(clientType, dockerConnection, logger);
     }
 
     return singleton;
@@ -143,26 +160,29 @@ public class DockerManager {
 
   /**
    * Private constructor.
+   * @param clientType Docker client type
+   * @param dockerConnection URI of the docker connection
+   * @param logger the logger
    * @throws IOException if an error occurs while creating the instance
    */
-  private DockerManager(ClientType clientType, URI dockerConnection)
-      throws IOException {
+  private DockerManager(ClientType clientType, URI dockerConnection,
+      GenericLogger logger) throws IOException {
 
     requireNonNull(clientType);
     requireNonNull(dockerConnection);
 
     switch (clientType) {
     case FALLBACK:
-      this.client = new FallBackDockerClient();
+      this.client = new FallBackDockerClient(logger);
       break;
 
     case SINGULARITY:
-      this.client = new Singularity3DockerClient();
+      this.client = new Singularity3DockerClient(logger);
       break;
 
     case DEFAULT:
     case DOCKER_JAVA:
-      this.client = new DockerJavaDockerClient();
+      this.client = new DockerJavaDockerClient(logger);
       break;
 
     default:
