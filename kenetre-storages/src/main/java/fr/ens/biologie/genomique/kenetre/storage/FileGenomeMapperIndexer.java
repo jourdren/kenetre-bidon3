@@ -192,11 +192,15 @@ public class FileGenomeMapperIndexer {
     this.mapperInstance = mapperInstance;
 
     // Get genome Index storage path
-    if (!(storage instanceof AbstractFileGenomeIndexStorage)) {
-      throw new IllegalArgumentException(
-          "storage must be an instance of AbstractGenomeIndexStorage");
+    if (storage != null) {
+      if (!(storage instanceof AbstractFileGenomeIndexStorage)) {
+        throw new IllegalArgumentException(
+            "storage must be an instance of AbstractGenomeIndexStorage");
+      }
+      this.storage = (AbstractFileGenomeIndexStorage) storage;
+    } else {
+      this.storage = null;
     }
-    this.storage = (AbstractFileGenomeIndexStorage) storage;
 
     // Set indexer additional arguments of the indexer
     this.indexerArguments =
