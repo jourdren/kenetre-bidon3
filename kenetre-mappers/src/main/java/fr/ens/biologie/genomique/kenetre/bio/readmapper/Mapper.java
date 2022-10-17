@@ -251,9 +251,9 @@ public class Mapper {
     this.executablesTempDir =
         executablesTempDir != null ? executablesTempDir : this.tempDir;
     this.applicationName =
-        applicationName != null ? applicationName : "UnknowmApplication";
+        applicationName != null ? applicationName : "UnknownApplication";
     this.applicationVersion =
-        applicationName != null ? applicationName : "UnknowmVersion";
+        applicationVersion != null ? applicationVersion : "UnknownVersion";
   }
 
 }

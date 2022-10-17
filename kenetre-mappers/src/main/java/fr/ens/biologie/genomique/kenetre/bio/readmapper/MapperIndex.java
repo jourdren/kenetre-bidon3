@@ -215,8 +215,7 @@ public class MapperIndex {
               + getMapperName() + " index: " + archiveIndexDir);
         }
 
-        this.logger.debug("Unzip archiveIndexFile "
-            + archiveIndexFile + " in " + archiveIndexDir);
+        this.logger.debug("Unzip archiveIndexFile in " + archiveIndexDir);
         FileUtils.unzip(archiveIndexFile, archiveIndexDir);
       }
     } finally {

@@ -223,7 +223,7 @@ public class BundledMapperExecutor implements MapperExecutor {
       final String applicationName, final String applicationVersion) {
 
     requireNonNull(softwarePackage, "dockerConnection argument cannot be null");
-    requireNonNull(version, "dockerConnection argument cannot be null");
+    requireNonNull(version, "version argument cannot be null");
     requireNonNull(executablesTemporaryDirectory,
         "dockerConnection argument cannot be null");
     requireNonNull(logger, "logger argument cannot be null");
@@ -231,7 +231,8 @@ public class BundledMapperExecutor implements MapperExecutor {
     requireNonNull(applicationVersion,
         "applicationName argument cannot be null");
 
-    this.installer = new BinariesInstaller(applicationName, applicationVersion);
+    this.installer =
+        new BinariesInstaller(applicationName, applicationVersion, logger);
     this.softwarePackage = softwarePackage;
     this.version = version;
     this.executablesTemporaryDirectory = executablesTemporaryDirectory;
