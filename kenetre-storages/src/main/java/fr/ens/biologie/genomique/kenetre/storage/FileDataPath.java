@@ -168,7 +168,7 @@ public class FileDataPath implements DataPath, Comparable<FileDataPath> {
       throw new IOException("the symlink already exists");
     }
 
-    final Path targetPath = link.toFile().toPath();
+    final Path targetPath = this.file.toPath();
     final Path linkPath = link.toFile().toPath();
 
     Files.createSymbolicLink(linkPath, targetPath);
