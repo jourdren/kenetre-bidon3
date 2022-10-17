@@ -27,11 +27,13 @@ package fr.ens.biologie.genomique.kenetre.util;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.nio.charset.Charset;
 import java.util.AbstractList;
 import java.util.ArrayList;
@@ -41,7 +43,6 @@ import java.util.List;
 import java.util.Map;
 
 import fr.ens.biologie.genomique.kenetre.io.FileUtils;
-import fr.ens.biologie.genomique.kenetre.io.UnSynchronizedBufferedWriter;
 import fr.ens.biologie.genomique.kenetre.log.DummyLogger;
 import fr.ens.biologie.genomique.kenetre.log.GenericLogger;
 
@@ -234,32 +235,31 @@ public abstract class PseudoMapReduce {
 
     this.reporter.clear();
 
-    final BufferedReader br =
-        new BufferedReader(new InputStreamReader(is, CHARSET));
-    final UnSynchronizedBufferedWriter bw =
-        FileUtils.createFastBufferedWriter(getMapOutputTempFile());
+    try (
+        BufferedReader br =
+            new BufferedReader(new InputStreamReader(is, CHARSET));
+        Writer bw = new FileWriter(getMapOutputTempFile())) {
 
-    final List<String> results = new ArrayList<>();
-    String line;
+      final List<String> results = new ArrayList<>();
+      String line;
 
-    final StringBuilder sb = new StringBuilder();
+      final StringBuilder sb = new StringBuilder();
 
-    while ((line = br.readLine()) != null) {
+      while ((line = br.readLine()) != null) {
 
-      map(line, results, this.reporter);
+        map(line, results, this.reporter);
 
-      for (String r : results) {
-        sb.setLength(0);
-        sb.append(r);
-        sb.append('\n');
-        bw.write(sb.toString());
+        for (String r : results) {
+          sb.setLength(0);
+          sb.append(r);
+          sb.append('\n');
+          bw.write(sb.toString());
+        }
+
+        results.clear();
       }
 
-      results.clear();
     }
-
-    br.close();
-    bw.close();
   }
 
   //
@@ -293,6 +293,11 @@ public abstract class PseudoMapReduce {
   private boolean sort() throws IOException {
 
     this.sortOutputFile = File.createTempFile("sort-", ".txt", this.tmpDir);
+
+    if (this.listMapOutputFile.isEmpty()) {
+      this.sortOutputFile.createNewFile();
+      return true;
+    }
 
     // Create command line to execute
     final List<String> command = new ArrayList<>();
@@ -431,6 +436,11 @@ public abstract class PseudoMapReduce {
   //
   // Constructor
   //
+
+  protected PseudoMapReduce() {
+
+    this(null);
+  }
 
   protected PseudoMapReduce(GenericLogger logger) {
 
