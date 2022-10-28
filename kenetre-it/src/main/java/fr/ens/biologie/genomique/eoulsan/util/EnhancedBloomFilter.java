@@ -1,4 +1,4 @@
-package fr.ens.biologie.genomique.kenetre.util;
+package fr.ens.biologie.genomique.eoulsan.util;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -15,7 +15,8 @@ import com.google.common.hash.Funnel;
 import com.google.common.hash.PrimitiveSink;
 
 /**
- * This class define Bloom filters utils.
+ * This class define Bloom filters utils. <b>Warning</b>: this class only exists
+ * in this package for compatibility issues with deserialisation.
  * @author Sandrine Perrin
  * @since 2.0
  */
@@ -47,19 +48,14 @@ public class EnhancedBloomFilter implements Serializable {
   public static EnhancedBloomFilter deserializationBloomFilter(
       final File fileSer) throws IOException {
 
-    ObjectInputStream ois = null;
-    EnhancedBloomFilter bloomFilter = null;
+    try (ObjectInputStream ois =
+        new ObjectInputStream(new FileInputStream(fileSer))) {
 
-    try {
-
-      ois = new ObjectInputStream(new FileInputStream(fileSer));
-      bloomFilter = (EnhancedBloomFilter) ois.readObject();
-      ois.close();
-
+      return (EnhancedBloomFilter) ois.readObject();
     } catch (Exception e) {
+      e.printStackTrace();
       throw new IOException("Cannot deserialize file: " + fileSer, e);
     }
-    return bloomFilter;
   }
 
   /**

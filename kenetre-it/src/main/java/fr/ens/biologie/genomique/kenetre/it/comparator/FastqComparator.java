@@ -30,7 +30,7 @@ import java.util.Collection;
 
 import com.google.common.collect.Sets;
 
-import fr.ens.biologie.genomique.kenetre.util.EnhancedBloomFilter;
+import fr.ens.biologie.genomique.eoulsan.util.EnhancedBloomFilter;
 import fr.ens.biologie.genomique.kenetre.bio.BadBioEntryException;
 import fr.ens.biologie.genomique.kenetre.bio.ReadSequence;
 import fr.ens.biologie.genomique.kenetre.bio.io.FastqReader;

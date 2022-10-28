@@ -32,7 +32,7 @@ import java.util.Collection;
 
 import com.google.common.collect.Sets;
 
-import fr.ens.biologie.genomique.kenetre.util.EnhancedBloomFilter;
+import fr.ens.biologie.genomique.eoulsan.util.EnhancedBloomFilter;
 
 /**
  * This class allow compare two text files with use BloomFilter.

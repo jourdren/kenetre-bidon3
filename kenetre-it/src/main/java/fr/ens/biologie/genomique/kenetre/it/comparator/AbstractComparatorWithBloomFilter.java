@@ -33,8 +33,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 
+import fr.ens.biologie.genomique.eoulsan.util.EnhancedBloomFilter;
 import fr.ens.biologie.genomique.kenetre.io.CompressionType;
-import fr.ens.biologie.genomique.kenetre.util.EnhancedBloomFilter;
 
 /**
  * This abstract class define methods to compare files with use BloomFilter.

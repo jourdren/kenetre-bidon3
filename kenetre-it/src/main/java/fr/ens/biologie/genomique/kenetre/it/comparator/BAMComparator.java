@@ -32,7 +32,7 @@ import java.util.Set;
 
 import com.google.common.collect.Sets;
 
-import fr.ens.biologie.genomique.kenetre.util.EnhancedBloomFilter;
+import fr.ens.biologie.genomique.eoulsan.util.EnhancedBloomFilter;
 import htsjdk.samtools.SAMRecord;
 import htsjdk.samtools.SamInputResource;
 import htsjdk.samtools.SamReader;
