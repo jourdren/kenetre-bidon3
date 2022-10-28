@@ -29,6 +29,8 @@ import static fr.ens.biologie.genomique.kenetre.util.StringUtils.toTimeHumanRead
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.io.Writer;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -40,8 +42,6 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
-
-import com.google.common.base.Joiner;
 
 import fr.ens.biologie.genomique.kenetre.KenetreException;
 
@@ -357,10 +357,14 @@ public class ITResult {
     msgException.append("\n");
 
     if (ITSuite.getInstance().isDebugModeEnabled() && withStackTrace) {
+
+      // Get stack trace in a String
+      StringWriter sw = new StringWriter();
+      this.exception.printStackTrace(new PrintWriter(sw));
+
       // Add the stack trace
       msgException.append("\n=== Execution Test Debug Stack Trace ===\n");
-      msgException
-          .append(Joiner.on("\n\t").join(this.exception.getStackTrace()));
+      msgException.append(sw.toString());
     }
 
     // Add last command result message if command has failed
