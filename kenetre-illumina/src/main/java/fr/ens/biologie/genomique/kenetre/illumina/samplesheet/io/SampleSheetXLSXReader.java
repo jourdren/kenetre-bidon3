@@ -35,6 +35,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -130,7 +131,7 @@ public class SampleSheetXLSXReader implements SampleSheetReader, AutoCloseable {
    */
   private static String parseCell(final XSSFCell cell) {
 
-    if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
+    if (cell.getCellType() == CellType.NUMERIC) {
       final double doubleValue = cell.getNumericCellValue();
 
       if (DoubleMath.isMathematicalInteger(doubleValue)) {

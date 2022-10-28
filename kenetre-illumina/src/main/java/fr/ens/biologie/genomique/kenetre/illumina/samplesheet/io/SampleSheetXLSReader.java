@@ -40,6 +40,7 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 
 import com.google.common.math.DoubleMath;
@@ -134,7 +135,7 @@ public class SampleSheetXLSReader implements SampleSheetReader, AutoCloseable {
    */
   private static String parseCell(final HSSFCell cell) {
 
-    if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
+    if (cell.getCellType() == CellType.NUMERIC) {
       final double doubleValue = cell.getNumericCellValue();
 
       if (DoubleMath.isMathematicalInteger(doubleValue)) {
