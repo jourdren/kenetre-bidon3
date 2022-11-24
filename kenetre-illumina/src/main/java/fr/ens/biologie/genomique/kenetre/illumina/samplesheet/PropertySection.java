@@ -27,7 +27,7 @@ public class PropertySection {
    */
   public boolean containsKey(String key) {
 
-    return this.containsKey(key);
+    return this.properties.containsKey(key);
   }
 
   /**
