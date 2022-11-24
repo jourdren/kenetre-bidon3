@@ -22,6 +22,8 @@
  */
 package fr.ens.biologie.genomique.kenetre.illumina.io;
 
+import static java.nio.charset.Charset.defaultCharset;
+
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -449,7 +451,7 @@ public class SampleSheetReaderTest {
 
   private void writeCSVFromTabulatedString(File outputFile, String stringCSV) {
 
-    try (Writer writer = new FileWriter(outputFile)) {
+    try (Writer writer = new FileWriter(outputFile, defaultCharset())) {
       writer.write("[Data]\n");
       writer.write(stringCSV);
       writer.flush();

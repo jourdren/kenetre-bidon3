@@ -13,8 +13,6 @@ import java.security.NoSuchAlgorithmException;
 
 import org.junit.Test;
 
-import com.google.common.io.ByteStreams;
-
 import fr.ens.biologie.genomique.kenetre.bio.BEDEntry;
 
 public class BEDReaderWriterTest {
@@ -41,7 +39,7 @@ public class BEDReaderWriterTest {
     }
 
     try (InputStream is = resourceStream;
-        OutputStream os = ByteStreams.nullOutputStream();
+        OutputStream os = OutputStream.nullOutputStream();
         DigestInputStream dis = new DigestInputStream(is, mdi);
         DigestOutputStream dos = new DigestOutputStream(os, mdo);
         BEDReader reader = new BEDReader(dis);

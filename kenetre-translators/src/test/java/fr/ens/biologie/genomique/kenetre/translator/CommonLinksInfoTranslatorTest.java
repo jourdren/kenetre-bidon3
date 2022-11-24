@@ -1,5 +1,6 @@
 package fr.ens.biologie.genomique.kenetre.translator;
 
+import static java.nio.charset.Charset.defaultCharset;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
@@ -80,7 +81,7 @@ public class CommonLinksInfoTranslatorTest {
 
     assertEquals("http://www.informatics.jax.org/marker/MGI%253ATranslatedId",
         cmLinkInfoTransl.getLinkInfo(
-            URLEncoder.encode("MGI:TranslatedId", "UTF-8"), "MGI ID"));
+            URLEncoder.encode("MGI:TranslatedId", defaultCharset()), "MGI ID"));
 
     assertEquals("http://db.yeastgenome.org/cgi-bin/locus.pl?dbid=TranslatedId",
         cmLinkInfoTransl.getLinkInfo("TranslatedId", "SGDID"));

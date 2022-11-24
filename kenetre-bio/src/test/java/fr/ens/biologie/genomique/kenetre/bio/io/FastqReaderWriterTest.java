@@ -13,8 +13,6 @@ import java.security.NoSuchAlgorithmException;
 
 import org.junit.Test;
 
-import com.google.common.io.ByteStreams;
-
 import fr.ens.biologie.genomique.kenetre.bio.ReadSequence;
 
 public class FastqReaderWriterTest {
@@ -40,7 +38,7 @@ public class FastqReaderWriterTest {
     }
 
     try (InputStream is = resourceStream;
-        OutputStream os = ByteStreams.nullOutputStream();
+        OutputStream os = OutputStream.nullOutputStream();
         DigestInputStream dis = new DigestInputStream(is, mdi);
         DigestOutputStream dos = new DigestOutputStream(os, mdo);
         ReadSequenceReader reader = new FastqReader(dis);

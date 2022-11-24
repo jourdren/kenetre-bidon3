@@ -15,6 +15,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.nio.charset.Charset;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -129,7 +130,7 @@ public class CellRangerExpressionMatrixWriter
           new GZIPOutputStream(new FileOutputStream(file)));
     }
 
-    return new FileWriter(file);
+    return new FileWriter(file, Charset.defaultCharset());
   }
 
   //

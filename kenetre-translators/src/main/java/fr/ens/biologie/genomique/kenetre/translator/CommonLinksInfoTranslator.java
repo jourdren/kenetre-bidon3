@@ -24,6 +24,8 @@
 
 package fr.ens.biologie.genomique.kenetre.translator;
 
+import static java.nio.charset.Charset.defaultCharset;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -31,9 +33,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -96,15 +96,10 @@ public class CommonLinksInfoTranslator extends AbstractTranslator {
     }
 
     if (mapLinks.containsKey(field)) {
-      String EncodedTranslatedId = translatedId;
-      try {
-        EncodedTranslatedId =
-            URLEncoder.encode(translatedId, StandardCharsets.UTF_8.toString());
-      } catch (UnsupportedEncodingException e) {
-        return null;
-      }
+      String encodedTranslatedId =
+          URLEncoder.encode(translatedId, defaultCharset());
 
-      return mapLinks.get(field).replace("${ID}", EncodedTranslatedId);
+      return mapLinks.get(field).replace("${ID}", encodedTranslatedId);
     }
 
     return null;

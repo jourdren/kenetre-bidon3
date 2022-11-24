@@ -24,6 +24,7 @@
 
 package fr.ens.biologie.genomique.kenetre.it.comparator;
 
+import static java.nio.charset.Charset.defaultCharset;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -34,6 +35,7 @@ import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.InputStream;
+import java.nio.charset.Charset;
 
 import org.junit.Test;
 
@@ -62,8 +64,10 @@ public class FastqComparatorTest {
       this.fileC.delete();
     }
 
-    final BufferedReader br = new BufferedReader(new FileReader(this.fileA));
-    final BufferedWriter bw = new BufferedWriter(new FileWriter(this.fileC));
+    final BufferedReader br =
+        new BufferedReader(new FileReader(this.fileA, defaultCharset()));
+    final BufferedWriter bw =
+        new BufferedWriter(new FileWriter(this.fileC, defaultCharset()));
 
     String line = "";
     // Number line for a header read

@@ -23,6 +23,7 @@
 
 package fr.ens.biologie.genomique.kenetre.illumina.samplesheet.io;
 
+import static java.nio.charset.Charset.defaultCharset;
 import static java.util.Objects.requireNonNull;
 
 import java.io.File;
@@ -180,7 +181,7 @@ public class SampleSheetCSVWriter implements SampleSheetWriter, AutoCloseable {
    */
   public SampleSheetCSVWriter(final File outputFile) throws IOException {
 
-    this.writer = new FileWriter(outputFile);
+    this.writer = new FileWriter(outputFile, defaultCharset());
   }
 
   /**
@@ -189,7 +190,7 @@ public class SampleSheetCSVWriter implements SampleSheetWriter, AutoCloseable {
    */
   public SampleSheetCSVWriter(final String outputFilename) throws IOException {
 
-    this.writer = new FileWriter(outputFilename);
+    this.writer = new FileWriter(outputFilename, defaultCharset());
   }
 
 }

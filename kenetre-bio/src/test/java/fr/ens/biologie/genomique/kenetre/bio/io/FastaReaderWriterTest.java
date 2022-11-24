@@ -37,8 +37,6 @@ import java.security.NoSuchAlgorithmException;
 
 import org.junit.Test;
 
-import com.google.common.io.ByteStreams;
-
 import fr.ens.biologie.genomique.kenetre.bio.Sequence;
 
 public class FastaReaderWriterTest {
@@ -68,7 +66,7 @@ public class FastaReaderWriterTest {
     MessageDigest mdo = MessageDigest.getInstance("MD5");
 
     try (InputStream is = this.getClass().getResourceAsStream("/phix.fasta");
-        OutputStream os = ByteStreams.nullOutputStream();
+        OutputStream os =  OutputStream.nullOutputStream();
         DigestInputStream dis = new DigestInputStream(is, mdi);
         DigestOutputStream dos = new DigestOutputStream(os, mdo);
         SequenceReader reader = new FastaReader(dis);

@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -112,7 +113,7 @@ public class CellRangerExpressionMatrixReader
           new GZIPInputStream(new FileInputStream(file))));
     }
 
-    return new BufferedReader(new FileReader(file));
+    return new BufferedReader(new FileReader(file, Charset.defaultCharset()));
   }
 
   /**

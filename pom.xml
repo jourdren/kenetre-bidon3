@@ -30,9 +30,10 @@
       </properties>
     </developer>
   </developers>
+
   <properties>
     <revision>0.13-SNAPSHOT</revision>
-    <java.version>8</java.version>
+    <java.version>11</java.version>
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
     <maven.compiler.release>${java.version}</maven.compiler.release>
@@ -43,6 +44,7 @@
     <htsjdk.version>2.13.2</htsjdk.version>
     <poi.version>4.1.2</poi.version>
   </properties>
+
   <licenses>
     <license>
       <name>GNU Lesser General Public License v2.1</name>
@@ -63,6 +65,7 @@
       <comments/>
     </license>
   </licenses>
+
   <distributionManagement>
     <repository>
       <id>github</id>
@@ -70,6 +73,7 @@
       <url>https://maven.pkg.github.com/GenomiqueENS/Kenetre</url>
     </repository>
   </distributionManagement>
+
   <repositories>
     <repository>
       <snapshots>
@@ -80,6 +84,7 @@
       <url>https://outils.genomique.biologie.ens.fr/maven2</url>
     </repository>
   </repositories>
+
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -88,6 +93,7 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+
   <modules>
     <module>kenetre-core</module>
     <module>kenetre-illumina</module>
@@ -101,4 +107,33 @@
     <module>kenetre-storages</module>
     <module>kenetre-it</module>
   </modules>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>com.github.spotbugs</groupId>
+        <artifactId>spotbugs-maven-plugin</artifactId>
+        <version>4.7.2.1</version>
+      </plugin>
+      <plugin>
+        <groupId>org.gaul</groupId>
+        <artifactId>modernizer-maven-plugin</artifactId>
+        <version>2.4.0</version>
+        <executions>
+          <execution>
+            <id>modernizer</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>modernizer</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <javaVersion>${java.version}</javaVersion>
+          <failOnViolations>False</failOnViolations>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
 </project>

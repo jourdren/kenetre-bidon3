@@ -24,6 +24,8 @@
 
 package fr.ens.biologie.genomique.kenetre.util;
 
+import static java.nio.charset.Charset.defaultCharset;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -34,7 +36,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
-import java.nio.charset.Charset;
 import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -52,10 +53,6 @@ import fr.ens.biologie.genomique.kenetre.log.GenericLogger;
  * @author Laurent Jourdren
  */
 public abstract class PseudoMapReduce {
-
-  /* Default Charset. */
-  private static final Charset CHARSET =
-      Charset.forName(System.getProperty("file.encoding"));
 
   private File tmpDir;
   private final List<File> listMapOutputFile = new ArrayList<>();
@@ -237,8 +234,8 @@ public abstract class PseudoMapReduce {
 
     try (
         BufferedReader br =
-            new BufferedReader(new InputStreamReader(is, CHARSET));
-        Writer bw = new FileWriter(getMapOutputTempFile())) {
+            new BufferedReader(new InputStreamReader(is, defaultCharset()));
+        Writer bw = new FileWriter(getMapOutputTempFile(), defaultCharset())) {
 
       final List<String> results = new ArrayList<>();
       String line;
@@ -374,7 +371,7 @@ public abstract class PseudoMapReduce {
 
     // Create writer
     final BufferedWriter bw =
-        new BufferedWriter(new OutputStreamWriter(os, CHARSET));
+        new BufferedWriter(new OutputStreamWriter(os, defaultCharset()));
 
     String line = null;
     String currentKey = null;

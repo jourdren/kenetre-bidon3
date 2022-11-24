@@ -23,6 +23,8 @@
 
 package fr.ens.biologie.genomique.kenetre.illumina.samplesheet.io;
 
+import static java.nio.charset.Charset.defaultCharset;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -30,8 +32,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -44,9 +44,6 @@ import fr.ens.biologie.genomique.kenetre.illumina.samplesheet.SampleSheetUtils;
  * @author Laurent Jourdren
  */
 public class SampleSheetCSVReader implements SampleSheetReader, AutoCloseable {
-
-  /* Default Charset. */
-  private static final Charset CHARSET = StandardCharsets.UTF_8;
 
   private final BufferedReader reader;
   private int version = -1;
@@ -140,15 +137,16 @@ public class SampleSheetCSVReader implements SampleSheetReader, AutoCloseable {
       throw new NullPointerException("InputStream is null");
     }
 
-    this.reader = new BufferedReader(new InputStreamReader(is, CHARSET));
+    this.reader =
+        new BufferedReader(new InputStreamReader(is, defaultCharset()));
   }
 
   /**
    * Public constructor
    * @param file File to use
-   * @throws FileNotFoundException if the file does not exists
+   * @throws IOException if the file does not exists
    */
-  public SampleSheetCSVReader(final File file) throws FileNotFoundException {
+  public SampleSheetCSVReader(final File file) throws IOException {
 
     if (file == null) {
       throw new NullPointerException("File is null");
@@ -159,7 +157,7 @@ public class SampleSheetCSVReader implements SampleSheetReader, AutoCloseable {
           "File not found: " + file.getAbsolutePath());
     }
 
-    this.reader = new BufferedReader(new FileReader(file));
+    this.reader = new BufferedReader(new FileReader(file, defaultCharset()));
   }
 
   /**
@@ -176,8 +174,7 @@ public class SampleSheetCSVReader implements SampleSheetReader, AutoCloseable {
    * Public constructor
    * @param filename File to use
    */
-  public SampleSheetCSVReader(final String filename)
-      throws FileNotFoundException {
+  public SampleSheetCSVReader(final String filename) throws IOException {
 
     if (filename == null) {
       throw new NullPointerException("Filename is null");
@@ -190,7 +187,7 @@ public class SampleSheetCSVReader implements SampleSheetReader, AutoCloseable {
           "File not found: " + file.getAbsolutePath());
     }
 
-    this.reader = new BufferedReader(new FileReader(file));
+    this.reader = new BufferedReader(new FileReader(file, defaultCharset()));
   }
 
 }

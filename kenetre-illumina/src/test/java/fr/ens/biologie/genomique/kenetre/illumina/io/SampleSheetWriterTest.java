@@ -1,5 +1,6 @@
 package fr.ens.biologie.genomique.kenetre.illumina.io;
 
+import static java.nio.charset.Charset.defaultCharset;
 import static org.junit.Assert.assertEquals;
 
 import java.io.BufferedReader;
@@ -93,7 +94,7 @@ public class SampleSheetWriterTest {
     writer.close();
     out.close();
 
-    s = out.toString("UTF-8");
+    s = out.toString(defaultCharset());
 
     ArrayList<String> result = new ArrayList<>();
 
