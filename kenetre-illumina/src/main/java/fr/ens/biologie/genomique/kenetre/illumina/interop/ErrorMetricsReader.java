@@ -26,6 +26,7 @@ package fr.ens.biologie.genomique.kenetre.illumina.interop;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.nio.ByteBuffer;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -44,6 +45,8 @@ public class ErrorMetricsReader extends AbstractBinaryFileReader<ErrorMetric> {
   public static final String NAME = "ErrorMetricsOut";
 
   public static final String ERROR_METRICS_FILE = "ErrorMetricsOut.bin";
+
+  public final List<String> adapterSequences = new ArrayList<>();
 
   /**
    * Get the file name treated.
@@ -80,14 +83,35 @@ public class ErrorMetricsReader extends AbstractBinaryFileReader<ErrorMetric> {
 
   @Override
   protected Set<Integer> getExpectedVersions() {
-    return new HashSet<Integer>(Arrays.asList(3, 4, 5));
+    return new HashSet<Integer>(Arrays.asList(3, 4, 5, 6));
+  }
+
+  @Override
+  protected void readOptionalFlag(ByteBuffer bb, int version) {
+
+    if (version == 6) {
+
+      int numAdapter = uShortToInt(bb);
+      int adapterBaseCount = uShortToInt(bb);
+
+      for (int i = 0; i < numAdapter; i++) {
+
+        StringBuilder sb = new StringBuilder();
+
+        for (int j = 0; j < adapterBaseCount; j++) {
+          sb.append((char) uByteToInt(bb));
+        }
+
+        this.adapterSequences.add(sb.toString());
+      }
+    }
   }
 
   @Override
   protected void readMetricRecord(final List<ErrorMetric> collection,
       final ByteBuffer bb, final int version) {
 
-    collection.add(new ErrorMetric(version, bb));
+    collection.add(new ErrorMetric(version, this.adapterSequences, bb));
   }
 
   //

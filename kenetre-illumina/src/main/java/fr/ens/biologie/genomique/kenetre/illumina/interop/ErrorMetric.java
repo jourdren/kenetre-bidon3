@@ -82,6 +82,10 @@ public class ErrorMetric extends Metric {
 
   private final float fractionOfReadAdapterTrimmed;
 
+  private final float[] fractionOfReadAdapterTrimmedArray;
+
+  private final List<String> adapterSequences;
+
   /**
    * Get the number lane.
    * @return the lane number
@@ -162,6 +166,35 @@ public class ErrorMetric extends Metric {
     return this.fractionOfReadAdapterTrimmed;
   }
 
+  /**
+   * Get the number of adapters.
+   * @return the number of adapters
+   */
+  public int adapterCount() {
+
+    return this.adapterSequences.size();
+  }
+
+  /**
+   * Get an adapter sequence.
+   * @param adapterIndex the index of the adapter
+   * @return the requested adapter sequence
+   */
+  public String getAdapterSequence(int adapterIndex) {
+
+    return this.adapterSequences.get(adapterIndex);
+  }
+
+  /**
+   * Get an adapter rate.
+   * @param adapterIndex the index of the adapter
+   * @return the requested adapter rate
+   */
+  public float getAdapterRate(int adapterIndex) {
+
+    return this.fractionOfReadAdapterTrimmedArray[adapterIndex];
+  }
+
   //
   // Metric methods
   //
@@ -208,7 +241,8 @@ public class ErrorMetric extends Metric {
    * Constructor. One record countReads on the ByteBuffer.
    * @param bb ByteBuffer who read one record
    */
-  ErrorMetric(final int version, final ByteBuffer bb) {
+  ErrorMetric(final int version, final List<String> adapterSequences,
+      final ByteBuffer bb) {
 
     super.name = "Error";
     super.version = version;
@@ -229,6 +263,8 @@ public class ErrorMetric extends Metric {
       this.numberReadsThreeErrors = bb.getInt();
       this.numberReadsFourErrors = bb.getInt();
       this.fractionOfReadAdapterTrimmed = Float.NaN;
+      this.fractionOfReadAdapterTrimmedArray = null;
+      this.adapterSequences = null;
       break;
 
     case 4:
@@ -238,6 +274,8 @@ public class ErrorMetric extends Metric {
       this.numberReadsThreeErrors = -1;
       this.numberReadsFourErrors = -1;
       this.fractionOfReadAdapterTrimmed = Float.NaN;
+      this.fractionOfReadAdapterTrimmedArray = null;
+      this.adapterSequences = null;
       break;
 
     case 5:
@@ -247,6 +285,24 @@ public class ErrorMetric extends Metric {
       this.numberReadsThreeErrors = -1;
       this.numberReadsFourErrors = -1;
       this.fractionOfReadAdapterTrimmed = bb.getFloat();
+      this.fractionOfReadAdapterTrimmedArray = null;
+      this.adapterSequences = null;
+      break;
+
+    case 6:
+      this.numberPerfectReads = -1;
+      this.numberReadsOneError = -1;
+      this.numberReadsTwoErrors = -1;
+      this.numberReadsThreeErrors = -1;
+      this.numberReadsFourErrors = -1;
+      this.fractionOfReadAdapterTrimmed = Float.NaN;
+      this.adapterSequences = adapterSequences;
+      int numAdapter = adapterSequences.size();
+      this.fractionOfReadAdapterTrimmedArray = new float[numAdapter];
+
+      for (int i = 0; i < numAdapter; i++) {
+        this.fractionOfReadAdapterTrimmedArray[i] = bb.getFloat();
+      }
       break;
 
     default:
