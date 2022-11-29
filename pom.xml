@@ -66,14 +66,6 @@
     </license>
   </licenses>
 
-  <distributionManagement>
-    <repository>
-      <id>github</id>
-      <name>GitHub GenomiqueENS Apache Maven Packages</name>
-      <url>https://maven.pkg.github.com/GenomiqueENS/Kenetre</url>
-    </repository>
-  </distributionManagement>
-
   <repositories>
     <repository>
       <snapshots>
