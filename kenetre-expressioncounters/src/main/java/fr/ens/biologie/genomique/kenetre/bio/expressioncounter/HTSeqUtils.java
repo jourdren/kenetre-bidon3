@@ -135,9 +135,9 @@ public class HTSeqUtils {
   /**
    * Add intervals of a SAM record that are alignment matches (thanks to the
    * CIGAR code).
-   * @param record the SAM record to treat.
-   * @param stranded strand to consider.
-   * @return the list of intervals of the SAM record.
+   * @param record the SAM record to treat
+   * @param stranded strand to consider
+   * @return the list of intervals of the SAM record
    */
   public static List<GenomicInterval> addIntervals(final SAMRecord record,
       final StrandUsage stranded) {
@@ -197,11 +197,11 @@ public class HTSeqUtils {
   /**
    * Parse a CIGAR string to have intervals of a chromosome that are alignments
    * matches.
-   * @param cigar CIGAR string to parse.
-   * @param chromosome chromosome that support the alignment.
-   * @param start start position of the alignment.
-   * @param strand strand to consider.
-   * @return the list of intervals that are alignments matches.
+   * @param cigar CIGAR string to parse
+   * @param chromosome chromosome that support the alignment
+   * @param start start position of the alignment
+   * @param strand strand to consider
+   * @return the list of intervals that are alignments matches
    */
   public static List<GenomicInterval> parseCigar(final Cigar cigar,
       final String chromosome, final int start, final char strand) {
@@ -246,12 +246,13 @@ public class HTSeqUtils {
 
   /**
    * Determine features that overlap genomic intervals.
-   * @param ivList the list of genomic intervals.
-   * @param features the list of features.
-   * @param mode the overlap mode.
+   * @param ivList the list of genomic intervals
+   * @param features the list of features
+   * @param mode the overlap mode
+   * @param stranded the stranded mode
    * @return the set of features that overlap genomic intervals according to the
-   *         overlap mode.
-   * @throws EoulsanException if an error occurs while getting overlapped
+   *         overlap mode
+   * @throws KenetreException if an error occurs while getting overlapped
    *           features
    */
   public static Set<String> featuresOverlapped(

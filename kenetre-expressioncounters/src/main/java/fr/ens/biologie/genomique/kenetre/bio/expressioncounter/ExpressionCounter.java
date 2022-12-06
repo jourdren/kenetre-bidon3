@@ -82,7 +82,7 @@ public interface ExpressionCounter {
 
   /**
    * Check the counter configuration.
-   * @throws EoulsanException if counter configuration is invalid
+   * @throws KenetreException if counter configuration is invalid
    */
   void checkConfiguration() throws KenetreException;
 
@@ -91,7 +91,7 @@ public interface ExpressionCounter {
    * @param descIs genome description file
    * @param annotationIs annotation file
    * @param gtfFormat true if the input format is in GTF format
-   * @throws EoulsanException if an error occurs while initialize the counter
+   * @throws KenetreException if an error occurs while initialize the counter
    * @throws IOException if an error occurs while reading input files
    */
   void init(InputStream descIs, InputStream annotationIs, boolean gtfFormat)
@@ -123,7 +123,7 @@ public interface ExpressionCounter {
    * @param reporter the reporter
    * @param counterGroup the counter group of the reporter
    * @return a map with the counts
-   * @throws EoulsanException if an error occurs while counting
+   * @throws KenetreException if an error occurs while counting
    */
   Map<String, Integer> count(InputStream inputSam, ReporterIncrementer reporter,
       String counterGroup) throws KenetreException;
@@ -132,10 +132,11 @@ public interface ExpressionCounter {
    * Count the the features.
    * @param inputSam SAM file as an InputStream
    * @param outputSam SAM file as an OutputStream
+   * @param temporaryDirectory temporary directory
    * @param reporter the reporter
    * @param counterGroup the counter group of the reporter
    * @return a map with the counts
-   * @throws EoulsanException if an error occurs while counting
+   * @throws KenetreException if an error occurs while counting
    */
   Map<String, Integer> count(InputStream inputSam, OutputStream outputSam,
       File temporaryDirectory, ReporterIncrementer reporter,
@@ -147,7 +148,7 @@ public interface ExpressionCounter {
    * @param reporter the reporter
    * @param counterGroup the counter group of the reporter
    * @return a map with the counts
-   * @throws EoulsanException if an error occurs while counting
+   * @throws KenetreException if an error occurs while counting
    */
   Map<String, Integer> count(Iterable<SAMRecord> samRecords,
       ReporterIncrementer reporter, String counterGroup)
