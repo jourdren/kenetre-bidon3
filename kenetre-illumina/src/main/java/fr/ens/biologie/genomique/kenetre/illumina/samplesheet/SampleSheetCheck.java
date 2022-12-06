@@ -16,7 +16,7 @@ public class SampleSheetCheck {
    * Check a samplesheet.
    * @param samplesheet Bcl2fastq samplesheet object to check
    * @return a list of warnings
-   * @throws AozanException if the samplesheet is not valid
+   * @throws KenetreException if the samplesheet is not valid
    */
   public static List<String> checkSampleSheet(final SampleSheet samplesheet)
       throws KenetreException {
@@ -28,10 +28,8 @@ public class SampleSheetCheck {
    * Check a samplesheet.
    * @param samplesheet the samplesheet
    * @param flowCellId the flow cell id
-   * @param allowUnderscoreInSampleID allow underscore characters in Sample_ID
-   *          fields
    * @return the list
-   * @throws AozanException the aozan exception
+   * @throws KenetreException if the samplesheet is not valid
    */
   public static List<String> checkSampleSheet(final SampleSheet samplesheet,
       final String flowCellId) throws KenetreException {
@@ -46,7 +44,7 @@ public class SampleSheetCheck {
    * @param allowUnderscoreInSampleID allow underscore characters in Sample_ID
    *          fields
    * @return the list
-   * @throws KenetreException the aozan exception
+   * @throws KenetreException if the samplesheet is not valid
    */
   public static List<String> checkSampleSheet(final SampleSheet samplesheet,
       final String flowCellId, final boolean allowUnderscoreInSampleID)
@@ -215,7 +213,7 @@ public class SampleSheetCheck {
   /**
    * Check charset of a string.
    * @param s the string to check
-   * @throws AozanException the aozan exception
+   * @throws KenetreException if an invalid characted is found
    */
   private static void checkCharset(final String s) throws KenetreException {
 
@@ -238,7 +236,7 @@ public class SampleSheetCheck {
   /**
    * Check fcid.
    * @param fcid the fcid
-   * @throws AozanException the aozan exception
+   * @throws KenetreException if the FCID value is invalid
    */
   private static void checkFCID(final String fcid) throws KenetreException {
 
@@ -267,7 +265,7 @@ public class SampleSheetCheck {
    * @param allowUnderscoreInSampleID allow underscore characters in Sample_ID
    *          fields
    * @param sampleIds the sample ids
-   * @throws AozanException the aozan exception
+   * @throws KenetreException if the sample id is invalid
    */
   private static void checkSampleId(final String sampleId,
       boolean allowUnderscoreInSampleID, final Set<String> sampleIds)
@@ -302,6 +300,7 @@ public class SampleSheetCheck {
    * Check if a string has a forbidden character in samplesheet
    * @param s the string to test
    * @param allowUnderscoreInSampleID allow underscore characters
+   * @return true if a forbidden character is found
    */
   public static boolean hasForbiddenCharacter(String s,
       boolean allowUnderscoreInSampleID) {
@@ -326,7 +325,7 @@ public class SampleSheetCheck {
    * @param sampleName the sample name
    * @param allowUnderscoreInSampleID allow underscore characters
    * @param sampleNames the sample names
-   * @throws AozanException the aozan exception
+   * @throws KenetreException if the sample name is invalid
    */
   private static void checkSampleName(final String sampleName,
       boolean allowUnderscoreInSampleID, final Set<String> sampleNames,
@@ -360,7 +359,7 @@ public class SampleSheetCheck {
    * Check sample ref.
    * @param sampleId the sample id
    * @param sampleRef the sample ref
-   * @throws AozanException the aozan exception
+   * @throws KenetreException if the sample ref is invalid
    */
   private static void checkSampleRef(final String sampleId,
       final String sampleRef) throws KenetreException {
@@ -389,7 +388,7 @@ public class SampleSheetCheck {
   /**
    * Check index.
    * @param index the index
-   * @throws AozanException the aozan exception
+   * @throws KenetreException the index is invalid
    */
   static void checkIndex(final String index) throws KenetreException {
 
@@ -421,7 +420,7 @@ public class SampleSheetCheck {
    * Check sample description.
    * @param sampleId the sample id
    * @param sampleDescription the sample description
-   * @throws AozanException the aozan exception
+   * @throws KenetreException if the sample description is invalid
    */
   private static void checkSampleDescription(final String sampleId,
       final String sampleDescription, Boolean isBcl2Fastq2,
@@ -456,7 +455,7 @@ public class SampleSheetCheck {
   /**
    * Check sample project.
    * @param sampleProject the sample project
-   * @throws AozanException the aozan exception
+   * @throws KenetreException if the sample project is invalid
    */
   private static void checkSampleProject(final String sampleProject)
       throws KenetreException {
@@ -485,7 +484,7 @@ public class SampleSheetCheck {
    * @param sampleInLanes the sample in lanes
    * @param samplesProjects the samples projects
    * @param warnings the warnings
-   * @throws AozanException the aozan exception
+   * @throws KenetreException if the sample and/or project is invalid
    */
   private static void checkSampleAndProject(final String sampleId,
       final String projectName, final int lane,
@@ -562,7 +561,7 @@ public class SampleSheetCheck {
    * @param sampleName the sample name
    * @param index1 the first index * @param index2 the second index
    * @param samplesIndex the samples index
-   * @throws AozanException the aozan exception
+   * @throws KenetreException if the sample index is invalid
    */
   private static void checkSampleIndex(final String sampleName,
       final String index1, final String index2,

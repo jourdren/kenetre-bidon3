@@ -83,12 +83,18 @@ public class QMetric extends Metric {
   private final long[] clustersScore = new long[50];
   private final int[] remappedScoreQuality;
 
-  /** Get the lane number. */
+  /**
+   * Get the lane number.
+   * @return the lane number
+   */
   public int getLaneNumber() {
     return this.laneNumber;
   }
 
-  /** Get the tile number. */
+  /**
+   * Get the tile number.
+   * @return the tile number
+   */
   public long getTileNumber() {
     return this.tileNumber;
   }

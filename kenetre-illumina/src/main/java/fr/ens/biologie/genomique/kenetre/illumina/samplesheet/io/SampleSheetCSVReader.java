@@ -173,6 +173,7 @@ public class SampleSheetCSVReader implements SampleSheetReader, AutoCloseable {
   /**
    * Public constructor
    * @param filename File to use
+   * @throws IOException if an error occurs while reading the file
    */
   public SampleSheetCSVReader(final String filename) throws IOException {
 

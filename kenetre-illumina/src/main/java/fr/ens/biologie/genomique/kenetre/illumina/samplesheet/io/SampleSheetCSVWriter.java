@@ -169,8 +169,7 @@ public class SampleSheetCSVWriter implements SampleSheetWriter, AutoCloseable {
    * Public constructor.
    * @param os OutputStream to use
    */
-  public SampleSheetCSVWriter(final OutputStream os)
-      throws FileNotFoundException {
+  public SampleSheetCSVWriter(final OutputStream os) {
 
     this.writer = new OutputStreamWriter(os);
   }
@@ -178,6 +177,7 @@ public class SampleSheetCSVWriter implements SampleSheetWriter, AutoCloseable {
   /**
    * Public constructor.
    * @param outputFile file to use
+   * @throws IOException if an error occurs while creating the file
    */
   public SampleSheetCSVWriter(final File outputFile) throws IOException {
 
@@ -187,6 +187,7 @@ public class SampleSheetCSVWriter implements SampleSheetWriter, AutoCloseable {
   /**
    * Public constructor.
    * @param outputFilename name of the file to use
+   * @throws IOException if an error occurs while creating the file
    */
   public SampleSheetCSVWriter(final String outputFilename) throws IOException {
 

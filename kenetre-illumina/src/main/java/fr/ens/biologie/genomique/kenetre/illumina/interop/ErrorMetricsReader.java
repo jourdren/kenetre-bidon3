@@ -120,8 +120,10 @@ public class ErrorMetricsReader extends AbstractBinaryFileReader<ErrorMetric> {
 
   /**
    * Constructor.
-   * @throws AozanException it occurs if size record or version aren't the same
-   *           that expected.
+   * @param dirPath path of the directory while the binary is located
+   * @throws KenetreException it occurs if size record or version aren't the
+   *           same that expected
+   * @throws FileNotFoundException if the binary cannot be found
    */
 
   public ErrorMetricsReader(final File dirPath)

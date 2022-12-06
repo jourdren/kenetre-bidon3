@@ -59,16 +59,26 @@ public class ExtractionMetric extends Metric {
   private final int channelCount;
   private final long timestamp;
 
-  /** Get the number lane. */
+  /**
+   * Get the number lane.
+   * @return the lane number
+   */
   public int getLaneNumber() {
     return this.laneNumber;
   }
 
-  /** Get the number tile. */
+  /**
+   * Get the number tile.
+   * @return the tile number
+   */
   public long getTileNumber() {
     return this.tileNumber;
   }
 
+  /**
+   * Get the time stamp.
+   * @return the time stamp
+   */
   public long getTimestamp() {
     return this.timestamp;
   }

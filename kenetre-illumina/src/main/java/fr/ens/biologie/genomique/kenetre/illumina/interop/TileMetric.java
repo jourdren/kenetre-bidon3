@@ -131,12 +131,18 @@ public class TileMetric extends Metric {
     return (lane << LANE_BIT_SHIFT) | (tile << TILE_BIT_SHIFT);
   }
 
-  /** Get the lane number. */
+  /**
+   * Get the lane number.
+   * @return the lane number
+   */
   public int getLaneNumber() {
     return this.laneNumber;
   }
 
-  /** Get the tile number. */
+  /**
+   * Get the tile number.
+   * @return the tile number
+   */
   public long getTileNumber() {
     return this.tileNumber;
   }
@@ -190,8 +196,8 @@ public class TileMetric extends Metric {
   }
 
   /**
-   * Percent aligned for read at specified index
-   * @note If percent aligned was never estimated, then it will be NaN
+   * Percent aligned for read at specified index. Note: if percent aligned was
+   * never estimated, then it will be NaN.
    * @param readIndex index of read
    * @return percent aligned (or NaN is out of bounds)
    */
@@ -205,8 +211,8 @@ public class TileMetric extends Metric {
   }
 
   /**
-   * Percent phasing for read at specified index
-   * @note Supported only in version 2
+   * Percent phasing for read at specified index. Note: supported only in
+   * version 2.
    * @param readIndex index of read
    * @return percent phasing (or NaN is out of bounds)
    */
@@ -220,8 +226,8 @@ public class TileMetric extends Metric {
   }
 
   /**
-   * Percent prephasing for read at specified index
-   * @note Supported only in version 2
+   * Percent prephasing for read at specified index. Note: Supported only in
+   * version 2.
    * @param readIndex index of read
    * @return percent prephasing (or NaN is out of bounds)
    */
@@ -235,8 +241,7 @@ public class TileMetric extends Metric {
   }
 
   /**
-   * Percent prephasing for read number
-   * @note Supported only in version 2
+   * Percent prephasing for read number. Note: Supported only in version 2.
    * @param number number of read
    * @return percent prephasing (or NaN is out of bounds)
    */
@@ -252,7 +257,7 @@ public class TileMetric extends Metric {
   }
 
   /**
-   * Number of reads
+   * Number of reads.
    * @return number of reads
    */
   public int getReadCount() {

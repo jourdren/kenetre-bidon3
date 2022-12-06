@@ -84,7 +84,7 @@ abstract class AbstractBinaryFileReader<M> {
   /**
    * Gets the sets the illumina metrics.
    * @return set Illumina metrics corresponding to one binary InterOp file
-   * @throws AozanException the aozan exception
+   * @throws KenetreException if an error occurs while reading metrics
    */
   public List<M> readMetrics() throws KenetreException {
 
@@ -218,17 +218,29 @@ abstract class AbstractBinaryFileReader<M> {
   // Utility methods
   //
 
-  /** Convert an unsigned byte to a signed int. */
+  /**
+   * Convert an unsigned byte to a signed int.
+   * @param bb byte buffer
+   * @return an unsigned byte converted to a signed int
+   */
   public static final int uByteToInt(final ByteBuffer bb) {
     return Byte.toUnsignedInt(bb.get());
   }
 
-  /** Convert an unsigned short to an int. */
+  /**
+   * Convert an unsigned short to a signed int.
+   * @param bb byte buffer
+   * @return an unsigned short converted to a signed int
+   */
   public static final int uShortToInt(final ByteBuffer bb) {
     return Short.toUnsignedInt(bb.getShort());
   }
 
-  /** Convert an unsigned int to a long. */
+  /**
+   * Convert an unsigned int to a long.
+   * @param bb byte buffer
+   * @return an unsigned int converted to a signed long
+   */
   public static final long uIntToLong(final ByteBuffer bb) {
     return Integer.toUnsignedLong(bb.getInt());
   }
@@ -240,7 +252,7 @@ abstract class AbstractBinaryFileReader<M> {
   /**
    * Constructor.
    * @param dirPath path to the interop directory for a run
-   * @throws AozanException
+   * @throws KenetreException if the path does not exists
    */
   AbstractBinaryFileReader(final File dirPath) throws KenetreException {
 

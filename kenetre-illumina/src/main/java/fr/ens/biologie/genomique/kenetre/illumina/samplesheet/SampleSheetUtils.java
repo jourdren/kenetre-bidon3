@@ -532,7 +532,7 @@ public class SampleSheetUtils {
    * Replace index shortcuts in a samplesheet object by index sequences.
    * @param samplesheet Bcl2fastq samplesheet object
    * @param sequences map for the sequences
-   * @throws AozanException if the shortcut is unknown
+   * @throws KenetreException if the shortcut is unknown
    */
   public static void replaceIndexShortcutsBySequences(
       final SampleSheet samplesheet, final Map<String, String> sequences)
@@ -604,8 +604,8 @@ public class SampleSheetUtils {
    * Get and check if demultiplexing section exists in a samplesheet.
    * @param samplesheet the samplesheet
    * @return a TableSection object
-   * @throws AozanException if the demultiplexing sample table does not exist in
-   *           the samplesheet
+   * @throws KenetreException if the demultiplexing sample table does not exist
+   *           in the samplesheet
    */
   public static TableSection getCheckedDemuxTableSection(
       SampleSheet samplesheet) throws KenetreException {
@@ -624,7 +624,7 @@ public class SampleSheetUtils {
   /**
    * Remove forbidden fields in BCLConvert_Data section.
    * @param samplesheet sample sheet to process
-   * @throws AozanException if the section does not exists
+   * @throws KenetreException if the section does not exists
    */
   public static void removeBclConvertDataForbiddenFields(
       SampleSheet samplesheet) throws KenetreException {
@@ -663,7 +663,8 @@ public class SampleSheetUtils {
   /**
    * Move the forbidden fields in BCLConvert_Data section.
    * @param samplesheet sample sheet to process
-   * @throws AozanException if the section does not exists
+   * @param otherSectionName other section name
+   * @throws KenetreException if the section does not exists
    */
   public static void moveBclConvertDataForbiddenFieldsInNewSection(
       SampleSheet samplesheet, String otherSectionName)
@@ -720,7 +721,7 @@ public class SampleSheetUtils {
    * BCLConvert_Data section of the sample sheet.
    * @param samplesheet the sample sheet
    * @param otherSectionName name of the section to merge
-   * @throws AozanException if an error occurs while merging sections
+   * @throws KenetreException if an error occurs while merging sections
    */
   public static void mergeBclConvertDataAndForbiddenData(
       SampleSheet samplesheet, String otherSectionName)
@@ -817,6 +818,7 @@ public class SampleSheetUtils {
   /**
    * Replace underscores by dashes in sample ids.
    * @param samplesheet the samplesheet to modify
+   * @throws KenetreException if no section demultiplexing found in samplesheet
    */
   public static void replaceUnderscoresByDashesInSampleIds(
       SampleSheet samplesheet) throws KenetreException {
@@ -854,6 +856,7 @@ public class SampleSheetUtils {
    * Deserialize a sample sheet.
    * @param s String to deserialize
    * @return a SampleSheet object.
+   * @throws IOException if an error occurs while deserializing
    */
   public static SampleSheet deSerialize(String s) throws IOException {
 

@@ -204,6 +204,7 @@ public class SampleSheetXLSReader implements SampleSheetReader, AutoCloseable {
   /**
    * Public constructor.
    * @param file File to use
+   * @throws FileNotFoundException if the file does not exists
    */
   public SampleSheetXLSReader(final File file) throws FileNotFoundException {
 
@@ -221,7 +222,7 @@ public class SampleSheetXLSReader implements SampleSheetReader, AutoCloseable {
 
   /**
    * Public constructor.
-   * @param path File to use
+   * @param file file to open
    * @throws IOException if an error occurs while openning the file
    */
   public SampleSheetXLSReader(final Path file) throws IOException {
@@ -240,6 +241,7 @@ public class SampleSheetXLSReader implements SampleSheetReader, AutoCloseable {
   /**
    * Public constructor.
    * @param filename Filename to use
+   * @throws FileNotFoundException if the file does not exists
    */
   public SampleSheetXLSReader(final String filename)
       throws FileNotFoundException {

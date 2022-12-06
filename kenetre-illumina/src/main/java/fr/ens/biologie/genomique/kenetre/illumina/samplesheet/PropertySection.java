@@ -108,7 +108,6 @@ public class PropertySection {
   /**
    * Remove a property.
    * @param key name of the property
-   * @return the value of the removed property
    */
   public void remove(String key) {
 
