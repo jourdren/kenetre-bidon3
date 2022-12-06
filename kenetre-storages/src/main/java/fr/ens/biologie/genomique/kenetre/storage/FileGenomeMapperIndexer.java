@@ -47,6 +47,7 @@ public class FileGenomeMapperIndexer {
   private final AbstractFileGenomeIndexStorage storage;
   private final String indexerArguments;
   private final int threads;
+  private final LinkedHashMap<String, String> additionalDescription;
   private final File temporaryDirectory;
 
   private final GenericLogger logger;
