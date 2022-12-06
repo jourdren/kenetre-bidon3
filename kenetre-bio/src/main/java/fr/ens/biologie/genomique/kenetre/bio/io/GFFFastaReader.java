@@ -71,6 +71,7 @@ public class GFFFastaReader extends FastaReader {
   /**
    * Public constructor
    * @param filename File to use
+   * @throws FileNotFoundException if the file does not exists
    */
   public GFFFastaReader(final String filename) throws FileNotFoundException {
     super(filename);
@@ -79,6 +80,7 @@ public class GFFFastaReader extends FastaReader {
   /**
    * Public constructor
    * @param file File to use
+   * @throws FileNotFoundException if the file does not exists
    */
   public GFFFastaReader(final File file) throws FileNotFoundException {
     super(file);
@@ -88,7 +90,7 @@ public class GFFFastaReader extends FastaReader {
    * Public constructor
    * @param is InputStream to use
    */
-  public GFFFastaReader(final InputStream is) throws FileNotFoundException {
+  public GFFFastaReader(final InputStream is) {
     super(is);
   }
 

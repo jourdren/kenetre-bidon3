@@ -31,7 +31,7 @@ public class GTFWriter extends GFFWriter {
    * Public constructor.
    * @param os OutputStream to use
    */
-  public GTFWriter(final OutputStream os) throws FileNotFoundException {
+  public GTFWriter(final OutputStream os) {
 
     super(os);
     setGFF3Format(false);
@@ -40,6 +40,7 @@ public class GTFWriter extends GFFWriter {
   /**
    * Public constructor.
    * @param outputFile file to use
+   * @throws IOException if an error occurs while creating the file
    */
   public GTFWriter(final File outputFile) throws IOException {
 
@@ -50,6 +51,7 @@ public class GTFWriter extends GFFWriter {
   /**
    * Public constructor.
    * @param outputFilename name of the file to use
+   * @throws IOException if an error occurs while creating the file
    */
   public GTFWriter(final String outputFilename) throws IOException {
 

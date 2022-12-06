@@ -38,13 +38,15 @@ public interface ReadFilter {
   /**
    * Tests if a specified read should be keep.
    * @param read read to test
+   * @return true if the the read sequence must be kept
    */
   boolean accept(ReadSequence read);
 
   /**
    * Tests if the specified reads should be keep.
    * @param read1 first read to test
-   * @param read2 first read to test
+   * @param read2 second read to test
+   * @return true if the the read sequence must be kept
    */
   boolean accept(ReadSequence read1, ReadSequence read2);
 

@@ -116,8 +116,7 @@ public class FastaWriter implements SequenceWriter {
    * @param os OutputStream to use
    * @param lineLength FASTA line length
    */
-  public FastaWriter(final OutputStream os, final int lineLength)
-      throws FileNotFoundException {
+  public FastaWriter(final OutputStream os, final int lineLength) {
 
     this.writer = FileUtils.createFastBufferedWriter(os, FASTA_CHARSET);
     this.lineLength = checkLineLength(lineLength);
@@ -127,6 +126,7 @@ public class FastaWriter implements SequenceWriter {
    * Public constructor.
    * @param outputFile file to use
    * @param lineLength FASTA line length
+   * @throws IOException if an error occurs while creating the output file
    */
   public FastaWriter(final File outputFile, final int lineLength)
       throws IOException {
@@ -139,6 +139,7 @@ public class FastaWriter implements SequenceWriter {
    * Public constructor.
    * @param outputFilename name of the file to use
    * @param lineLength FASTA line length
+   * @throws IOException if an error occurs while creating the output file
    */
   public FastaWriter(final String outputFilename, final int lineLength)
       throws IOException {
@@ -161,7 +162,7 @@ public class FastaWriter implements SequenceWriter {
    * Public constructor.
    * @param os OutputStream to use
    */
-  public FastaWriter(final OutputStream os) throws FileNotFoundException {
+  public FastaWriter(final OutputStream os) {
 
     this(os, FASTA_FILE_WIDTH);
   }
@@ -169,6 +170,7 @@ public class FastaWriter implements SequenceWriter {
   /**
    * Public constructor.
    * @param outputFile file to use
+   * @throws IOException if an error occurs while creating the output file
    */
   public FastaWriter(final File outputFile) throws IOException {
 
@@ -178,6 +180,7 @@ public class FastaWriter implements SequenceWriter {
   /**
    * Public constructor.
    * @param outputFilename name of the file to use
+   * @throws IOException if an error occurs while creating the output file
    */
   public FastaWriter(final String outputFilename) throws IOException {
 

@@ -536,6 +536,7 @@ public final class ReadSequence extends Sequence {
    * @param name Name of the read
    * @param sequence Sequence of the read
    * @param quality Quality of the read
+   * @param fastqFormat FASTQ format to use
    */
   public ReadSequence(final String name, final String sequence,
       final String quality, final FastqFormat fastqFormat) {
@@ -566,6 +567,7 @@ public final class ReadSequence extends Sequence {
    * @param name Name of the read
    * @param sequence Sequence of the read
    * @param quality Quality of the read
+   * @param fastqFormat FASTQ format to use
    */
   @Deprecated
   public ReadSequence(final int id, final String name, final String sequence,

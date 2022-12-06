@@ -155,6 +155,7 @@ public class BEDReader
   /**
    * Public constructor
    * @param file File to use
+   * @throws FileNotFoundException if the file is not found
    */
   public BEDReader(final File file) throws FileNotFoundException {
 
@@ -168,6 +169,7 @@ public class BEDReader
   /**
    * Public constructor.
    * @param filename File to use
+   * @throws FileNotFoundException if the file is not found
    */
   public BEDReader(final String filename) throws FileNotFoundException {
 

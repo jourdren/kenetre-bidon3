@@ -28,7 +28,7 @@ package fr.ens.biologie.genomique.kenetre.bio;
  * This class define a method to compute tm for oligonucletides.
  * @since 1.0
  * @author Laurent Jourdren
- * @author Sebastian Bassi <sbassi@genesdigitales.com>
+ * @author <a href="mailto:sbassi@genesdigitales.com">Sebastian Bassi</a>
  */
 public class MeltingTemp {
 

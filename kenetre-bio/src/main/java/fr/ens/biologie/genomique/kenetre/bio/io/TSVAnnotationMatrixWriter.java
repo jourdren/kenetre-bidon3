@@ -79,8 +79,7 @@ public class TSVAnnotationMatrixWriter implements AnnotationMatrixWriter {
    * Public constructor.
    * @param os OutputStream to use
    */
-  public TSVAnnotationMatrixWriter(final OutputStream os)
-      throws FileNotFoundException {
+  public TSVAnnotationMatrixWriter(final OutputStream os) {
 
     Objects.requireNonNull(os, "the os argument cannot be null");
 
@@ -90,6 +89,7 @@ public class TSVAnnotationMatrixWriter implements AnnotationMatrixWriter {
   /**
    * Public constructor.
    * @param outputFile file to use
+   * @throws IOException if an error occurs while creating the file
    */
   public TSVAnnotationMatrixWriter(final File outputFile) throws IOException {
 
@@ -103,6 +103,7 @@ public class TSVAnnotationMatrixWriter implements AnnotationMatrixWriter {
   /**
    * Public constructor.
    * @param outputFilename name of the file to use
+   * @throws IOException if an error occurs while creating the file
    */
   public TSVAnnotationMatrixWriter(final String outputFilename)
       throws IOException {

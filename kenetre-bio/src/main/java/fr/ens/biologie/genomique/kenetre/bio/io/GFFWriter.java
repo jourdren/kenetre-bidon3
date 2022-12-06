@@ -28,7 +28,6 @@ import static fr.ens.biologie.genomique.kenetre.bio.io.BioCharsets.GFF_CHARSET;
 
 import java.io.Closeable;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Writer;
@@ -73,7 +72,8 @@ public class GFFWriter implements Closeable {
   }
 
   /**
-   * /** Write the current entry.
+   * Write the current entry.
+   * @param entry entry to write
    * @throws IOException if an error occurs while writing data
    */
   public void write(final GFFEntry entry) throws IOException {
@@ -147,7 +147,7 @@ public class GFFWriter implements Closeable {
    * Public constructor.
    * @param os OutputStream to use
    */
-  public GFFWriter(final OutputStream os) throws FileNotFoundException {
+  public GFFWriter(final OutputStream os) {
 
     this.writer = FileUtils.createFastBufferedWriter(os, GFF_CHARSET);
   }
@@ -155,6 +155,7 @@ public class GFFWriter implements Closeable {
   /**
    * Public constructor.
    * @param outputFile file to use
+   * @throws IOException if an error occurs while creating the file
    */
   public GFFWriter(final File outputFile) throws IOException {
 
@@ -164,6 +165,7 @@ public class GFFWriter implements Closeable {
   /**
    * Public constructor.
    * @param outputFilename name of the file to use
+   * @throws IOException if an error occurs while creating the file
    */
   public GFFWriter(final String outputFilename) throws IOException {
 

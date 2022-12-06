@@ -108,6 +108,7 @@ public class SparseExpressionMatrixReader implements ExpressionMatrixReader {
   /**
    * Public constructor
    * @param file File to use
+   * @throws FileNotFoundException if the file does not exists
    */
   public SparseExpressionMatrixReader(final File file)
       throws FileNotFoundException {
@@ -120,6 +121,7 @@ public class SparseExpressionMatrixReader implements ExpressionMatrixReader {
   /**
    * Public constructor.
    * @param filename File to use
+   * @throws FileNotFoundException if the file does not exists
    */
   public SparseExpressionMatrixReader(final String filename)
       throws FileNotFoundException {

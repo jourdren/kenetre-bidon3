@@ -53,7 +53,7 @@ public class TSVCountsWriter implements CountsWriter {
    * Public constructor.
    * @param os OutputStream to use
    */
-  public TSVCountsWriter(final OutputStream os) throws FileNotFoundException {
+  public TSVCountsWriter(final OutputStream os) {
 
     Objects.requireNonNull(os, "os argument cannot be null");
 
@@ -63,6 +63,7 @@ public class TSVCountsWriter implements CountsWriter {
   /**
    * Public constructor.
    * @param outputFile file to use
+   * @throws IOException if an error occurs while creating the file
    */
   public TSVCountsWriter(final File outputFile) throws IOException {
 
@@ -74,6 +75,7 @@ public class TSVCountsWriter implements CountsWriter {
   /**
    * Public constructor.
    * @param outputFilename name of the file to use
+   * @throws IOException if an error occurs while creating the file
    */
   public TSVCountsWriter(final String outputFilename) throws IOException {
 

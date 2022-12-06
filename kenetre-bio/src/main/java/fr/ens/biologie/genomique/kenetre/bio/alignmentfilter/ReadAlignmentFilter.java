@@ -79,7 +79,7 @@ public interface ReadAlignmentFilter {
 
   /**
    * Initialize the filter.
-   * @throws EoulsanException an error occurs while initialize the filter
+   * @throws KenetreException an error occurs while initialize the filter
    */
   void init() throws KenetreException;
 

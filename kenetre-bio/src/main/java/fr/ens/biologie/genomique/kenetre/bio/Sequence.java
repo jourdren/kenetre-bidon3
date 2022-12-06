@@ -485,6 +485,7 @@ public class Sequence {
   /**
    * Return the sequence object in string in Fasta format with a maximal width
    * for lines.
+   * @param width maximal size of a line in the output
    * @return the sequence in Fasta format
    */
   public String toFasta(final int width) {
@@ -615,7 +616,7 @@ public class Sequence {
 
   /**
    * Check if the sequence is valid. To be valid a sequence must get a name and
-   * a sequence with a length > 0. Only authorized bases are "ATGCNXatgcnx".
+   * a sequence with a length greater than 0. Only authorized bases are "ATGCNXatgcnx".
    * @return true if the sequence is validated
    */
   public boolean validate() {

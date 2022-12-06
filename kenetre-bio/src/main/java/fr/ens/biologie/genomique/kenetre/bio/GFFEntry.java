@@ -615,9 +615,10 @@ public class GFFEntry {
   }
 
   /**
-   * Parse a GFF entry. This method is deprecated, use <tt>parseGFF3()</tt>
+   * Parse a GFF entry. This method is deprecated, use <code>parseGFF3()</code>
    * instead.
    * @param s String to parse
+   * @throws BadBioEntryException if an error occurs while parsing the string
    * @deprecated
    */
   @Deprecated
@@ -629,6 +630,7 @@ public class GFFEntry {
   /**
    * Parse a GFF3 entry.
    * @param s String to parse
+   * @throws BadBioEntryException if an error occurs while parsing the string
    */
   public void parseGFF3(final String s) throws BadBioEntryException {
 
@@ -639,6 +641,7 @@ public class GFFEntry {
   /**
    * Parse a GTF entry.
    * @param s String to parse
+   * @throws BadBioEntryException if an error occurs while parsing the string
    */
   public void parseGTF(final String s) throws BadBioEntryException {
 
@@ -812,6 +815,7 @@ public class GFFEntry {
 
   /**
    * Public constructor.
+   * @param metadata GFF entry metadata
    */
   public GFFEntry(EntryMetadata metadata) {
 

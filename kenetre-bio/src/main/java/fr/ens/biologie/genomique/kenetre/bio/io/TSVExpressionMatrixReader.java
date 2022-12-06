@@ -114,6 +114,7 @@ public class TSVExpressionMatrixReader implements ExpressionMatrixReader {
   /**
    * Public constructor
    * @param file File to use
+   * @throws FileNotFoundException if the file does not exists
    */
   public TSVExpressionMatrixReader(final File file)
       throws FileNotFoundException {
@@ -126,6 +127,7 @@ public class TSVExpressionMatrixReader implements ExpressionMatrixReader {
   /**
    * Public constructor.
    * @param filename File to use
+   * @throws FileNotFoundException if the file does not exists
    */
   public TSVExpressionMatrixReader(final String filename)
       throws FileNotFoundException {

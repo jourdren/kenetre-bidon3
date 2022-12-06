@@ -185,6 +185,7 @@ public class GenomeDescription {
   /**
    * Save genome description.
    * @param os OutputStream to use for genome description writing
+   * @throws IOException if an error occurs while saving the genome description
    */
   public void save(final OutputStream os) throws IOException {
 
@@ -216,6 +217,7 @@ public class GenomeDescription {
   /**
    * Save genome description.
    * @param file output file
+   * @throws IOException if an error while writing the genome description
    */
   public void save(final File file) throws IOException {
 
@@ -230,6 +232,8 @@ public class GenomeDescription {
   /**
    * Load genome description.
    * @param is InputStream to use
+   * @return a genome description object
+   * @throws IOException if an error while loading the genome description
    */
   public static GenomeDescription load(final InputStream is)
       throws IOException {
@@ -276,6 +280,8 @@ public class GenomeDescription {
   /**
    * Load genome description.
    * @param file File to use
+   * @return a genome description object
+   * @throws IOException if an error while loading the genome description
    */
   public static GenomeDescription load(final File file) throws IOException {
 
@@ -290,6 +296,10 @@ public class GenomeDescription {
   /**
    * Create a GenomeDescription object from a Fasta file.
    * @param genomeFastaFile genome fasta file
+   * @return a genome description object
+   * @throws BadBioEntryException if an error occurs while creating the genome
+   *           description
+   * @throws IOException if an error occurs while reading the FASTA file
    */
   public static GenomeDescription createGenomeDescFromFasta(
       final File genomeFastaFile) throws BadBioEntryException, IOException {
@@ -305,6 +315,10 @@ public class GenomeDescription {
    * Create a GenomeDescription object from a Fasta file.
    * @param genomeFastaIs genome fasta input stream
    * @param filename name of the file of the input stream
+   * @return a genome description object
+   * @throws BadBioEntryException if an error occurs while creating the genome
+   *           description
+   * @throws IOException if an error occurs while reading the FASTA file
    */
   public static GenomeDescription createGenomeDescFromFasta(
       final InputStream genomeFastaIs, final String filename)
@@ -316,6 +330,10 @@ public class GenomeDescription {
   /**
    * Create a GenomeDescription object from a GFF file.
    * @param gffFile genome in GFF file
+   * @return a genome description object
+   * @throws BadBioEntryException if an error occurs while creating the genome
+   *           description
+   * @throws IOException if an error occurs while reading the GFF file
    */
   public static GenomeDescription createGenomeDescFromGFF(final File gffFile)
       throws BadBioEntryException, IOException {
@@ -330,6 +348,10 @@ public class GenomeDescription {
    * Create a GenomeDescription object from a GFF file.
    * @param gffFile genome in GFF input stream
    * @param filename name of the file of the input stream
+   * @return a genome description object
+   * @throws BadBioEntryException if an error occurs while creating the genome
+   *           description
+   * @throws IOException if an error occurs while reading the GFF file
    */
   public static GenomeDescription createGenomeDescFromGFF(
       final InputStream gffFile, final String filename)
@@ -343,6 +365,10 @@ public class GenomeDescription {
    * @param genomeFastaIs genome fasta input stream
    * @param filename name of the file of the input stream
    * @param gffFormat the input file is in GFF format
+   * @return a genome description object
+   * @throws BadBioEntryException if an error occurs while creating the genome
+   *           description
+   * @throws IOException if an error occurs while reading the GFF file
    */
   public static GenomeDescription createGenomeDesc(
       final InputStream genomeFastaIs, final String filename,

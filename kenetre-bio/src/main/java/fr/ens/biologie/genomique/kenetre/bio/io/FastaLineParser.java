@@ -135,6 +135,7 @@ public class FastaLineParser {
   /**
    * Public constructor.
    * @param file File to use
+   * @throws FileNotFoundException if the file does not exists
    */
   public FastaLineParser(final File file) throws FileNotFoundException {
 
@@ -145,6 +146,7 @@ public class FastaLineParser {
    * Public constructor.
    * @param file File to use
    * @param gffFile the input file is a GFF file
+   * @throws FileNotFoundException if the file does not exists
    */
   public FastaLineParser(final File file, final boolean gffFile)
       throws FileNotFoundException {
@@ -163,6 +165,7 @@ public class FastaLineParser {
   /**
    * Public constructor.
    * @param filename File to use
+   * @throws FileNotFoundException if the file does not exists
    */
   public FastaLineParser(final String filename) throws FileNotFoundException {
 
@@ -173,6 +176,7 @@ public class FastaLineParser {
    * Public constructor.
    * @param filename File to use
    * @param gffFile the input file is a GFF file
+   * @throws FileNotFoundException if the file does not exists
    */
   public FastaLineParser(final String filename, final boolean gffFile)
       throws FileNotFoundException {

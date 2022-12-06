@@ -14,7 +14,7 @@ import com.google.common.base.Splitter;
 import fr.ens.biologie.genomique.kenetre.util.GuavaCompatibility;
 
 /**
- * This class define a BedEntry. <b>Warning<b>: the coordinates stored in the
+ * This class define a BedEntry. <b>Warning</b>: the coordinates stored in the
  * class are 1-based to be coherent with the other classes of the bio packages.
  * However the toBEDXX() methods generate output in 1-based coordinates.
  * @author Laurent Jourdren
@@ -439,6 +439,7 @@ public class BEDEntry {
    * Add a block to the list of block.
    * @param startBlock start position of the block
    * @param endBlock end position of the block
+   * @return true if the addition is a success
    */
   public boolean addBlock(final int startBlock, final int endBlock) {
 
@@ -450,6 +451,7 @@ public class BEDEntry {
    * Remove a block to the list of block.
    * @param startBlock start position of the block
    * @param endBlock end position of the block
+   * @return true if the remove of the block is a success
    */
   public boolean removeBlock(final int startBlock, final int endBlock) {
 
@@ -824,6 +826,7 @@ public class BEDEntry {
 
   /**
    * Public constructor.
+   * @param metadata entry metadata
    */
   public BEDEntry(EntryMetadata metadata) {
 

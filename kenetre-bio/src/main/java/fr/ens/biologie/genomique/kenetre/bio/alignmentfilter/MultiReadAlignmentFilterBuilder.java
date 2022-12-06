@@ -180,11 +180,10 @@ public class MultiReadAlignmentFilterBuilder {
   /**
    * Create the final MultiAlignmentFilter.
    * @return a new MultiAlignmentsFilter object
-   * @throws EoulsanException if an error occurs while initialize one of the
+   * @throws KenetreException if an error occurs while initialize one of the
    *           filter
    */
-  public MultiReadAlignmentFilter getAlignmentFilter()
-      throws KenetreException {
+  public MultiReadAlignmentFilter getAlignmentFilter() throws KenetreException {
 
     for (ReadAlignmentFilter f : this.listFilter) {
       f.init();
@@ -198,7 +197,7 @@ public class MultiReadAlignmentFilterBuilder {
    * @param incrementer incrementer to use
    * @param counterGroup counter group for the incrementer
    * @return a new MultiAlignmentsFilter object
-   * @throws EoulsanException if an error occurs while initialize one of the
+   * @throws KenetreException if an error occurs while initialize one of the
    *           filter
    */
   public MultiReadAlignmentFilter getAlignmentFilter(
@@ -244,9 +243,9 @@ public class MultiReadAlignmentFilterBuilder {
   /**
    * Public constructor.
    * @param parameters parameters to add to the builder
-   * @throws KenetreException EoulsanException if the filter reference in the
-   *           key does not exist or if an error occurs while setting the
-   *           parameter in the dedicated filter
+   * @throws KenetreException if the filter reference in the key does not exist
+   *           or if an error occurs while setting the parameter in the
+   *           dedicated filter
    */
   public MultiReadAlignmentFilterBuilder(final Map<String, String> parameters)
       throws KenetreException {
@@ -258,9 +257,9 @@ public class MultiReadAlignmentFilterBuilder {
    * Public constructor.
    * @param logger the logger to use
    * @param parameters parameters to add to the builder
-   * @throws EoulsanException EoulsanException if the filter reference in the
-   *           key does not exist or if an error occurs while setting the
-   *           parameter in the dedicated filter
+   * @throws KenetreException if the filter reference in the key does not exist
+   *           or if an error occurs while setting the parameter in the
+   *           dedicated filter
    */
   public MultiReadAlignmentFilterBuilder(final GenericLogger logger,
       final Map<String, String> parameters) throws KenetreException {

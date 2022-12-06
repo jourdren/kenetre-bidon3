@@ -185,6 +185,7 @@ public class FastqReader implements ReadSequenceReader {
   /**
    * Public constructor
    * @param file File to use
+   * @throws FileNotFoundException if the file does not exists
    */
   public FastqReader(final File file) throws FileNotFoundException {
 
@@ -198,6 +199,7 @@ public class FastqReader implements ReadSequenceReader {
   /**
    * Public constructor
    * @param filename File to use
+   * @throws FileNotFoundException if the file does not exists
    */
   public FastqReader(final String filename) throws FileNotFoundException {
 

@@ -28,6 +28,7 @@ public class GTFReader extends GFFReader {
   /**
    * Public constructor
    * @param file File to use
+   * @throws FileNotFoundException if the file does not exists
    */
   public GTFReader(final File file) throws FileNotFoundException {
 
@@ -38,6 +39,7 @@ public class GTFReader extends GFFReader {
   /**
    * Public constructor.
    * @param filename File to use
+   * @throws FileNotFoundException if the file does not exists
    */
   public GTFReader(final String filename) throws FileNotFoundException {
 

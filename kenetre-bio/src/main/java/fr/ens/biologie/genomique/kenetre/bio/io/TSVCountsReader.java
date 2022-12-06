@@ -96,6 +96,7 @@ public class TSVCountsReader implements CountsReader {
   /**
    * Public constructor
    * @param file File to use
+   * @throws FileNotFoundException if the file does not exists
    */
   public TSVCountsReader(final File file) throws FileNotFoundException {
 
@@ -107,6 +108,7 @@ public class TSVCountsReader implements CountsReader {
   /**
    * Public constructor.
    * @param filename File to use
+   * @throws FileNotFoundException if the file does not exists
    */
   public TSVCountsReader(final String filename) throws FileNotFoundException {
 

@@ -4,7 +4,6 @@ import static fr.ens.biologie.genomique.kenetre.bio.io.BioCharsets.BED_CHARSET;
 
 import java.io.Closeable;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Writer;
@@ -46,7 +45,8 @@ public class BEDWriter implements Closeable {
   }
 
   /**
-   * /** Write the current entry.
+   * Write the current entry.
+   * @param entry the entry to write
    * @throws IOException if an error occurs while writing data
    */
   public void write(final BEDEntry entry) throws IOException {
@@ -80,6 +80,7 @@ public class BEDWriter implements Closeable {
   /**
    * Public constructor.
    * @param writer Writer to use
+   * @param format bed format as a number
    */
   public BEDWriter(final Writer writer, final int format) {
 
@@ -97,9 +98,9 @@ public class BEDWriter implements Closeable {
   /**
    * Public constructor.
    * @param os OutputStream to use
+   * @param format bed format as a number
    */
-  public BEDWriter(final OutputStream os, final int format)
-      throws FileNotFoundException {
+  public BEDWriter(final OutputStream os, final int format) {
 
     // Check the number of BED fields
     BEDEntry.checkBEDFieldCount(format);
@@ -111,6 +112,8 @@ public class BEDWriter implements Closeable {
   /**
    * Public constructor.
    * @param outputFile file to use
+   * @param format bed format as a number
+   * @throws IOException if an error occurs while creating the file
    */
   public BEDWriter(final File outputFile, final int format) throws IOException {
 
@@ -124,6 +127,8 @@ public class BEDWriter implements Closeable {
   /**
    * Public constructor.
    * @param outputFilename name of the file to use
+   * @param format bed format as a number
+   * @throws IOException if an error occurs while creating the file
    */
   public BEDWriter(final String outputFilename, final int format)
       throws IOException {
@@ -149,7 +154,7 @@ public class BEDWriter implements Closeable {
    * Public constructor.
    * @param os OutputStream to use
    */
-  public BEDWriter(final OutputStream os) throws FileNotFoundException {
+  public BEDWriter(final OutputStream os) {
 
     this(os, DEFAULT_FORMAT);
   }
@@ -157,6 +162,7 @@ public class BEDWriter implements Closeable {
   /**
    * Public constructor.
    * @param outputFile file to use
+   * @throws IOException if an error occurs while creating the file
    */
   public BEDWriter(final File outputFile) throws IOException {
 
@@ -166,6 +172,7 @@ public class BEDWriter implements Closeable {
   /**
    * Public constructor.
    * @param outputFilename name of the file to use
+   * @throws IOException if an error occurs while creating the file
    */
   public BEDWriter(final String outputFilename) throws IOException {
 

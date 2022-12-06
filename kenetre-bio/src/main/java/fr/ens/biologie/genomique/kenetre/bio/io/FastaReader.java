@@ -177,6 +177,7 @@ public class FastaReader implements SequenceReader {
   /**
    * Public constructor
    * @param file File to use
+   * @throws FileNotFoundException if the file does not exists
    */
   public FastaReader(final File file) throws FileNotFoundException {
 
@@ -190,6 +191,7 @@ public class FastaReader implements SequenceReader {
   /**
    * Public constructor
    * @param filename File to use
+   * @throws FileNotFoundException if the file does not exists
    */
   public FastaReader(final String filename) throws FileNotFoundException {
 

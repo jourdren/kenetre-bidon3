@@ -180,7 +180,7 @@ public class MultiReadFilterBuilder {
   /**
    * Create the final MultiReadFilter.
    * @return a new MultiReadFilter object
-   * @throws EoulsanException if an error occurs while initialize one of the
+   * @throws KenetreException if an error occurs while initialize one of the
    *           filter
    */
   public MultiReadFilter getReadFilter() throws KenetreException {

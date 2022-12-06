@@ -1,7 +1,6 @@
 package fr.ens.biologie.genomique.kenetre.bio.io;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -84,8 +83,7 @@ public class SparseExpressionMatrixWriter implements ExpressionMatrixWriter {
    * Public constructor.
    * @param os OutputStream to use
    */
-  public SparseExpressionMatrixWriter(final OutputStream os)
-      throws FileNotFoundException {
+  public SparseExpressionMatrixWriter(final OutputStream os) {
 
     Objects.requireNonNull(os, "os argument cannot be null");
 
@@ -95,6 +93,7 @@ public class SparseExpressionMatrixWriter implements ExpressionMatrixWriter {
   /**
    * Public constructor.
    * @param outputFile file to use
+   * @throws IOException if an error occurs while creating the file
    */
   public SparseExpressionMatrixWriter(final File outputFile)
       throws IOException {
@@ -107,6 +106,7 @@ public class SparseExpressionMatrixWriter implements ExpressionMatrixWriter {
   /**
    * Public constructor.
    * @param outputFilename name of the file to use
+   * @throws IOException if an error occurs while creating the file
    */
   public SparseExpressionMatrixWriter(final String outputFilename)
       throws IOException {

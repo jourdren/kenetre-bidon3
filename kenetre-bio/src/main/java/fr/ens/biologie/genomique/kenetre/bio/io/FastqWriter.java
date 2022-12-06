@@ -25,7 +25,6 @@
 package fr.ens.biologie.genomique.kenetre.bio.io;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Writer;
@@ -77,7 +76,7 @@ public class FastqWriter implements ReadSequenceWriter {
    * Public constructor.
    * @param os OutputStream to use
    */
-  public FastqWriter(final OutputStream os) throws FileNotFoundException {
+  public FastqWriter(final OutputStream os) {
 
     this.writer = FileUtils.createFastBufferedWriter(os);
   }
@@ -85,6 +84,7 @@ public class FastqWriter implements ReadSequenceWriter {
   /**
    * Public constructor.
    * @param outputFile file to use
+   * @throws IOException if an error occurs while creating the output file
    */
   public FastqWriter(final File outputFile) throws IOException {
 
@@ -94,6 +94,7 @@ public class FastqWriter implements ReadSequenceWriter {
   /**
    * Public constructor.
    * @param outputFilename name of the file to use
+   * @throws IOException if an error occurs while creating the output file
    */
   public FastqWriter(final String outputFilename) throws IOException {
 

@@ -84,8 +84,7 @@ public class TSVExpressionMatrixWriter implements ExpressionMatrixWriter {
    * Public constructor.
    * @param os OutputStream to use
    */
-  public TSVExpressionMatrixWriter(final OutputStream os)
-      throws FileNotFoundException {
+  public TSVExpressionMatrixWriter(final OutputStream os) {
 
     Objects.requireNonNull(os, "os argument cannot be null");
 
@@ -95,6 +94,7 @@ public class TSVExpressionMatrixWriter implements ExpressionMatrixWriter {
   /**
    * Public constructor.
    * @param outputFile file to use
+   * @throws IOException if an error occurs while creating the file
    */
   public TSVExpressionMatrixWriter(final File outputFile) throws IOException {
 
@@ -106,6 +106,7 @@ public class TSVExpressionMatrixWriter implements ExpressionMatrixWriter {
   /**
    * Public constructor.
    * @param outputFilename name of the file to use
+   * @throws IOException if an error occurs while creating the file
    */
   public TSVExpressionMatrixWriter(final String outputFilename)
       throws IOException {
