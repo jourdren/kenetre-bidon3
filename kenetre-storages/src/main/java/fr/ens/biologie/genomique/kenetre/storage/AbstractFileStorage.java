@@ -71,11 +71,10 @@ public abstract class AbstractFileStorage {
 
   /**
    * Get the underlying Data.
-   * @param src source to use
-   * @return a the underlying DataPath
+   * @param shortName short name of the source to use
+   * @return null if not file found
    * @throws IOException if an error occurs while getting the underlying
    *           DataFile
-   * @return null if not file found
    */
   public File getFile(final String shortName) throws IOException {
 
@@ -86,11 +85,10 @@ public abstract class AbstractFileStorage {
 
   /**
    * Get the underlying Data.
-   * @param src source to use
-   * @return a the underlying DataPath
+   * @param shortName short name of the source to use
+   * @return null if not file found
    * @throws IOException if an error occurs while getting the underlying
    *           DataFile
-   * @return null if not file found
    */
   protected DataPath getDataPath(final String shortName) throws IOException {
 

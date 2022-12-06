@@ -301,6 +301,7 @@ public abstract class AbstractFileGenomeDescStorage
   /**
    * Private constructor.
    * @param dir Path to the index storage
+   * @param logger logger to use
    * @throws IOException if an error occurs while testing the index storage
    */
   protected AbstractFileGenomeDescStorage(final DataPath dir,

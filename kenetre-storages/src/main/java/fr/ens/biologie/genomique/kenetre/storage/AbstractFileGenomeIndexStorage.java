@@ -140,12 +140,12 @@ public abstract class AbstractFileGenomeIndexStorage
    * @param additionalDescription additional parameter for the index
    * @param indexArchive DataPath of the index
    */
-  protected void put(final MapperInstance mapper,
+  protected void put(final MapperInstance mapperInstance,
       final GenomeDescription genome,
       final Map<String, String> additionalDescription,
       final DataPath indexArchive) {
 
-    requireNonNull(mapper, "Mapper is null");
+    requireNonNull(mapperInstance, "Mapper is null");
     requireNonNull(genome, "Genome description is null");
     requireNonNull(additionalDescription, "additionalDescription is null");
     requireNonNull(indexArchive, "IndexArchive is null");
@@ -163,14 +163,14 @@ public abstract class AbstractFileGenomeIndexStorage
     }
 
     final String key =
-        createKey(mapper, genome, additionalDescription, this.logger);
+        createKey(mapperInstance, genome, additionalDescription, this.logger);
 
     if (this.entries.containsKey(key)) {
       return;
     }
 
     final IndexEntry entry =
-        createIndexEntry(mapper, genome, additionalDescription);
+        createIndexEntry(mapperInstance, genome, additionalDescription);
     if (entry == null) {
       return;
     }

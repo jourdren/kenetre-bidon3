@@ -47,27 +47,26 @@ public class FileGenomeMapperIndexer {
   private final AbstractFileGenomeIndexStorage storage;
   private final String indexerArguments;
   private final int threads;
-  private final LinkedHashMap<String, String> additionalDescription;
   private final File temporaryDirectory;
 
   private final GenericLogger logger;
 
   /**
    * Create an archived genome index.
-   * @param genomeDataFile genome to index
+   * @param genomePath genome to index
    * @param genomeDescription description of the genome
-   * @param mapperIndexDataFile output genome index archive
+   * @param mapperIndexFile output genome index archive
    * @throws IOException if an error occurs while creating the genome
    */
   public void createIndex(final File genomePath,
-      final GenomeDescription genomeDescription, final File mapperIndexPath)
+      final GenomeDescription genomeDescription, final File mapperIndexFile)
       throws IOException {
 
     requireNonNull(genomePath);
     requireNonNull(genomePath);
 
     createIndex(new FileDataPath(genomePath), genomeDescription,
-        new FileDataPath(mapperIndexPath));
+        new FileDataPath(mapperIndexFile));
   }
 
   /**
@@ -175,6 +174,7 @@ public class FileGenomeMapperIndexer {
    * @param mapperInstance Mapper to use for the index generator
    * @param additionalArguments additional indexer arguments
    * @param additionalDescription additional indexer arguments description
+   * @param threads number of threads to use when creating the index
    * @param storage the genome index storage
    * @param temporaryDirectory temporary directory for the indexer
    * @param logger the logger

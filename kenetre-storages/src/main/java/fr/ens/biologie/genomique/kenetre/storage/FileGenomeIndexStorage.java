@@ -55,7 +55,7 @@ public class FileGenomeIndexStorage extends AbstractFileGenomeIndexStorage {
 
   /**
    * Create a GenomeIndexStorage
-   * @param source the path of the index storage
+   * @param dir the path of the genome descriptions storage
    * @param logger the logger
    * @return a GenomeIndexStorage object if the path contains an index storage
    *         or null if no index storage is found

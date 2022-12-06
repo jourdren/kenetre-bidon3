@@ -97,7 +97,6 @@ public interface DataPath {
 
   /**
    * Canonicalize symbolic link.
-   * @param file the file to Canonicalize.
    * @return a canonicalized file
    * @throws IOException if an error occurs while canonicalize the file
    */
@@ -129,7 +128,6 @@ public interface DataPath {
    * Create a symbolic link if the input and output use the same protocol and if
    * symbolic links are supported by the protocol. If symbolic link cannot be
    * created, the input file will be copied.
-   * @param input input file
    * @param output output file
    * @throws IOException if an error occurs while copying data or creating the
    *           symbolic link
