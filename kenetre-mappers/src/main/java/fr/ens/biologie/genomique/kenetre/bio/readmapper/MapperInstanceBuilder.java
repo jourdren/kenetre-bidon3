@@ -24,6 +24,7 @@ public class MapperInstanceBuilder {
   /**
    * Set the mapper version.
    * @param mapperVersion the mapperVersion to set
+   * @return the MapperBuilderInstance instance
    */
   public MapperInstanceBuilder withMapperVersion(String mapperVersion) {
 
@@ -34,6 +35,7 @@ public class MapperInstanceBuilder {
   /**
    * Set the flavor of the mapper.
    * @param mapperFlavor the mapperFlavor to set
+   * @return the MapperBuilderInstance instance
    */
   public MapperInstanceBuilder withMapperFlavor(String mapperFlavor) {
 
@@ -44,6 +46,7 @@ public class MapperInstanceBuilder {
   /**
    * Set if bundled binaries must be used.
    * @param useBundledBinaries the useBundledBinaries to set
+   * @return the MapperBuilderInstance instance
    */
   public MapperInstanceBuilder withUseBundledBinaries(
       boolean useBundledBinaries) {
@@ -55,6 +58,7 @@ public class MapperInstanceBuilder {
   /**
    * Set the docker image to use.
    * @param dockerImage the docker image to set
+   * @return the MapperBuilderInstance instance
    */
   public MapperInstanceBuilder withDockerImage(String dockerImage) {
 

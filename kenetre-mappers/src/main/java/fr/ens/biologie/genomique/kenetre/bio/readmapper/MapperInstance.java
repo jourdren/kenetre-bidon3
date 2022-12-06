@@ -130,6 +130,7 @@ public class MapperInstance {
   /**
    * Create the mapper index for a genome in a zip archive.
    * @param genomeIs InputStream to use for the genome file
+   * @param archiveOutputFile archive output file
    * @param indexerArguments indexer arguments
    * @param threads thread number to use
    * @throws IOException if an error occurs while creating the index
@@ -145,6 +146,7 @@ public class MapperInstance {
   /**
    * Create the mapper index for a genome in a zip archive.
    * @param genomeIs InputStream to use for the genome file
+   * @param archiveOutputFile archive output file
    * @param indexerArguments indexer arguments
    * @param threads thread number to use
    * @throws IOException if an error occurs while creating the index
@@ -174,6 +176,7 @@ public class MapperInstance {
   /**
    * Create the mapper index for a genome in a zip archive.
    * @param genomeFile the genome file
+   * @param archiveOutputFile archive output file
    * @param indexerArguments indexer arguments
    * @param threads thread number to use
    * @throws IOException if an error occurs while creating the index
@@ -189,6 +192,7 @@ public class MapperInstance {
   /**
    * Create the mapper index for a genome in a zip archive.
    * @param genomeFile the genome file
+   * @param archiveOutputFile archive output file
    * @param indexerArguments indexer arguments
    * @param threads thread number to use
    * @throws IOException if an error occurs while creating the index

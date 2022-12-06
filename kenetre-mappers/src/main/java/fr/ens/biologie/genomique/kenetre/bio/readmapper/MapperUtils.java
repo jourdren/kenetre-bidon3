@@ -46,6 +46,7 @@ public class MapperUtils {
 
   /**
    * Execute a command and get its output.
+   * @param executor the mapper executor
    * @param command the command to execute
    * @return a string with the output
    * @throws IOException if an error occurs while executing the command

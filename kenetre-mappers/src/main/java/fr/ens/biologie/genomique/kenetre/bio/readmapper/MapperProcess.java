@@ -897,6 +897,7 @@ public abstract class MapperProcess {
    * @param mapperName mapper name
    * @param executor executor
    * @param temporaryDirectory temporary directory
+   * @param stdErrFile standard error file
    * @param pairedEnd paired-end mode
    * @throws IOException if an error occurs
    */
@@ -912,6 +913,7 @@ public abstract class MapperProcess {
    * Constructor.
    * @param mapperName mapper name
    * @param executor executor
+   * @param stdErrFile standard error file
    * @param temporaryDirectory temporary directory
    * @param pairedEnd paired-end mode
    * @param inputFile1 first file to map
@@ -932,6 +934,7 @@ public abstract class MapperProcess {
    * @param mapperName mapper name
    * @param executor executor
    * @param temporaryDirectory temporary directory
+   * @param stdErrFile standard error file
    * @param pairedEnd paired-end mode
    * @param inputFile first file to map
    * @throws IOException if an error occurs
@@ -949,7 +952,9 @@ public abstract class MapperProcess {
    * @param mapperName mapper name
    * @param executor executor
    * @param temporaryDirectory temporary directory
+   * @param stdErrFile standard error file
    * @param pairedEnd paired-end mode
+   * @param threadForRead1 use a thread to read the first FASTQ file
    * @throws IOException if en error occurs
    */
   protected MapperProcess(final String mapperName, MapperExecutor executor,
@@ -966,7 +971,9 @@ public abstract class MapperProcess {
    * @param mapperName mapper name
    * @param executor executor
    * @param temporaryDirectory temporary directory
+   * @param stdErrFile standard error file
    * @param pairedEnd paired-end mode
+   * @param threadForRead1 use a thread to read the first FASTQ file
    * @param inputFile1 first file to map
    * @param inputFile2 second file to map
    * @throws IOException if en error occurs

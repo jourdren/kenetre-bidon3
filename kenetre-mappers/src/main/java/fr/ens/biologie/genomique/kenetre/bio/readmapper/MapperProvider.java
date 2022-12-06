@@ -81,6 +81,7 @@ public interface MapperProvider {
 
   /**
    * Get binary mapper version.
+   * @param mapperInstance mapper instance
    * @return a string with the version of the mapper
    */
   String readBinaryVersion(MapperInstance mapperInstance);
@@ -93,12 +94,14 @@ public interface MapperProvider {
 
   /**
    * Get the indexer executables.
+   * @param mapperInstance mapper instance
    * @return the indexer executables
    */
   List<String> getIndexerExecutables(MapperInstance mapperInstance);
 
   /**
    * Get the executable name.
+   * @param mapperInstance mapper instance
    * @return the executable name
    */
   String getMapperExecutableName(MapperInstance mapperInstance);
@@ -116,6 +119,8 @@ public interface MapperProvider {
 
   /**
    * Check if the mapper flavor exists.
+   * @param mapperInstance mapper instance
+   * @return true if the flavor of the mapper exists
    */
   boolean checkIfFlavorExists(MapperInstance mapperInstance);
 

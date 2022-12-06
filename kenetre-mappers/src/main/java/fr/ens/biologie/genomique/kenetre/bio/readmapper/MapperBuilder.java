@@ -50,6 +50,7 @@ public class MapperBuilder {
   /**
    * Set the logger.
    * @param logger the logger to set
+   * @return the MapperBuilder instance
    */
   public MapperBuilder withLogger(GenericLogger logger) {
 
@@ -62,6 +63,7 @@ public class MapperBuilder {
   /**
    * Set the application name.
    * @param applicationName the applicationName to set
+   * @return the MapperBuilder instance
    */
   public MapperBuilder withApplicationName(String applicationName) {
 
@@ -74,6 +76,7 @@ public class MapperBuilder {
   /**
    * Set the application version.
    * @param applicationVersion the applicationVersion to set
+   * @return the MapperBuilder instance
    */
   public MapperBuilder withApplicationVersion(String applicationVersion) {
 
@@ -86,6 +89,7 @@ public class MapperBuilder {
   /**
    * Set the temporary directory.
    * @param tempDir the temporary directory to set
+   * @return the MapperBuilder instance
    */
   public MapperBuilder withTempDirectory(File tempDir) {
 
@@ -98,6 +102,7 @@ public class MapperBuilder {
   /**
    * Set the temporary directory for executables.
    * @param executablesTempDir the temporary directory for executables to set
+   * @return the MapperBuilder instance
    */
   public MapperBuilder withExecutablesTempDirectory(File executablesTempDir) {
 
