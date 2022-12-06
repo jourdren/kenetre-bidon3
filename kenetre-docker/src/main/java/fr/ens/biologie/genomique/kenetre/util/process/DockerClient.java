@@ -30,6 +30,8 @@ public interface DockerClient {
   /**
    * Create a Docker connection.
    * @param dockerImage the Docker image to use with the connection
+   * @param mountFileIndirections if true, indirections for files and
+   *          directories will be also mounted
    * @return a new Docker connection
    * @throws IOException if an error occurs while creating the connection
    */
