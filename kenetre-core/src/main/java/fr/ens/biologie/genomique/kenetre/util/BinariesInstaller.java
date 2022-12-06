@@ -108,13 +108,15 @@ public class BinariesInstaller {
     is.close();
     fos.close();
 
-    outputFile.setExecutable(true, false);
+    outputFile.setExecutable(true, false);  
     outputFile.setReadable(true, false);
   }
 
   /**
    * Install a binary bundled in the jar in a temporary directory. If no
    * temporary directory is defined, use the "java.io.tmpdir" property.
+   * @param softwarePackage software name
+   * @param packageVersion software version
    * @param binaryFilename program to install
    * @param tempDir temporary directory where to install the binary
    * @return a string with the path of the installed binary

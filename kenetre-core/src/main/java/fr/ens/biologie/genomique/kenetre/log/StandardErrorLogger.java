@@ -48,7 +48,7 @@ public class StandardErrorLogger extends AbstractJavaUtilLoggingLogger {
    * Constructor.
    * @param loggerName name of the logger
    * @param conf configuration
-   * @throws Aozan3Exception if an error occurs while creating the logger
+   * @throws KenetreException if an error occurs while creating the logger
    */
   public StandardErrorLogger(String loggerName, Map<String, String> conf)
       throws KenetreException {

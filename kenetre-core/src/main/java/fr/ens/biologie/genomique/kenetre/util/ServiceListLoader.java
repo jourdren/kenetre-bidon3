@@ -164,6 +164,7 @@ public class ServiceListLoader {
   /**
    * Get the list of available services.
    * @param serviceName name of the service
+   * @return a list with the elements of the files related to the service
    * @throws IOException if an error occurs while reading the resources
    */
   public static List<String> load(final String serviceName) throws IOException {
@@ -174,6 +175,7 @@ public class ServiceListLoader {
    * Get the list of available services.
    * @param serviceName name of the service
    * @param loader ClassLoader to use to read resources
+   * @return a list with the elements of the files related to the service
    * @throws IOException if an error occurs while reading the resources
    */
   public static List<String> load(final String serviceName,
@@ -192,6 +194,7 @@ public class ServiceListLoader {
   /**
    * Get the list of available services.
    * @param serviceName name of the service
+   * @return a list with the entries of the files related to the service
    * @throws IOException if an error occurs while reading the resources
    */
   public static List<Entry> loadEntries(final String serviceName)
@@ -203,6 +206,7 @@ public class ServiceListLoader {
    * Get the list of available services.
    * @param serviceName name of the service
    * @param loader ClassLoader to use to read resources
+   * @return a list with the entries of the files related to the service
    * @throws IOException if an error occurs while reading the resources
    */
   public static List<Entry> loadEntries(final String serviceName,

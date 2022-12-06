@@ -127,6 +127,7 @@ public final class ProcessUtils {
    * Execute a command with the OS and save the output in file.
    * @param cmd Command to execute
    * @param outputFile The output file
+   * @param logger logger to use. Can be null
    * @throws IOException if an error occurs while running the process
    */
   public static void execWriteOutput(final String cmd, final File outputFile,
@@ -180,6 +181,7 @@ public final class ProcessUtils {
    * Execute a command with the OS and return the output in a string.
    * @param cmd Command to execute
    * @param addStdErr add the output of stderr in the result
+   * @param checkExitCode if true, non 0 exit code will throw an IOException
    * @return a string with the output the command
    * @throws IOException if an error occurs while running the process
    */
@@ -193,6 +195,8 @@ public final class ProcessUtils {
    * Execute a command with the OS and return the output in a string.
    * @param cmd Command to execute
    * @param addStdErr add the output of stderr in the result
+   * @param logger logger to use. Can be null
+   * @param checkExitCode if true, non 0 exit code will throw an IOException
    * @return a string with the output the command
    * @throws IOException if an error occurs while running the process
    */
@@ -253,6 +257,7 @@ public final class ProcessUtils {
    * @param p Process to log
    * @param cmd Command of the process
    * @param startTime Start time in ms
+   * @param logger logger to use
    * @throws IOException if an error occurs at the end of the process
    */
   public static void logEndTime(final Process p, final String cmd,
@@ -311,6 +316,7 @@ public final class ProcessUtils {
 
   /**
    * Return a set withs pid of existing executable.
+   * @param executableName name of the executable to look for
    * @return a set of integers with pid of existing executable
    */
   public static Set<Integer> getExecutablePids(final String executableName) {

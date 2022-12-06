@@ -853,6 +853,7 @@ public final class StringUtils {
    * Join elements of a collection of strings into a string.
    * @param collection collection of strings to join
    * @param separator separator to use
+   * @return a string with the joined elements of the collection
    */
   public static String join(final Collection<String> collection,
       final String separator) {
@@ -884,6 +885,7 @@ public final class StringUtils {
    * Join elements of an array of strings into a string.
    * @param array array of strings to join
    * @param separator separator to use
+   * @return a string with the joined elements of the array
    */
   public static String join(final String[] array, final String separator) {
 
@@ -908,6 +910,7 @@ public final class StringUtils {
    * Join elements of an array of objects into a string.
    * @param array array of objects to join
    * @param separator separator to use
+   * @return a string with the joined elements of the array
    */
   public static String join(final Object[] array, final String separator) {
 

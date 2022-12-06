@@ -201,6 +201,8 @@ public abstract class PseudoMapReduce {
   /**
    * Execute the map phase with a file as input.
    * @param inputFile input file for the mapper
+   * @throws IOException if an error occurs while creating files required by the
+   *           map tasks
    */
   public void doMap(final File inputFile) throws IOException {
 
@@ -223,6 +225,8 @@ public abstract class PseudoMapReduce {
    * Execute the map phase with an InputStream as input Create a list of file :
    * one for each index file used
    * @param is input stream for the mapper
+   * @throws IOException if an error occurs while creating files required by the
+   *           map tasks
    */
   public void doMap(final InputStream is) throws IOException {
 
@@ -341,6 +345,8 @@ public abstract class PseudoMapReduce {
   /**
    * Execute the reduce phase with a file as output.
    * @param outputFile output file for the reducer
+   * @throws IOException if an error occurs while creating files required by the
+   *           reduce tasks
    */
   public void doReduce(final File outputFile) throws IOException {
 
@@ -354,6 +360,8 @@ public abstract class PseudoMapReduce {
   /**
    * Execute the reduce phase with an OutputStream as output.
    * @param os output stream for the reducer
+   * @throws IOException if an error occurs while creating files required by the
+   *           reduce tasks
    */
   public void doReduce(final OutputStream os) throws IOException {
 

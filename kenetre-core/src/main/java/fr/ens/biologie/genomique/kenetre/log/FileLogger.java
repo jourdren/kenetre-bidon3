@@ -49,8 +49,9 @@ public class FileLogger extends AbstractJavaUtilLoggingLogger {
 
   /**
    * Constructor.
+   * @param loggerName name of the logger
    * @param conf configuration
-   * @throws Aozan3Exception if an error occurs while creating the logger
+   * @throws KenetreException if an error occurs while creating the logger
    */
   public FileLogger(String loggerName, Map<String, String> conf)
       throws KenetreException {

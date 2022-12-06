@@ -264,7 +264,7 @@ public final class SystemUtils {
    * @param hostname server host name
    * @param port server port
    * @param timeout timeout in milliseconds
-   * @return
+   * @return true if the host is active
    */
   public static boolean isActiveConnection(final String hostname,
       final int port, final int timeout) {

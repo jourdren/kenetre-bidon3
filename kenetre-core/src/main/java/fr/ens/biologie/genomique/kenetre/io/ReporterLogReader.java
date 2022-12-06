@@ -120,6 +120,7 @@ public class ReporterLogReader {
   /**
    * Public constructor
    * @param file File to use
+   * @throws FileNotFoundException if the file does not exists
    */
   public ReporterLogReader(final File file) throws FileNotFoundException {
 

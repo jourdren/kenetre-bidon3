@@ -445,6 +445,7 @@ public class FileUtils {
    * Utility method to create fast BufferedWriter. Warning the buffer is not
    * safe-thread.
    * @param os OutputStream to write
+   * @param charset the charset to use
    * @return a BufferedWriter
    */
   public static UnSynchronizedBufferedWriter createFastBufferedWriter(
@@ -708,6 +709,7 @@ public class FileUtils {
    * Copy a file.
    * @param srcFile File to copy
    * @param destFile Destination file
+   * @return true if the copy is successful
    * @throws IOException if an error occurs while copying file
    */
   public static boolean copyFile(final File srcFile, final File destFile)
@@ -721,6 +723,7 @@ public class FileUtils {
    * @param srcFile File to copy
    * @param destFile Destination file
    * @param overwrite overwrite existing file
+   * @return true if the copy is successful
    * @throws IOException if an error occurs while copying file
    */
   public static boolean copyFile(final File srcFile, final File destFile,
@@ -776,6 +779,7 @@ public class FileUtils {
    * Copy a file.
    * @param srcFile File to copy
    * @param destFile Destination file
+   * @return true if the move is successful
    * @throws IOException if an error occurs while copying file
    */
   public static boolean moveFile(final File srcFile, final File destFile)
@@ -789,6 +793,7 @@ public class FileUtils {
    * @param srcFile File to copy
    * @param destFile Destination file
    * @param overwrite overwrite existing file
+   * @return true if the move is successful
    * @throws IOException if an error occurs while copying file
    */
   public static boolean moveFile(final File srcFile, final File destFile,
@@ -812,6 +817,7 @@ public class FileUtils {
    * Create a zip archive with the content of a directory.
    * @param directory directory to compress
    * @param zipFile output file
+   * @param store compress or store the files to add to the ZIP file
    * @throws IOException if an error occurs while compressing data
    */
   public static void createZip(final File directory, final File zipFile,
@@ -825,6 +831,7 @@ public class FileUtils {
    * @param directory directory to compress
    * @param rootFilesToStore root files to store
    * @param zipFile output file
+   * @param store compress or store the files to add to the ZIP file
    * @throws IOException if an error occurs while compressing data
    */
   public static void createZip(final File directory,
@@ -857,6 +864,7 @@ public class FileUtils {
    * @param path path of the directory in the ZIP file
    * @param out ZipOutputStream stream
    * @param store compress or store the files to add to the ZIP file
+   * @throws IOException if en error occurs while creating the ZIP archive
    */
   public static void zipFolder(final File directory, final String path,
       final ZipOutputStream out, boolean store) throws IOException {
@@ -871,6 +879,7 @@ public class FileUtils {
    * @param rootFilesToStore root files to store
    * @param out ZipOutputStream stream
    * @param store compress or store the files to add to the ZIP file
+   * @throws IOException if en error occurs while creating the ZIP archive
    */
   public static void zipFolder(final File directory, final String path,
       final Collection<File> rootFilesToStore, final ZipOutputStream out,
@@ -1073,6 +1082,7 @@ public class FileUtils {
    * Remove a list of files.
    * @param filesToRemove An array with the files to remove
    * @param recursive true if the remove must be recursive
+   * @return true if the file removing is successful
    */
   public static boolean removeFiles(final File[] filesToRemove,
       final boolean recursive) {
