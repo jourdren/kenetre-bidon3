@@ -151,6 +151,7 @@ public class CommonLinksInfoTranslator extends AbstractTranslator {
   /**
    * Load the field and links from a file
    * @param in File to load
+   * @throws IOException if an error occurs while reading the links
    */
   public void load(final File in) throws IOException {
 
@@ -164,6 +165,7 @@ public class CommonLinksInfoTranslator extends AbstractTranslator {
   /**
    * Load the field and links from a file
    * @param in File to load
+   * @throws IOException if an error occurs while reading the links
    */
   public void load(final InputStream in) throws IOException {
 
@@ -176,6 +178,7 @@ public class CommonLinksInfoTranslator extends AbstractTranslator {
   /**
    * Load the field and links from a file
    * @param in File to load
+   * @throws IOException if an error occurs while reading the links
    */
   public void load(final Reader in) throws IOException {
 

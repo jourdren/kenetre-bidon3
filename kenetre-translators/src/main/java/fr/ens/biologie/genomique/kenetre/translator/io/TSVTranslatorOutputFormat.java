@@ -137,19 +137,20 @@ public class TSVTranslatorOutputFormat implements TranslatorOutputFormat {
    */
   public TSVTranslatorOutputFormat(final OutputStream os) {
 
-    this.writer =
-        new BufferedWriter(new OutputStreamWriter(os, Charset.defaultCharset()));
+    this.writer = new BufferedWriter(
+        new OutputStreamWriter(os, Charset.defaultCharset()));
   }
 
   /**
    * Public constructor.
    * @param file output file
+   * @throws IOException if an error occurs while creating the output file
    */
   public TSVTranslatorOutputFormat(final File file) throws IOException {
 
     this.writer =
         new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file),
-        		Charset.defaultCharset()));
+            Charset.defaultCharset()));
   }
 
 }

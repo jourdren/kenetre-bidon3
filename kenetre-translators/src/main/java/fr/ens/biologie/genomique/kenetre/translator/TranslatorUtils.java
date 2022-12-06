@@ -52,15 +52,15 @@ public class TranslatorUtils {
    * @param inputFile input file
    * @param fieldToTranslate field to use with translator
    * @param translator translator to use
-   * @throws FileNotFoundException if a file cannot be found
+   * @param outputFormat output format
    * @throws IOException if an error occurs while creating the output file
    */
   public static void addTranslatorFields(final File inputFile,
       final int fieldToTranslate, final Translator translator,
-      final TranslatorOutputFormat of) throws IOException {
+      final TranslatorOutputFormat outputFormat) throws IOException {
 
     addTranslatorFields(new FileInputStream(inputFile), fieldToTranslate,
-        translator, of);
+        translator, outputFormat);
   }
 
   /**
@@ -68,11 +68,12 @@ public class TranslatorUtils {
    * @param is input stream of the file
    * @param fieldToTranslate field to use with translator
    * @param translator translator to use
+   * @param outputFormat output format
    * @throws IOException if an error occurs while creating the output file
    */
   public static void addTranslatorFields(final InputStream is,
       final int fieldToTranslate, final Translator translator,
-      final TranslatorOutputFormat of) throws IOException {
+      final TranslatorOutputFormat outputFormat) throws IOException {
 
     if (is == null) {
       throw new NullPointerException("InputStream is null");
@@ -80,7 +81,7 @@ public class TranslatorUtils {
     if (translator == null) {
       throw new NullPointerException("Translator is null");
     }
-    if (of == null) {
+    if (outputFormat == null) {
       throw new NullPointerException("OutputFormat is null");
     }
 
@@ -100,26 +101,26 @@ public class TranslatorUtils {
 
         // Write original file header
         for (String field : fields) {
-          of.addHeaderField(field);
+          outputFormat.addHeaderField(field);
         }
 
         // Write original file header
         for (String translatorFieldname : translatorFieldnames) {
-          of.addHeaderField(translatorFieldname);
+          outputFormat.addHeaderField(translatorFieldname);
         }
 
         first = false;
       } else {
 
-        of.newLine();
+        outputFormat.newLine();
 
         // Write original file data
         for (String field1 : fields) {
           try {
-            of.writeDouble(Double.parseDouble(field1));
+            outputFormat.writeDouble(Double.parseDouble(field1));
           } catch (NumberFormatException e) {
 
-            of.writeText(field1);
+            outputFormat.writeText(field1);
           }
         }
 
@@ -145,13 +146,13 @@ public class TranslatorUtils {
           }
 
           if (value == null) {
-            of.writeEmpty();
+            outputFormat.writeEmpty();
           } else {
 
             if (link == null) {
-              of.writeText(value);
+              outputFormat.writeText(value);
             } else {
-              of.writeLink(value, link);
+              outputFormat.writeLink(value, link);
             }
 
           }
@@ -161,7 +162,7 @@ public class TranslatorUtils {
     }
 
     reader.close();
-    of.close();
+    outputFormat.close();
   }
 
   /**

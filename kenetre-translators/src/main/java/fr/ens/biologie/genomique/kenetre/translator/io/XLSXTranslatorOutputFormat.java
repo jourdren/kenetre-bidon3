@@ -213,6 +213,7 @@ public class XLSXTranslatorOutputFormat implements TranslatorOutputFormat {
   /**
    * Public constructor.
    * @param file output file
+   * @throws IOException if an error occurs while creating the output file
    */
   public XLSXTranslatorOutputFormat(final File file) throws IOException {
 
@@ -223,6 +224,7 @@ public class XLSXTranslatorOutputFormat implements TranslatorOutputFormat {
    * Public constructor.
    * @param file output file
    * @param temporaryDirectory the temporary directory to use
+   * @throws IOException if an error occurs while creating the output file
    */
   public XLSXTranslatorOutputFormat(final File file,
       final File temporaryDirectory) throws IOException {
