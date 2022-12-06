@@ -434,10 +434,9 @@ public class FileUtils {
    * safe-thread.
    * @param os OutputStream to write
    * @return a BufferedWriter
-   * @throws FileNotFoundException if the file is not found
    */
   public static UnSynchronizedBufferedWriter createFastBufferedWriter(
-      final OutputStream os) throws FileNotFoundException {
+      final OutputStream os) {
 
     return createFastBufferedWriter(os, null);
   }
@@ -447,11 +446,9 @@ public class FileUtils {
    * safe-thread.
    * @param os OutputStream to write
    * @return a BufferedWriter
-   * @throws FileNotFoundException if the file is not found
    */
   public static UnSynchronizedBufferedWriter createFastBufferedWriter(
-      final OutputStream os, final Charset charset)
-      throws FileNotFoundException {
+      final OutputStream os, final Charset charset) {
 
     if (os == null) {
       throw new NullPointerException("The output stream is null");
@@ -559,10 +556,8 @@ public class FileUtils {
    * safe-thread.
    * @param os OutputStream to write
    * @return a BufferedWriter
-   * @throws FileNotFoundException if the file is not found
    */
-  public static BufferedWriter createBufferedWriter(final OutputStream os)
-      throws FileNotFoundException {
+  public static BufferedWriter createBufferedWriter(final OutputStream os) {
 
     return createBufferedWriter(os, null);
   }
@@ -573,10 +568,9 @@ public class FileUtils {
    * @param os OutputStream to write
    * @param charset Charset to use
    * @return a BufferedWriter
-   * @throws FileNotFoundException if the file is not found
    */
   public static BufferedWriter createBufferedWriter(final OutputStream os,
-      final Charset charset) throws FileNotFoundException {
+      final Charset charset) {
 
     if (os == null) {
       throw new NullPointerException("The output stream is null");
