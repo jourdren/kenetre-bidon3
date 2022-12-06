@@ -64,6 +64,7 @@ public interface Comparator {
    * Compare two files no ordered, check if they are the same contents.
    * @param isA the path to the first file, used like reference.
    * @param isB the path to the second file,
+   * @return true if file are equals
    * @throws IOException if an error occurs while comparing the files.
    */
   boolean compareFiles(final InputStream isA, final InputStream isB)
@@ -89,7 +90,8 @@ public interface Comparator {
 
   /**
    * Set line which fail comparison between to file from tested file, it can
-   * compile few lines.
+   * compile few lines
+   * @param line line that cause the comparison fail
    */
   void setCauseFailComparison(final String line);
 

@@ -101,7 +101,7 @@ public class ITSuite {
    * @param globalsConf the globals configuration
    * @param applicationPath the application path
    * @return the instance of ITSuite object
-   * @throws EoulsanException if an error occurs when initialize integration
+   * @throws KenetreException if an error occurs when initialize integration
    *           test
    * @throws IOException if an error occurs with a test directories or
    *           configuration file

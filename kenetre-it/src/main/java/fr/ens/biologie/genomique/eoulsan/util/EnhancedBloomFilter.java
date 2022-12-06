@@ -98,24 +98,33 @@ public class EnhancedBloomFilter implements Serializable {
   //
   // Getter and Setter
   //
-  /** Return the bloom filter */
+  /**
+   * Get the bloom filter.
+   * @return the bloom filter
+   */
   public BloomFilter<String> getBf() {
     return this.bf;
   }
 
-  /** Return number of elements added in bloom filter */
+  /**
+   * Get number of elements added in bloom filter.
+   * @return the number of elements added in bloom filter
+   */
   public int getAddedNumberOfElements() {
     return this.addedNumberOfElements;
   }
 
-  /** Return parameter used to create bloom filter: expected number element */
+  /**
+   * Get the expected number of elements.
+   * @return the expected number of elements
+   */
   public int getExpectedNumberOfElements() {
     return this.expectedNumberOfElements;
   }
 
   /**
-   * Return parameter used to create bloom filter: false positive probability
-   * expected
+   * Get the false positive rate.
+   * @return the false positive rate
    */
   public double getFalsePositiveProbability() {
     return this.falsePositiveProbability;
@@ -135,7 +144,7 @@ public class EnhancedBloomFilter implements Serializable {
   //
 
   /**
-   * Public constructor
+   * Public constructor.
    * @param expectedNumberOfElements parameter to create bloom filter
    */
   public EnhancedBloomFilter(final int expectedNumberOfElements) {
@@ -143,7 +152,7 @@ public class EnhancedBloomFilter implements Serializable {
   }
 
   /**
-   * Public constructor
+   * Public constructor.
    * @param expectedNumberOfElements parameter to create bloom filter, must be
    *          positive
    * @param falsePositiveProbability parameter to create bloom filter, must be
@@ -183,7 +192,7 @@ public class EnhancedBloomFilter implements Serializable {
   }
 
   /**
-   * Public constructor
+   * Public constructor.
    * @param bf the Bloom filters
    * @param addedNumberOfElements added number of elements
    * @param expectedNumberOfElements parameter to create bloom filter, must be

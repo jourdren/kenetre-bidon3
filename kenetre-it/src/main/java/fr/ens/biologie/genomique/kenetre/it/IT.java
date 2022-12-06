@@ -841,7 +841,7 @@ public class IT {
    * @param testName test name
    * @throws IOException if an error occurs while reading the configuration
    *           file.
-   * @throws EoulsanException if an error occurs while search expected directory
+   * @throws KenetreException if an error occurs while search expected directory
    *           of the test.
    */
   public IT(final ITSuite itSuite, final Properties globalsConf,

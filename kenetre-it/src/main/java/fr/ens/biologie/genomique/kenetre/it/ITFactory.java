@@ -661,7 +661,7 @@ public class ITFactory {
 
   /**
    * Public constructor.
-   * @throws EoulsanException if an error occurs when reading configuration
+   * @throws KenetreException if an error occurs when reading configuration
    *           file.
    * @throws IOException if an error occurs when reading configuration
    */

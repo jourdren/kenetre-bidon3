@@ -93,6 +93,7 @@ public abstract class AbstractComparatorWithBloomFilter
   /**
    * Initialize BloomFilter with the expected number of elements.
    * @param expectedNumberOfElements expected number of elements
+   * @return an initialized Bloom filter
    */
   protected static EnhancedBloomFilter initBloomFilter(
       final int expectedNumberOfElements) {
@@ -101,11 +102,12 @@ public abstract class AbstractComparatorWithBloomFilter
   }
 
   /**
-   * In case Serialization is asked, check if the file.ser exists : true
-   * retrieve the bloom filter else create the filter and file.Ser
-   * corresponding.
+   * In case Serialization is asked, check if the file.ser exists: true retrieve
+   * the bloom filter else create the filter and file.Ser corresponding.
    * @param file source to create bloom filter
    * @return bloomFilter completed with the file
+   * @throws IOException if an error occurs while creating the Bloom filter
+   *           object from the serialized file
    */
   public EnhancedBloomFilter getBloomFilter(final File file)
       throws IOException {

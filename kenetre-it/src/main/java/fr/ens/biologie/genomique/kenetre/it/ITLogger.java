@@ -27,6 +27,10 @@ public class ITLogger {
     }
   };
 
+  /**
+   * Get the logger.
+   * @return the logger
+   */
   public static Logger getLogger() {
 
     return Logger.getLogger("itlogger");
@@ -34,6 +38,7 @@ public class ITLogger {
 
   /**
    * Initialize logger.
+   * @param loggerPath log file path
    * @throws IOException if an error occurs while create logger
    */
   public static void initLogger(String loggerPath) throws IOException {

@@ -103,7 +103,7 @@ public class ITOutput {
    * clean directory. If no pattern defined, moving all files.
    * @param destinationDirectory destination directory
    * @throws IOException if an error occurs while moving file
-   * @throws EoulsanException if no file copy in destination directory
+   * @throws KenetreException if no file copy in destination directory
    */
   public final void copyFiles(final File destinationDirectory)
       throws IOException, KenetreException {
@@ -709,7 +709,6 @@ public class ITOutput {
    * @param fileToRemovePatterns the file to remove patterns, separated by a
    *          space
    * @throws IOException if an error occurs while parsing input directory
-   * @throws EoulsanException the Eoulsan exception
    */
   public ITOutput(final File outputTestDirectory,
       final String fileToComparePatterns, final String excludeToComparePatterns,
@@ -717,7 +716,7 @@ public class ITOutput {
       final String checkExistenceFilePatterns,
 
       final String checkAbsenceFilePatterns, final String fileToRemovePatterns)
-      throws IOException, KenetreException {
+      throws IOException {
 
     this.directory = outputTestDirectory;
     this.fileToComparePatterns = fileToComparePatterns;
