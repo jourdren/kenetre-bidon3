@@ -126,6 +126,7 @@ public class Utils {
    * @param b the second object
    * @return true if the objects are equals
    */
+  @Deprecated
   public static boolean equal(final Object a, final Object b) {
 
     return Objects.equals(a, b);
@@ -137,6 +138,7 @@ public class Utils {
    * @param objects a list of objects
    * @return the hashcode of the array of objects
    */
+  @Deprecated
   public static int hashCode(final Object... objects) {
     return Arrays.hashCode(objects);
   }
@@ -146,6 +148,7 @@ public class Utils {
    * @param object object to test
    * @param msg error message
    */
+  @Deprecated
   public static void checkNotNull(final Object object, final String msg) {
 
     if (object == null) {
@@ -171,6 +174,7 @@ public class Utils {
    * @param <E> element type
    * @return a new ArrayList object
    */
+  @Deprecated
   public static <E> List<E> newArrayList(
       final Collection<? extends E> elements) {
 
@@ -183,6 +187,7 @@ public class Utils {
    * @param <E> element type
    * @return a new HashSet object
    */
+  @Deprecated
   public static <E> HashSet<E> newHashSet(
       final Collection<? extends E> elements) {
 
