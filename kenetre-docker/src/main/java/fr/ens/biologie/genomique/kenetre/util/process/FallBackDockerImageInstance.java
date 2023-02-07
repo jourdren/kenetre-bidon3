@@ -27,6 +27,7 @@ public class FallBackDockerImageInstance extends AbstractSimpleProcess
   private final int userUid;
   private final int userGid;
   private final boolean convertNFSFilesToMountRoots;
+  private final boolean gpus;
   private final GenericLogger logger;
 
   @Override
@@ -60,6 +61,11 @@ public class FallBackDockerImageInstance extends AbstractSimpleProcess
     final List<String> command = new ArrayList<>();
     command.add("docker");
     command.add("run");
+
+    if (this.gpus) {
+      command.add("--gpus");
+      command.add("all");
+    }
 
     // File/directories to mount
     List<File> directoriesToBind = new ArrayList<>();
@@ -200,7 +206,8 @@ public class FallBackDockerImageInstance extends AbstractSimpleProcess
    * @param logger logger to use
    */
   FallBackDockerImageInstance(final String dockerImage,
-      final boolean mountFileIndirections, final GenericLogger logger) {
+      final boolean mountFileIndirections, final boolean gpus,
+      final GenericLogger logger) {
 
     requireNonNull(dockerImage, "dockerImage argument cannot be null");
     requireNonNull(logger, "logger argument cannot be null");
@@ -213,6 +220,7 @@ public class FallBackDockerImageInstance extends AbstractSimpleProcess
     this.userGid = SystemUtils.gid();
 
     this.convertNFSFilesToMountRoots = mountFileIndirections;
+    this.gpus = gpus;
     this.logger = logger;
   }
 

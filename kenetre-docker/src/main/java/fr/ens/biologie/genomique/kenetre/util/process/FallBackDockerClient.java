@@ -20,6 +20,23 @@ import fr.ens.biologie.genomique.kenetre.log.GenericLogger;
 public class FallBackDockerClient implements DockerClient {
 
   private final GenericLogger logger;
+  private boolean gpus;
+
+  /**
+   * Test if gpus are enabled.
+   * @return true if gpus are enabled
+   */
+  public boolean isGpusEnabled() {
+    return gpus;
+  }
+
+  /**
+   * Enable the GPUs.
+   * @param enable enable the gpus
+   */
+  public void enableGpus(boolean enable) {
+    this.gpus = enable;
+  }
 
   @Override
   public void initialize(URI dockerConnectionURI) {
@@ -37,7 +54,7 @@ public class FallBackDockerClient implements DockerClient {
       boolean mountFileIndirections) {
 
     return new FallBackDockerImageInstance(dockerImage, mountFileIndirections,
-        this.logger);
+        this.gpus, this.logger);
   }
 
   @Override
