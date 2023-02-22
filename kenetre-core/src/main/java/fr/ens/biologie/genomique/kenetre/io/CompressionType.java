@@ -24,18 +24,24 @@
 
 package fr.ens.biologie.genomique.kenetre.io;
 
+import static java.util.Objects.requireNonNull;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.nio.file.Path;
 import java.util.Objects;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
-import fr.ens.biologie.genomique.kenetre.util.SystemUtils;
 import fr.ens.biologie.genomique.kenetre.util.StringUtils;
+import fr.ens.biologie.genomique.kenetre.util.SystemUtils;
 
 /**
  * This enum allow to create InputStreams and OutputStream for Gzip and Bzip2
@@ -206,6 +212,34 @@ public enum CompressionType {
     }
 
     return getCompressionTypeByExtension(StringUtils.extension(filename));
+  }
+
+  /**
+   * Get a compression type from a filename
+   * @param file the file
+   * @return the requested CompressionType
+   */
+  public static CompressionType getCompressionTypeByFile(final File file) {
+
+    if (file == null) {
+      return null;
+    }
+
+    return getCompressionTypeByFilename(file.getName());
+  }
+
+  /**
+   * Get a compression type from a filename
+   * @param file the file
+   * @return the requested CompressionType
+   */
+  public static CompressionType getCompressionTypeByFile(final Path path) {
+
+    if (path == null) {
+      return null;
+    }
+
+    return getCompressionTypeByFile(path.toFile());
   }
 
   /**
@@ -425,6 +459,76 @@ public enum CompressionType {
 
       return null;
     }
+  }
+
+  //
+  // Open and create methods
+  //
+
+  /**
+   * Create an uncompressed InputStream for a file.
+   * @param path file to read
+   * @return an uncompressed InputStream
+   * @throws IOException if error occurs while creating the InputStream
+   */
+  public static InputStream open(Path path) throws IOException {
+
+    requireNonNull(path);
+
+    return open(path.toFile());
+  }
+
+  /**
+   * Create an uncompressed InputStream for a file.
+   * @param file file to read
+   * @return an uncompressed InputStream
+   * @throws IOException if error occurs while creating the InputStream
+   */
+  public static InputStream open(File file) throws IOException {
+
+    requireNonNull(file);
+
+    CompressionType ct = getCompressionTypeByFile(file);
+
+    if (ct == null) {
+      throw new IOException(
+          "Unable to determine compression of the file: " + file);
+    }
+
+    return ct.createInputStream(new FileInputStream(file));
+  }
+
+  /**
+   * Create a compressed OutputStream for a file.
+   * @param path file to write
+   * @return an compressed OutputStream
+   * @throws IOException if error occurs while creating the OutputStream
+   */
+  public static OutputStream create(Path path) throws IOException {
+
+    requireNonNull(path);
+
+    return create(path.toFile());
+  }
+
+  /**
+   * Create a compressed OutputStream for a file.
+   * @param file file to write
+   * @return an compressed OutputStream
+   * @throws IOException if error occurs while creating the OutputStream
+   */
+  public static OutputStream create(File file) throws IOException {
+
+    requireNonNull(file);
+
+    CompressionType ct = getCompressionTypeByFile(file);
+
+    if (ct == null) {
+      throw new IOException(
+          "Unable to determine compression of the file: " + file);
+    }
+
+    return ct.createOutputStream(new FileOutputStream(file));
   }
 
   //
