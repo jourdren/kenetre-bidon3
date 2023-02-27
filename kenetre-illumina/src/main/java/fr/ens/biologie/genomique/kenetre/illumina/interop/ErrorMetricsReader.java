@@ -75,6 +75,9 @@ public class ErrorMetricsReader extends AbstractBinaryFileReader<ErrorMetric> {
     case 5:
       return 16;
 
+    case 6:
+      return 12 + 4 * this.adapterSequences.size();
+
     default:
       throw new IllegalArgumentException();
     }
