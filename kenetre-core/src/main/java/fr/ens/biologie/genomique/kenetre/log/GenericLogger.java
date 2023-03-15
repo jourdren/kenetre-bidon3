@@ -1,5 +1,7 @@
 package fr.ens.biologie.genomique.kenetre.log;
 
+import fr.ens.biologie.genomique.kenetre.util.StringUtils;
+
 /**
  * This interface define a generic logger for Eoulsan.
  * @author Laurent Jourdren
@@ -37,7 +39,20 @@ public interface GenericLogger {
    */
   default void error(Throwable exception) {
 
-    error(exception != null ? exception.getMessage() : "exception is null");
+    error(exception, false);
+  }
+
+  /**
+   * Log an error message.
+   * @param exception exception to log
+   */
+  default void error(Throwable exception, boolean logStackTrace) {
+
+    error(exception != null
+        ? exception.getMessage()
+            + (logStackTrace
+                ? "\n" + StringUtils.stackTraceToString(exception) : "")
+        : "exception is null");
   }
 
   /**
