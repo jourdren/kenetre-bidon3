@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -148,6 +149,21 @@ public class DemultiplexStats {
       return twoMismatchIndexReadPercent;
     }
 
+    @Override
+    public String toString() {
+      return "Entry [lane="
+          + lane + ", sampleID=" + sampleID + ", index=" + index
+          + ", readCount=" + readCount + ", perfectIndexReadCount="
+          + perfectIndexReadCount + ", oneMismatchIndexReadCount="
+          + oneMismatchIndexReadCount + ", q30BaseCount=" + q30BaseCount
+          + ", meanPFQualityScore=" + meanPFQualityScore
+          + ", twoMismatchIndexReadCount=" + twoMismatchIndexReadCount
+          + ", readsPercent=" + readsPercent + ", perfectIndexreadsPercent="
+          + perfectIndexreadsPercent + ", oneMismatchIndexReadPercent="
+          + oneMismatchIndexReadPercent + ", twoMismatchIndexReadPercent="
+          + twoMismatchIndexReadPercent + "]";
+    }
+
     //
     // Constructor
     //
@@ -192,6 +208,16 @@ public class DemultiplexStats {
   //
   // Constructor
   //
+
+  /**
+   * Public constructor.
+   * @param file input file
+   * @throws IOException if an error occurs while reading the input file
+   */
+  public DemultiplexStats(Path file) throws IOException {
+
+    this(new FileInputStream(file.toFile()));
+  }
 
   /**
    * Public constructor.
