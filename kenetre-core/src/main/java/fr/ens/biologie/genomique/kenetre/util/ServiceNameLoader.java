@@ -169,7 +169,7 @@ public abstract class ServiceNameLoader<S> {
   /**
    * Reload the list of the available class services.
    */
-  public void reload() {
+  public synchronized void reload() {
 
     this.notYetLoaded = false;
     this.classNames.clear();
@@ -182,7 +182,7 @@ public abstract class ServiceNameLoader<S> {
     try {
 
       for (ServiceListLoader.Entry e : ServiceListLoader
-          .loadEntries(this.service.getName())) {
+          .loadEntries(this.service.getName(), this.loader)) {
 
         // Check if class is allowed to be load
         if (!this.classesToNotLoad.contains(e.getValue())) {
@@ -431,7 +431,7 @@ public abstract class ServiceNameLoader<S> {
 
     this.service = service;
     this.loader = loader == null
-        ? Thread.currentThread().getContextClassLoader() : loader;
+        ? this.getClass().getClassLoader() : loader;
   }
 
 }
