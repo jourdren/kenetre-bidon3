@@ -46,6 +46,7 @@ public class MapperBuilder {
   private File tempDir = new File(System.getProperty("java.io.tmpdir"));
   private File executablesTempDir =
       new File(System.getProperty("java.io.tmpdir"));
+  private boolean useNewServiceInstance;
 
   /**
    * Set the logger.
@@ -112,6 +113,15 @@ public class MapperBuilder {
     return this;
   }
 
+  /**
+   * Force the usage of a new service instance to get ReadFilter objects.
+   * @param forceUseNewServiceInstance force new service instance usage
+   */
+  public void useNewServiceInstance(boolean forceUseNewServiceInstance) {
+
+    this.useNewServiceInstance = forceUseNewServiceInstance;
+  }
+
   //
   // Build method
   //
@@ -122,10 +132,10 @@ public class MapperBuilder {
    */
   public Mapper build() {
 
-    MapperProvider provider =
-        MapperProviderService.getInstance().newService(this.mapperName);
+    MapperProvider provider = MapperProviderService
+        .getInstance(this.useNewServiceInstance).newService(this.mapperName);
 
-    if (provider ==null) {
+    if (provider == null) {
       this.logger.error("Unknown mapper: " + this.mapperName);
       return null;
     }

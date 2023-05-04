@@ -50,6 +50,7 @@ public class MultiReadFilterBuilder {
   private final List<ReadFilter> listFilter = new ArrayList<>();
 
   private final Map<String, String> mapParameters = new LinkedHashMap<>();
+  private boolean useNewServiceInstance;
 
   /**
    * Set the logger to use.
@@ -125,7 +126,8 @@ public class MultiReadFilterBuilder {
     if (this.mapFilters.containsKey(filterName)) {
       filter = this.mapFilters.get(filterName);
     } else {
-      filter = ReadFilterService.getInstance().newService(filterName);
+      filter = ReadFilterService.getInstance(this.useNewServiceInstance)
+          .newService(filterName);
 
       if (filter == null) {
 
@@ -217,6 +219,15 @@ public class MultiReadFilterBuilder {
   public Map<String, String> getParameters() {
 
     return Collections.unmodifiableMap(this.mapParameters);
+  }
+
+  /**
+   * Force the usage of a new service instance to get ReadFilter objects.
+   * @param forceUseNewServiceInstance force new service instance usage
+   */
+  public void useNewServiceInstance(boolean forceUseNewServiceInstance) {
+
+    this.useNewServiceInstance = forceUseNewServiceInstance;
   }
 
   //
