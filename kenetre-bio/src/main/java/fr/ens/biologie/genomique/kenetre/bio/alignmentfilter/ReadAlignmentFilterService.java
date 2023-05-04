@@ -44,9 +44,20 @@ public class ReadAlignmentFilterService
    * Retrieve the singleton static instance of an AlignmentsFilter.
    * @return A ActionService instance
    */
-  public static synchronized ReadAlignmentFilterService getInstance() {
+  public static ReadAlignmentFilterService getInstance() {
 
-    if (service == null) {
+    return getInstance(false);
+  }
+
+  /**
+   * Retrieve the singleton static instance of an AlignmentsFilter.
+   * @param forceNewInstance force the usage of a new instance
+   * @return A ActionService instance
+   */
+  public static synchronized ReadAlignmentFilterService getInstance(
+      boolean forceNewInstance) {
+
+    if (forceNewInstance || service == null) {
       service = new ReadAlignmentFilterService();
     }
 

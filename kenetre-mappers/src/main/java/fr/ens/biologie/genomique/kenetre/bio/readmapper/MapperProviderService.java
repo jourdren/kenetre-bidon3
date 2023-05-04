@@ -43,9 +43,20 @@ public class MapperProviderService extends ServiceNameLoader<MapperProvider> {
    * Retrieve the singleton static instance of SequenceReadsMapperService.
    * @return A SequenceReadsMapperService instance
    */
-  public static synchronized MapperProviderService getInstance() {
+  public static MapperProviderService getInstance() {
 
-    if (service == null) {
+    return getInstance(false);
+  }
+
+  /**
+   * Retrieve the singleton static instance of SequenceReadsMapperService.
+   * @param forceNewInstance force the usage of a new instance
+   * @return A SequenceReadsMapperService instance
+   */
+  public static synchronized MapperProviderService getInstance(
+      boolean forceNewInstance) {
+
+    if (forceNewInstance || service == null) {
       service = new MapperProviderService();
     }
 

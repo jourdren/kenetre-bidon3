@@ -44,9 +44,20 @@ public class ExpressionCounterService
    * Retrieve the singleton static instance of ExpressionCounterService.
    * @return A ExpressionCounterService instance
    */
-  public static synchronized ExpressionCounterService getInstance() {
+  public static ExpressionCounterService getInstance() {
 
-    if (service == null) {
+    return getInstance(false);
+  }
+
+  /**
+   * Retrieve the singleton static instance of ExpressionCounterService.
+   * @param forceNewInstance force the usage of a new instance
+   * @return A ExpressionCounterService instance
+   */
+  public static synchronized ExpressionCounterService getInstance(
+      boolean forceNewInstance) {
+
+    if (forceNewInstance || service == null) {
       service = new ExpressionCounterService();
     }
 

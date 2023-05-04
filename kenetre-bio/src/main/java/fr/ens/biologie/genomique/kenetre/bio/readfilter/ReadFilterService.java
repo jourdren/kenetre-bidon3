@@ -43,9 +43,20 @@ public class ReadFilterService extends ServiceNameLoader<ReadFilter> {
    * Retrieve the singleton static instance of an ReadFilterService.
    * @return A ActionService instance
    */
-  public static synchronized ReadFilterService getInstance() {
+  public static ReadFilterService getInstance() {
 
-    if (service == null) {
+    return getInstance(false);
+  }
+
+  /**
+   * Retrieve the singleton static instance of an ReadFilterService.
+   * @param forceNewInstance force the usage of a new instance
+   * @return A ActionService instance
+   */
+  public static synchronized ReadFilterService getInstance(
+      boolean forceNewInstance) {
+
+    if (forceNewInstance || service == null) {
       service = new ReadFilterService();
     }
 
