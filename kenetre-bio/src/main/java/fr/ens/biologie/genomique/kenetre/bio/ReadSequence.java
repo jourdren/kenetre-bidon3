@@ -26,6 +26,9 @@ package fr.ens.biologie.genomique.kenetre.bio;
 
 import static fr.ens.biologie.genomique.kenetre.util.StringUtils.trim;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -179,6 +182,35 @@ public final class ReadSequence extends Sequence {
             this.quality.substring(beginIndex, endIndex));
 
     result.fastqFormat = this.fastqFormat;
+
+    return result;
+  }
+
+  /**
+   * Split a read in reads with defined length.
+   * @param length length of the new reads
+   * @return a list with new reads
+   */
+  public List<ReadSequence> split(final int length) {
+
+    if (this.sequence == null) {
+      return Collections.emptyList();
+    }
+
+    if (length < 1) {
+      throw new IllegalArgumentException("length argument is lower than 1");
+    }
+
+    List<ReadSequence> result = new ArrayList<>();
+    int seqLen = this.sequence.length();
+    int start = 0;
+
+    while (start < seqLen) {
+
+      int end = Math.min(start + length, seqLen);
+      result.add(subSequence(start, end));
+      start += length;
+    }
 
     return result;
   }

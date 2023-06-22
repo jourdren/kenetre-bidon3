@@ -35,6 +35,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.lang.reflect.Modifier;
+import java.util.List;
 
 import org.junit.Test;
 
@@ -259,6 +260,40 @@ public class ReadSequenceTest {
     assertNotNull(s1.subSequence(1, 4));
     s1.setQuality("!!!");
     assertNull(s1.subSequence(1, 4));
+  }
+
+  @Test
+  public void testSplit() {
+
+    ReadSequence s1 =
+        new ReadSequence("toto", "AAAATTTTGGGGCCCC", "1111222233334444");
+
+    try {
+      s1.split(0);
+      fail();
+    } catch (IllegalArgumentException e) {
+      assertTrue(true);
+    }
+
+    List<ReadSequence> list1 = s1.split(4);
+    assertEquals("AAAA", list1.get(0).getSequence());
+    assertEquals("1111", list1.get(0).getQuality());
+    assertEquals("TTTT", list1.get(1).getSequence());
+    assertEquals("2222", list1.get(1).getQuality());
+    assertEquals("GGGG", list1.get(2).getSequence());
+    assertEquals("3333", list1.get(2).getQuality());
+    assertEquals("CCCC", list1.get(3).getSequence());
+    assertEquals("4444", list1.get(3).getQuality());
+
+    ReadSequence s2 = new ReadSequence("toto", "AAAATTTTGGG", "11112222333");
+
+    List<ReadSequence> list2 = s2.split(4);
+    assertEquals("AAAA", list2.get(0).getSequence());
+    assertEquals("1111", list2.get(0).getQuality());
+    assertEquals("TTTT", list2.get(1).getSequence());
+    assertEquals("2222", list2.get(1).getQuality());
+    assertEquals("GGG", list2.get(2).getSequence());
+    assertEquals("333", list2.get(2).getQuality());
   }
 
   @Test
