@@ -350,6 +350,8 @@ public class SAMUtils {
 
       // Bases in block
       case M:
+      case EQ:
+      case X:
       case D:
         end += e.getLength();
         break;
