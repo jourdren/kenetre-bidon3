@@ -7,6 +7,7 @@ import static fr.ens.biologie.genomique.kenetre.illumina.samplesheet.Sample.LANE
 import static fr.ens.biologie.genomique.kenetre.illumina.samplesheet.Sample.PROJECT_FIELD_NAME;
 import static fr.ens.biologie.genomique.kenetre.illumina.samplesheet.Sample.SAMPLE_ID_FIELD_NAME;
 import static fr.ens.biologie.genomique.kenetre.illumina.samplesheet.Sample.SAMPLE_NAME_FIELD_NAME;
+import static fr.ens.biologie.genomique.kenetre.illumina.samplesheet.Sample.SAMPLE_REF_FIELD_NAME;
 import static fr.ens.biologie.genomique.kenetre.illumina.samplesheet.SampleSheet.BCL2FASTQ_DEMUX_TABLE_NAME;
 import static fr.ens.biologie.genomique.kenetre.illumina.samplesheet.SampleSheet.BCLCONVERT_DEMUX_TABLE_NAME;
 import static java.util.Objects.requireNonNull;
@@ -837,6 +838,41 @@ public class SampleSheetUtils {
 
       if (s.isSampleIdField()) {
         s.setSampleId(s.getSampleId().replace('_', '-'));
+      }
+    }
+
+  }
+
+  /**
+   * Fix common issues with column names.
+   * @param sampleSheet the samplesheet to fix
+   */
+  public static void fixColumnNames(SampleSheet sampleSheet) {
+
+    requireNonNull(sampleSheet);
+
+    if (!(sampleSheet.containsSection(BCL2FASTQ_DEMUX_TABLE_NAME)
+        || sampleSheet.containsSection(BCLCONVERT_DEMUX_TABLE_NAME))) {
+      return;
+    }
+
+    TableSection demuxTable = sampleSheet.getDemuxSection();
+
+    for (String fieldName : demuxTable.getSamplesFieldNames()) {
+
+      for (String f : Arrays.asList(LANE_FIELD_NAME, SAMPLE_ID_FIELD_NAME,
+          SAMPLE_NAME_FIELD_NAME, DESCRIPTION_FIELD_NAME, PROJECT_FIELD_NAME,
+          INDEX1_FIELD_NAME, INDEX2_FIELD_NAME, SAMPLE_REF_FIELD_NAME)) {
+
+        if (!f.equals(fieldName)
+            && f.toLowerCase().equals(fieldName.toLowerCase())) {
+          demuxTable.renameField(fieldName, f);
+        }
+      }
+
+      // Rename index1 field to index
+      if ("index1".equals(fieldName.toLowerCase())) {
+        demuxTable.renameField(fieldName, Sample.INDEX1_FIELD_NAME);
       }
     }
 
