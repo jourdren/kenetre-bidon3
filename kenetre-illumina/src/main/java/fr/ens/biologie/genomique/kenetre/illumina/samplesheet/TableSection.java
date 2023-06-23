@@ -190,6 +190,30 @@ public class TableSection implements Iterable<Sample> {
     return this.samplesheet;
   }
 
+  /**
+   * Remove value.
+   * @param fieldName field to remove
+   */
+  public void removeField(final String fieldName) {
+
+    for (Sample s : getSamples()) {
+      s.remove(fieldName);
+    }
+  }
+
+  /**
+   * Rename a field
+   * @param oldFieldName old name of the field
+   * @param newFieldName new name of the field
+   */
+  public void renameField(final String oldFieldName,
+      final String newFieldName) {
+
+    for (Sample s : getSamples()) {
+      s.rename(oldFieldName, newFieldName);
+    }
+  }
+
   //
   // Constructor
   //

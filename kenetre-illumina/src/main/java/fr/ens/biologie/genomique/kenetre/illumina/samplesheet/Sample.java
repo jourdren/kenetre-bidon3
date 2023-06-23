@@ -1,7 +1,9 @@
 package fr.ens.biologie.genomique.kenetre.illumina.samplesheet;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,7 +25,8 @@ public class Sample {
 
   private final TableSection tableSection;
 
-  private final Map<String, String> map = new LinkedHashMap<String, String>();
+  private final Map<String, String> map = new HashMap<String, String>();
+  private final List<String> fields = new ArrayList<>();
 
   //
   // Getters
@@ -45,7 +48,7 @@ public class Sample {
    */
   public int getLane() {
 
-    if (!this.map.containsKey(LANE_FIELD_NAME)) {
+    if (!isField(LANE_FIELD_NAME)) {
       return -1;
     }
 
@@ -68,7 +71,7 @@ public class Sample {
    */
   public String getSampleId() {
 
-    return this.map.get(SAMPLE_ID_FIELD_NAME);
+    return get(SAMPLE_ID_FIELD_NAME);
   }
 
   /**
@@ -77,7 +80,7 @@ public class Sample {
    */
   public String getSampleName() {
 
-    return this.map.get(SAMPLE_NAME_FIELD_NAME);
+    return get(SAMPLE_NAME_FIELD_NAME);
   }
 
   /**
@@ -86,7 +89,7 @@ public class Sample {
    */
   public String getDescription() {
 
-    return this.map.get(DESCRIPTION_FIELD_NAME);
+    return get(DESCRIPTION_FIELD_NAME);
   }
 
   /**
@@ -95,7 +98,7 @@ public class Sample {
    */
   public String getSampleProject() {
 
-    return this.map.get(PROJECT_FIELD_NAME);
+    return get(PROJECT_FIELD_NAME);
   }
 
   /**
@@ -104,7 +107,7 @@ public class Sample {
    */
   public String getIndex1() {
 
-    return this.map.get(INDEX1_FIELD_NAME);
+    return get(INDEX1_FIELD_NAME);
   }
 
   /**
@@ -113,7 +116,7 @@ public class Sample {
    */
   public String getIndex2() {
 
-    return this.map.get(INDEX2_FIELD_NAME);
+    return get(INDEX2_FIELD_NAME);
   }
 
   /**
@@ -122,7 +125,7 @@ public class Sample {
    */
   public String getSampleRef() {
 
-    return this.map.get(SAMPLE_REF_FIELD_NAME);
+    return get(SAMPLE_REF_FIELD_NAME);
   }
 
   /**
@@ -131,13 +134,7 @@ public class Sample {
    */
   public List<String> getFieldNames() {
 
-    final List<String> result = new ArrayList<String>();
-
-    for (String key : this.map.keySet()) {
-      result.add(key);
-    }
-
-    return result;
+    return new ArrayList<>(this.fields);
   }
 
   /**
@@ -146,7 +143,7 @@ public class Sample {
    */
   public boolean isIndexed() {
 
-    if (this.map.containsKey(INDEX1_FIELD_NAME)) {
+    if (isField(INDEX1_FIELD_NAME)) {
 
       final String value = getIndex1();
 
@@ -163,7 +160,7 @@ public class Sample {
    */
   public boolean isDualIndexed() {
 
-    if (isIndexed() && this.map.containsKey(INDEX2_FIELD_NAME)) {
+    if (isIndexed() && isField(INDEX2_FIELD_NAME)) {
 
       final String value = getIndex2();
 
@@ -219,14 +216,17 @@ public class Sample {
    */
   public void set(final String fieldName, final String value) {
 
-    if (fieldName == null) {
-      throw new NullPointerException("The field name cannot be null");
+    if (fieldName == null || fieldName.isBlank()) {
+      throw new NullPointerException("The field name cannot be null or blank");
     }
 
-    if (value == null) {
+    if (value == null || fieldName.isBlank()) {
       throw new NullPointerException("The value cannot be null");
     }
 
+    if (!this.map.containsKey(fieldName)) {
+      this.fields.add(fieldName);
+    }
     this.map.put(fieldName, value);
   }
 
@@ -299,7 +299,7 @@ public class Sample {
       throw new NullPointerException("The index value cannot be null");
     }
 
-    this.map.put(INDEX1_FIELD_NAME, index.trim());
+    set(INDEX1_FIELD_NAME, index.trim());
   }
 
   /**
@@ -312,7 +312,7 @@ public class Sample {
       throw new NullPointerException("The index value cannot be null");
     }
 
-    this.map.put(INDEX2_FIELD_NAME, index.trim());
+    set(INDEX2_FIELD_NAME, index.trim());
   }
 
   //
@@ -408,6 +408,29 @@ public class Sample {
   public void remove(final String fieldName) {
 
     this.map.remove(fieldName);
+    this.fields.remove(fieldName);
+  }
+
+  /**
+   * Rename a field
+   * @param oldFieldName old name of the field
+   * @param newFieldName new name of the field
+   */
+  public void rename(final String oldFieldName, final String newFieldName) {
+
+    requireNonNull(oldFieldName);
+    requireNonNull(newFieldName);
+
+    if (!this.map.containsKey(oldFieldName)
+        || this.map.containsKey(newFieldName)) {
+      return;
+    }
+
+    int index = this.fields.indexOf(oldFieldName);
+    this.fields.set(index, newFieldName);
+    String value = this.map.get(oldFieldName);
+    this.map.remove(oldFieldName);
+    this.map.put(newFieldName, value);
   }
 
   //
