@@ -139,7 +139,9 @@ public class SampleSheetV2Parser implements SampleSheetParser {
           value = "" + parseLane(value);
         }
 
-        sample.set(key, value);
+        if (!key.isBlank()) {
+          sample.set(key, value);
+        }
       }
     }
   }
