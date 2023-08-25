@@ -24,6 +24,18 @@
   </repositories>
   <dependencies>
     <dependency>
+      <groupId>fr.ens.biologie.genomique</groupId>
+      <artifactId>kenetre-core</artifactId>
+      <version>${project.version}</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>${guava.version}</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
       <groupId>cisd</groupId>
       <artifactId>jhdf5</artifactId>
       <version>19.04.1</version>
