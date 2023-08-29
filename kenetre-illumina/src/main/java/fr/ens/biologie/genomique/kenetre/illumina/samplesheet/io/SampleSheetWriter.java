@@ -41,4 +41,6 @@ public interface SampleSheetWriter extends AutoCloseable {
    */
   void writer(SampleSheet samplesheet) throws IOException;
 
+  @Override
+  void close() throws IOException;
 }
