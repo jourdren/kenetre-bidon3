@@ -18,6 +18,11 @@ import com.google.common.base.Splitter;
 import fr.ens.biologie.genomique.kenetre.KenetreException;
 import fr.ens.biologie.genomique.kenetre.nanopore.samplesheet.SampleSheet;
 
+/**
+ * This class reads a Nanopore sample sheet file in CSV format.
+ * @since 0.20
+ * @author Laurent Jourdren
+ */
 public class SampleSheetCSVReader implements SampleSheetReader, AutoCloseable {
 
   private final BufferedReader reader;
