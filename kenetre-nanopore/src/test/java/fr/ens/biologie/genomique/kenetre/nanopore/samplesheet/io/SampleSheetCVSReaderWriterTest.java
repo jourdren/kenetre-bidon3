@@ -17,7 +17,7 @@ import org.junit.Test;
 import fr.ens.biologie.genomique.kenetre.nanopore.samplesheet.SampleSheet;
 import fr.ens.biologie.genomique.kenetre.nanopore.samplesheet.SampleSheet.Barcode;
 
-public class SampleSheetCVSReaderWriter {
+public class SampleSheetCVSReaderWriterTest {
 
   private static final String SAMPLE_SHEET_NO_BARCODE_FILENAME =
       "sample_sheet_no_barcode.csv";
