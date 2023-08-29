@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
@@ -160,6 +161,41 @@ public class SampleSheet {
       }
 
       return createKey(this.barcode);
+    }
+
+    //
+    // Object methods
+    //
+
+    @Override
+    public int hashCode() {
+
+      return Objects.hash(this.barcode, this.internalBarcode,
+          this.externalBarcode, this.alias, this.type);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+
+      if (this == o)
+        return true;
+      if (!(o instanceof Barcode))
+        return false;
+      Barcode other = (Barcode) o;
+
+      return Objects.equals(this.barcode, other.barcode)
+          && Objects.equals(this.internalBarcode, other.internalBarcode)
+          && Objects.equals(this.externalBarcode, other.externalBarcode)
+          && Objects.equals(this.alias, other.alias)
+          && Objects.equals(this.type, other.type);
+    }
+
+    @Override
+    public String toString() {
+      return "Barcode [barcode="
+          + barcode + ", internalBarcode=" + internalBarcode
+          + ", externalBarcode=" + externalBarcode + ", alias=" + alias
+          + ", type=" + type + "]";
     }
 
     //
@@ -442,6 +478,17 @@ public class SampleSheet {
   }
 
   /**
+   * Test if a barcode exists.
+   * @param barcode the name of the barcode
+   * @return a barcode object
+   */
+  public boolean containsBarcode(String barcode) {
+
+    requireNonNull(barcode);
+    return this.barcodes.containsKey(createKey(barcode));
+  }
+
+  /**
    * Get a barcode object from the name of the barcode.
    * @param barcode the name of the barcode
    * @return a barcode object
@@ -450,6 +497,21 @@ public class SampleSheet {
 
     requireNonNull(barcode);
     return this.barcodes.get(createKey(barcode));
+  }
+
+  /**
+   * Test if a barcode exists.
+   * @param internalBarcode the name of the internal barcode
+   * @param internalBarcode the name of the external barcode
+   * @return a barcode object
+   */
+  public boolean containsBarcode(String internalBarcode,
+      String externalBarcode) {
+
+    requireNonNull(internalBarcode);
+    requireNonNull(externalBarcode);
+    return this.barcodes
+        .containsKey(createKey(internalBarcode, externalBarcode));
   }
 
   /**
@@ -858,6 +920,46 @@ public class SampleSheet {
     }
 
     return null;
+  }
+
+  //
+  // Object methods
+  //
+
+  @Override
+  public int hashCode() {
+
+    return Objects.hash(this.protocolRunId, this.flowCellId, this.positionId,
+        this.sampleId, this.experimentId, this.flowCellProductCode, this.kit,
+        this.barcodes);
+  }
+
+  @Override
+  public boolean equals(Object o) {
+
+    if (this == o)
+      return true;
+    if (!(o instanceof SampleSheet))
+      return false;
+    SampleSheet other = (SampleSheet) o;
+
+    return Objects.equals(this.protocolRunId, other.protocolRunId)
+        && Objects.equals(this.flowCellId, other.flowCellId)
+        && Objects.equals(this.positionId, other.positionId)
+        && Objects.equals(this.sampleId, other.sampleId)
+        && Objects.equals(this.experimentId, other.experimentId)
+        && Objects.equals(this.flowCellProductCode, other.flowCellProductCode)
+        && Objects.equals(this.kit, other.kit)
+        && Objects.equals(this.barcodes, other.barcodes);
+  }
+
+  @Override
+  public String toString() {
+    return "SampleSheet [protocolRunId="
+        + protocolRunId + ", flowCellId=" + flowCellId + ", positionId="
+        + positionId + ", sampleId=" + sampleId + ", experimentId="
+        + experimentId + ", flowCellProductCode=" + flowCellProductCode
+        + ", kit=" + kit + ", barcodes=" + barcodes + "]";
   }
 
 }

@@ -1,0 +1,13 @@
+position_id,flow_cell_product_code,kit,sample_id,experiment_id,barcode,alias
+X1,FLO-MIN106,SQK-LSK109 EXP-NBD196,Test,Sample_sheet,barcode01,Test1
+X1,FLO-MIN106,SQK-LSK109 EXP-NBD196,Test,Sample_sheet,barcode02,Test2
+X1,FLO-MIN106,SQK-LSK109 EXP-NBD196,Test,Sample_sheet,barcode03,Test3
+X1,FLO-MIN106,SQK-LSK109 EXP-NBD196,Test,Sample_sheet,barcode04,Test4
+X1,FLO-MIN106,SQK-LSK109 EXP-NBD196,Test,Sample_sheet,barcode05,Test5
+X1,FLO-MIN106,SQK-LSK109 EXP-NBD196,Test,Sample_sheet,barcode06,Test6
+X1,FLO-MIN106,SQK-LSK109 EXP-NBD196,Test,Sample_sheet,barcode07,Test7
+X1,FLO-MIN106,SQK-LSK109 EXP-NBD196,Test,Sample_sheet,barcode08,Test8
+X1,FLO-MIN106,SQK-LSK109 EXP-NBD196,Test,Sample_sheet,barcode09,Test9
+X1,FLO-MIN106,SQK-LSK109 EXP-NBD196,Test,Sample_sheet,barcode10,Test10
+X1,FLO-MIN106,SQK-LSK109 EXP-NBD196,Test,Sample_sheet,barcode11,Test11
+X1,FLO-MIN106,SQK-LSK109 EXP-NBD196,Test,Sample_sheet,barcode12,Test12
