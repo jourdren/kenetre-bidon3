@@ -395,12 +395,7 @@ public class SampleSheet {
    */
   public void setFlowCellProductCode(String flowCellProductCode) {
 
-    requireNonNull(flowCellProductCode);
-    if (flowCellProductCode.isBlank()) {
-      throw new IllegalArgumentException(
-          "flowCellProductCode argument cannot be empty");
-    }
-    this.flowCellProductCode = flowCellProductCode;
+    this.flowCellProductCode = checkFlowCellProductCode(flowCellProductCode);
   }
 
   /**
@@ -426,13 +421,7 @@ public class SampleSheet {
    */
   public void setSequencingKit(String sequencingKit) {
 
-    requireNonNull(sequencingKit);
-    if (kit.trim().contains(" ")) {
-      throw new IllegalArgumentException(
-          "Invalid sequencing kit: " + sequencingKit);
-    }
-
-    setKit(sequencingKit);
+    setKit(checkSequencingKit(sequencingKit));
   }
 
   /**
@@ -441,17 +430,7 @@ public class SampleSheet {
    */
   public void addExpansionKit(String expansionKit) {
 
-    requireNonNull(expansionKit);
-    if (kit.trim().contains(" ")) {
-      throw new IllegalArgumentException(
-          "Invalid expansion kit: " + expansionKit);
-    }
-    if (!kit.startsWith("EXP-")) {
-      throw new IllegalArgumentException(
-          "Invalid kit argument: " + expansionKit);
-    }
-
-    this.kit = kit + ' ' + expansionKit.trim();
+    this.kit = kit + ' ' + checkExpansionKit(expansionKit);
   }
 
   //
@@ -726,6 +705,48 @@ public class SampleSheet {
         && ((this.flowCellId != null && !this.flowCellId.isBlank())
             || (this.positionId != null && !this.positionId.isBlank()))
         && checkDuplicateAliases() == null;
+  }
+
+  static String checkFlowCellProductCode(String flowCellProductCode) {
+
+    requireNonNull(flowCellProductCode);
+    if (flowCellProductCode.isBlank()) {
+      throw new IllegalArgumentException(
+          "flowCellProductCode argument cannot be empty");
+    }
+
+    return flowCellProductCode.trim().toUpperCase();
+  }
+
+  static String checkSequencingKit(String sequencingKit) {
+
+    requireNonNull(sequencingKit);
+    if (sequencingKit.trim().contains(" ")) {
+      throw new IllegalArgumentException(
+          "Invalid sequencing kit: " + sequencingKit);
+    }
+
+    if (!sequencingKit.trim().startsWith("SQK-")) {
+      throw new IllegalArgumentException(
+          "Invalid kit argument: " + sequencingKit);
+    }
+
+    return sequencingKit.trim().toUpperCase();
+  }
+
+  static String checkExpansionKit(String expansionKit) {
+
+    requireNonNull(expansionKit);
+    if (expansionKit.trim().contains(" ")) {
+      throw new IllegalArgumentException(
+          "Invalid expansion kit: " + expansionKit);
+    }
+    if (!expansionKit.startsWith("EXP-")) {
+      throw new IllegalArgumentException(
+          "Invalid kit argument: " + expansionKit);
+    }
+
+    return expansionKit.trim().toUpperCase();
   }
 
   public String toCSV() {
