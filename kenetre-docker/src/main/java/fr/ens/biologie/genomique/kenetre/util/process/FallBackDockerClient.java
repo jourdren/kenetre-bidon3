@@ -11,6 +11,7 @@ import com.google.common.collect.Lists;
 
 import fr.ens.biologie.genomique.kenetre.log.DummyLogger;
 import fr.ens.biologie.genomique.kenetre.log.GenericLogger;
+import fr.ens.biologie.genomique.kenetre.util.SystemUtils;
 
 /**
  * This class define a Docker client using the Docker command line.
@@ -21,14 +22,42 @@ public class FallBackDockerClient implements DockerClient {
 
   private final GenericLogger logger;
   private boolean gpus;
+  private int userUid = SystemUtils.uid();
+  private int userGid = SystemUtils.gid();
+
+  //
+  // Getters
+  //
 
   /**
    * Test if gpus are enabled.
    * @return true if gpus are enabled
    */
   public boolean isGpusEnabled() {
-    return gpus;
+    return this.gpus;
   }
+
+  /**
+   * Get the uid for executing the instance.
+   * @return the uid for executing the instance
+   */
+  public int uid() {
+
+    return this.userUid;
+  }
+
+  /**
+   * Get the uid for executing the instance.
+   * @return the uid for executing the instance
+   */
+  public int gid() {
+
+    return this.userUid;
+  }
+
+  //
+  // Setters
+  //
 
   /**
    * Enable the GPUs.
@@ -37,6 +66,54 @@ public class FallBackDockerClient implements DockerClient {
   public void enableGpus(boolean enable) {
     this.gpus = enable;
   }
+
+  /**
+   * Set the UID.
+   * @param uid the UID to set
+   */
+  public void setUid(int uid) {
+
+    if (uid < 0) {
+      throw new IllegalArgumentException("Invalid UID value: " + uid);
+    }
+
+    this.userUid = uid;
+  }
+
+  /**
+   * Set the GID.
+   * @param gid the GID to set
+   */
+  public void setGid(int gid) {
+
+    if (gid < 0) {
+      throw new IllegalArgumentException("Invalid GID value: " + gid);
+    }
+
+    this.userGid = gid;
+  }
+
+  /**
+   * Set the UID and GID for root.
+   */
+  public void useRootUser() {
+
+    setUid(0);
+    setGid(0);
+  }
+
+  /**
+   * Set the UID and GID for nobody.
+   */
+  public void useNobodyUser() {
+
+    setUid(65534);
+    setGid(65534);
+  }
+
+  //
+  // DockerClient methods
+  //
 
   @Override
   public void initialize(URI dockerConnectionURI) {
@@ -54,7 +131,7 @@ public class FallBackDockerClient implements DockerClient {
       boolean mountFileIndirections) {
 
     return new FallBackDockerImageInstance(dockerImage, mountFileIndirections,
-        this.gpus, this.logger);
+        this.gpus, this.userUid, this.userGid, this.logger);
   }
 
   @Override

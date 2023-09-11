@@ -203,11 +203,30 @@ public class FallBackDockerImageInstance extends AbstractSimpleProcess
   /**
    * Constructor.
    * @param dockerImage Docker image
+   * @param mountFileIndirections true if indirection must be mounted
+   * @param gpus enable gpus
    * @param logger logger to use
    */
   FallBackDockerImageInstance(final String dockerImage,
       final boolean mountFileIndirections, final boolean gpus,
       final GenericLogger logger) {
+
+    this(dockerImage, mountFileIndirections, gpus, SystemUtils.uid(),
+        SystemUtils.gid(), logger);
+  }
+
+  /**
+   * Constructor.
+   * @param dockerImage Docker image
+   * @param mountFileIndirections true if indirection must be mounted
+   * @param gpus enable gpus
+   * @param uid uid of the user to use for executing a process
+   * @param gid gid of the user to use for executing a process
+   * @param logger logger to use
+   */
+  FallBackDockerImageInstance(final String dockerImage,
+      final boolean mountFileIndirections, final boolean gpus,
+      final int userUid, final int userGid, final GenericLogger logger) {
 
     requireNonNull(dockerImage, "dockerImage argument cannot be null");
     requireNonNull(logger, "logger argument cannot be null");
@@ -216,8 +235,8 @@ public class FallBackDockerImageInstance extends AbstractSimpleProcess
         getClass().getSimpleName() + " docker image used: " + dockerImage);
 
     this.dockerImage = dockerImage;
-    this.userUid = SystemUtils.uid();
-    this.userGid = SystemUtils.gid();
+    this.userUid = userUid;
+    this.userGid = userGid;
 
     this.convertNFSFilesToMountRoots = mountFileIndirections;
     this.gpus = gpus;
