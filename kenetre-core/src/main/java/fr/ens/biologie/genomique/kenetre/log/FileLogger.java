@@ -21,7 +21,7 @@ public class FileLogger extends AbstractJavaUtilLoggingLogger {
       throws KenetreException {
 
     // Get Log path
-    String logPath = Objects.toString(conf.get("aozan.log"), "");
+    String logPath = Objects.toString(conf.get("log.file"), "");
 
     if (logPath.trim().isEmpty()) {
       throw new KenetreException("No log file defined");
@@ -31,8 +31,8 @@ public class FileLogger extends AbstractJavaUtilLoggingLogger {
 
       Handler result = new FileHandler(logPath, true);
 
-      if (conf.containsKey("aozan.log.level")) {
-        String logLevelName = conf.get("aozan.log.level");
+      if (conf.containsKey("log.level")) {
+        String logLevelName = conf.get("log.level");
         Level logLevel = Level.parse(logLevelName.toUpperCase());
         result.setLevel(logLevel);
       }

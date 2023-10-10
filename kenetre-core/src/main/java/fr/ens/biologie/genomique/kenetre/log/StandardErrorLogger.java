@@ -31,8 +31,8 @@ public class StandardErrorLogger extends AbstractJavaUtilLoggingLogger {
 
     };
 
-    if (conf.containsKey("aozan.log.level")) {
-      String logLevelName = conf.get("aozan.log.level");
+    if (conf.containsKey("log.level")) {
+      String logLevelName = conf.get("log.level");
       Level logLevel = Level.parse(logLevelName.toUpperCase());
       result.setLevel(logLevel);
     }
