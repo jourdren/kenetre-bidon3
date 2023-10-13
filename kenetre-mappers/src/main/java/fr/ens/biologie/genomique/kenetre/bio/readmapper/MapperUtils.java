@@ -28,7 +28,9 @@ import static java.util.Objects.requireNonNull;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -36,6 +38,8 @@ import java.util.List;
 
 import fr.ens.biologie.genomique.kenetre.bio.readmapper.MapperExecutor.Result;
 import fr.ens.biologie.genomique.kenetre.io.FileUtils;
+import fr.ens.biologie.genomique.kenetre.log.GenericLogger;
+import fr.ens.biologie.genomique.kenetre.util.Reporter;
 
 /**
  * This class contains utility methods for the package.
@@ -137,6 +141,69 @@ public class MapperUtils {
     }
 
     return result;
+  }
+
+  /**
+   * This method write SAM output from a mapper in a file.
+   * @param in mapper output as an inputStream
+   * @param samOutputFile output SAM file
+   * @throws IOException if an error occurs while reading or writing mapper
+   *           output
+   */
+  public static final void writeMapperOutputToFile(InputStream in,
+      File samOutputFile) throws IOException {
+
+    writeMapperOutputToFile(in, samOutputFile, null, null, null);
+  }
+
+  /**
+   * This method write SAM output from a mapper in a file.
+   * @param in mapper output as an inputStream
+   * @param samOutputFile output SAM file
+   * @param reporter optional reporter for statistic
+   * @param counterGroup counter group if a report has been defined
+   * @param logger optional logger for log statistics
+   * @throws IOException if an error occurs while reading or writing mapper
+   *           output
+   */
+  public static final void writeMapperOutputToFile(InputStream in,
+      File samOutputFile, Reporter reporter, String counterGroup,
+      GenericLogger logger) throws IOException {
+
+    requireNonNull(in);
+    requireNonNull(samOutputFile);
+    if (reporter != null) {
+      requireNonNull(counterGroup);
+    }
+
+    int entriesParsed = 0;
+    try (
+        BufferedReader readerResults =
+            new BufferedReader(new InputStreamReader(in));
+        FileWriter writer = new FileWriter(samOutputFile)) {
+
+      String line;
+      while ((line = readerResults.readLine()) != null) {
+
+        writer.write(line);
+        writer.write('\n');
+
+        String trimmedLine = line.trim();
+        if ("".equals(trimmedLine) || trimmedLine.startsWith("@")) {
+          continue;
+        }
+
+        if (trimmedLine.indexOf('\t') != -1) {
+
+          entriesParsed++;
+          reporter.incrCounter(counterGroup, "output mapping alignments", 1);
+        }
+      }
+    }
+
+    if (logger != null) {
+      logger.info(entriesParsed + " entries parsed in output file");
+    }
   }
 
 }
