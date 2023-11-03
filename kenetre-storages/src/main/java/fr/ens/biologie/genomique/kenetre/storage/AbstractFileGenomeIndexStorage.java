@@ -330,6 +330,8 @@ public abstract class AbstractFileGenomeIndexStorage
         final IndexEntry e = new IndexEntry();
         e.genomeName = fields.get(0);
         e.genomeMD5 = fields.get(1);
+        e.sequences = parseSequenceField(fields.get(2));
+        e.length = parseLengthField(fields.get(3));
         e.mapperName = fields.get(4);
         e.fileName = fields.get(5);
 
@@ -409,6 +411,32 @@ public abstract class AbstractFileGenomeIndexStorage
       final String genomeMD5) {
 
     return mapperName.toLowerCase().trim() + '\t' + genomeMD5;
+  }
+
+  private static int parseSequenceField(String s) {
+
+    if (s == null) {
+      return 0;
+    }
+
+    try {
+      return Integer.parseInt(s);
+    } catch (NumberFormatException e) {
+      return 0;
+    }
+  }
+
+  private static long parseLengthField(String s) {
+
+    if (s == null) {
+      return 0;
+    }
+
+    try {
+      return Long.parseLong(s);
+    } catch (NumberFormatException e) {
+      return 0;
+    }
   }
 
   //
