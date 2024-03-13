@@ -24,6 +24,7 @@
 
 package fr.ens.biologie.genomique.kenetre.util;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -268,6 +269,17 @@ public final class Version implements Comparable<Version> {
   }
 
   /**
+   * Compare the version to another version as a String.
+   * @param version Version to compare.
+   * @return a negative integer, zero, or a positive integer as this object is
+   *         less than, equal to, or greater than the specified object.
+   */
+  public int compareTo(final String version) {
+
+    return compareTo(new Version(version));
+  }
+
+  /**
    * Compare 2 Version object.
    * @param version Version to compare.
    * @return a negative integer, zero, or a positive integer as this object is
@@ -305,9 +317,29 @@ public final class Version implements Comparable<Version> {
    * @param version version to test
    * @return true if a version is less than the current version
    */
+  public boolean lessThan(final String version) {
+
+    return lessThan(new Version(version));
+  }
+
+  /**
+   * Test if a version is less than the current version.
+   * @param version version to test
+   * @return true if a version is less than the current version
+   */
   public boolean lessThan(final Version version) {
 
     return compareTo(version) < 0;
+  }
+
+  /**
+   * Test if a version is less than or equals to the current version.
+   * @param version version to test
+   * @return true if a version is less than or equals to the current version
+   */
+  public boolean lessThanOrEqualTo(final String version) {
+
+    return lessThanOrEqualTo(new Version(version));
   }
 
   /**
@@ -325,9 +357,29 @@ public final class Version implements Comparable<Version> {
    * @param version version to test
    * @return true if a version is greater than the current version
    */
+  public boolean greaterThan(final String version) {
+
+    return greaterThan(new Version(version));
+  }
+
+  /**
+   * Test if a version is greater than the current version.
+   * @param version version to test
+   * @return true if a version is greater than the current version
+   */
   public boolean greaterThan(final Version version) {
 
     return compareTo(version) > 0;
+  }
+
+  /**
+   * Test if a version if greater than or equals to the current version.
+   * @param version version to test
+   * @return true if a version is greater than or equals to the current version
+   */
+  public boolean greaterThanOrEqualTo(final String version) {
+
+    return greaterThanOrEqualTo(new Version(version));
   }
 
   /**
