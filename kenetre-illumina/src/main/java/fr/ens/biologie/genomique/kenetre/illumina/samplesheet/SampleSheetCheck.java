@@ -12,29 +12,66 @@ import fr.ens.biologie.genomique.kenetre.KenetreException;
 
 public class SampleSheetCheck {
 
+  private static final int SAMPLE_ID_MAX_LENGTH = 20;
+
+  private int sampleIdMaxLength = SAMPLE_ID_MAX_LENGTH;
+  private boolean allowUnderscoreInSampleID;
+
+  //
+  // Getters
+  //
+
+  /**
+   * Get the maximum sample ID length.
+   * @return the maximum sample ID length
+   */
+  public int getSampleIdMaxLength() {
+    return this.sampleIdMaxLength;
+  }
+
+  /**
+   * Test if underscore is allowed in sample ID.
+   * @return true if underscore is allowed in sample ID
+   */
+  public boolean isAllowUnderscoreInSampleID() {
+    return allowUnderscoreInSampleID;
+  }
+
+  //
+  // Setters
+  //
+
+  /**
+   * Set he maximum sample ID length.
+   * @param sampleIdMaxLength the maximum sample ID length
+   */
+  public void setSampleIdMaxLength(boolean sampleIdMaxLength) {
+
+    this.sampleIdMaxLength = sampleIdMaxLength ? SAMPLE_ID_MAX_LENGTH : -1;
+  }
+
+  /**
+   * Set if underscore is allowed in sample ID.
+   * @param allowUnderscoreInSampleID true if underscore is allowed in sample ID
+   */
+  public void setAllowUnderscoreInSampleID(boolean allowUnderscoreInSampleID) {
+    this.allowUnderscoreInSampleID = allowUnderscoreInSampleID;
+  }
+
+  //
+  // Check methods
+  //
+
   /**
    * Check a samplesheet.
    * @param samplesheet Bcl2fastq samplesheet object to check
    * @return a list of warnings
    * @throws KenetreException if the samplesheet is not valid
    */
-  public static List<String> checkSampleSheet(final SampleSheet samplesheet)
+  public List<String> checkSampleSheet(final SampleSheet samplesheet)
       throws KenetreException {
 
-    return checkSampleSheet(samplesheet, null, false);
-  }
-
-  /**
-   * Check a samplesheet.
-   * @param samplesheet the samplesheet
-   * @param flowCellId the flow cell id
-   * @return the list
-   * @throws KenetreException if the samplesheet is not valid
-   */
-  public static List<String> checkSampleSheet(final SampleSheet samplesheet,
-      final String flowCellId) throws KenetreException {
-
-    return checkSampleSheet(samplesheet, flowCellId, false);
+    return checkSampleSheet(samplesheet, null);
   }
 
   /**
@@ -46,9 +83,8 @@ public class SampleSheetCheck {
    * @return the list
    * @throws KenetreException if the samplesheet is not valid
    */
-  public static List<String> checkSampleSheet(final SampleSheet samplesheet,
-      final String flowCellId, final boolean allowUnderscoreInSampleID)
-      throws KenetreException {
+  public List<String> checkSampleSheet(final SampleSheet samplesheet,
+      final String flowCellId) throws KenetreException {
 
     if (samplesheet == null) {
       throw new NullPointerException("The samplesheet object is null");
@@ -97,12 +133,11 @@ public class SampleSheetCheck {
       }
 
       // Check if the sample is null or empty
-      checkSampleId(sample.getSampleId(), allowUnderscoreInSampleID, sampleIds);
+      checkSampleId(sample.getSampleId(), sampleIds);
 
       // Check if the sample is null or empty
       if (sample.isSampleNameField()) {
-        checkSampleName(sample.getSampleName(), allowUnderscoreInSampleID,
-            sampleNames, true, warnings);
+        checkSampleName(sample.getSampleName(), sampleNames, true, warnings);
       }
 
       // Check sample reference
@@ -207,7 +242,6 @@ public class SampleSheetCheck {
     Collections.sort(result);
 
     return result;
-
   }
 
   /**
@@ -262,13 +296,10 @@ public class SampleSheetCheck {
   /**
    * Check sample id.
    * @param sampleId the sample id
-   * @param allowUnderscoreInSampleID allow underscore characters in Sample_ID
-   *          fields
    * @param sampleIds the sample ids
    * @throws KenetreException if the sample id is invalid
    */
-  private static void checkSampleId(final String sampleId,
-      boolean allowUnderscoreInSampleID, final Set<String> sampleIds)
+  private void checkSampleId(final String sampleId, final Set<String> sampleIds)
       throws KenetreException {
 
     // Check if null of empty
@@ -280,17 +311,18 @@ public class SampleSheetCheck {
     checkCharset(sampleId);
 
     // Check for forbidden characters
-    if (hasForbiddenCharacter(sampleId, allowUnderscoreInSampleID)) {
+    if (hasForbiddenCharacter(sampleId, this.allowUnderscoreInSampleID)) {
       throw new KenetreException(
           "Invalid sample id, only letters, digits, '-' or '_' characters are allowed: "
               + sampleId + ".");
     }
 
     // Check the length of the Id
-    if (sampleId.length() > 20) {
+    if (this.sampleIdMaxLength > 0
+        && sampleId.length() > this.sampleIdMaxLength) {
       throw new KenetreException(
-          "Invalid sample id, a valid id cannot be longuer than 20 characters: "
-              + sampleId + ".");
+          "Invalid sample id, a valid id cannot be longuer than "
+              + this.sampleIdMaxLength + " characters: " + sampleId + ".");
     }
 
     sampleIds.add(sampleId);
@@ -323,14 +355,12 @@ public class SampleSheetCheck {
   /**
    * Check sample name.
    * @param sampleName the sample name
-   * @param allowUnderscoreInSampleID allow underscore characters
    * @param sampleNames the sample names
    * @throws KenetreException if the sample name is invalid
    */
-  private static void checkSampleName(final String sampleName,
-      boolean allowUnderscoreInSampleID, final Set<String> sampleNames,
-      Boolean isBcl2Fastq2, final List<String> warnings)
-      throws KenetreException {
+  private void checkSampleName(final String sampleName,
+      final Set<String> sampleNames, Boolean isBcl2Fastq2,
+      final List<String> warnings) throws KenetreException {
 
     if (isNullOrEmpty(sampleName)) {
 
