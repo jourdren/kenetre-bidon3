@@ -24,6 +24,7 @@
 
 package fr.ens.biologie.genomique.kenetre.bio.readmapper;
 
+import static java.nio.charset.Charset.defaultCharset;
 import static java.util.Objects.requireNonNull;
 
 import java.io.BufferedReader;
@@ -180,7 +181,7 @@ public class MapperUtils {
     try (
         BufferedReader readerResults =
             new BufferedReader(new InputStreamReader(in));
-        FileWriter writer = new FileWriter(samOutputFile)) {
+        FileWriter writer = new FileWriter(samOutputFile, defaultCharset())) {
 
       String line;
       while ((line = readerResults.readLine()) != null) {
