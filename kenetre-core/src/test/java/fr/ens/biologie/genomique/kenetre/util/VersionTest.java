@@ -191,7 +191,7 @@ public class VersionTest {
     assertTrue(v1.lessThan(v2));
     assertFalse(v2.lessThan(v1));
     assertFalse(v1.lessThan(v1bis));
-    assertFalse(v1.lessThan(null));
+    assertFalse(v1.lessThan((Version) null));
   }
 
   @Test
@@ -204,7 +204,7 @@ public class VersionTest {
     assertTrue(v1.lessThanOrEqualTo(v2));
     assertFalse(v2.lessThanOrEqualTo(v1));
     assertTrue(v1.lessThanOrEqualTo(v1bis));
-    assertFalse(v1.lessThanOrEqualTo(null));
+    assertFalse(v1.lessThanOrEqualTo((Version) null));
   }
 
   @Test
@@ -217,7 +217,7 @@ public class VersionTest {
     assertTrue(v2.greaterThan(v1));
     assertFalse(v1.greaterThan(v2));
     assertFalse(v1.greaterThan(v1bis));
-    assertTrue(v1.greaterThan(null));
+    assertTrue(v1.greaterThan((Version) null));
   }
 
   @Test
@@ -230,7 +230,7 @@ public class VersionTest {
     assertTrue(v2.greaterThanOrEqualTo(v1));
     assertFalse(v1.greaterThanOrEqualTo(v2));
     assertTrue(v1.greaterThanOrEqualTo(v1bis));
-    assertTrue(v1.greaterThanOrEqualTo(null));
+    assertTrue(v1.greaterThanOrEqualTo((Version) null));
   }
 
   @Test
