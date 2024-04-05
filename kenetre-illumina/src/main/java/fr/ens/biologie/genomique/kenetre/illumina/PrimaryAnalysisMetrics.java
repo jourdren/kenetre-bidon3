@@ -125,6 +125,7 @@ public class PrimaryAnalysisMetrics {
         switch (metric) {
 
         case "average %q30":
+        case "≥ q30":
           this.averageQ30 = Float.parseFloat(value) * multiplyFactor(unit);
           break;
 
