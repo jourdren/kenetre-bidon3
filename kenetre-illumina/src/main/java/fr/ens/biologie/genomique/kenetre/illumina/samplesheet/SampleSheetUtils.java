@@ -565,7 +565,7 @@ public class SampleSheetUtils {
         index1 = index1.trim().toLowerCase();
 
         try {
-          SampleSheetCheck.checkIndex(index1);
+          SampleSheetChecker.checkIndex(index1);
         } catch (KenetreException e) {
 
           if (!sequences.containsKey(index1)) {
@@ -588,7 +588,7 @@ public class SampleSheetUtils {
         index2 = index2.trim().toLowerCase();
 
         try {
-          SampleSheetCheck.checkIndex(index2);
+          SampleSheetChecker.checkIndex(index2);
         } catch (KenetreException e) {
 
           if (!sequences.containsKey(index2)) {

@@ -10,7 +10,7 @@ import java.util.Set;
 
 import fr.ens.biologie.genomique.kenetre.KenetreException;
 
-public class SampleSheetCheck {
+public class SampleSheetChecker {
 
   private static final int SAMPLE_ID_MAX_LENGTH = 20;
 
