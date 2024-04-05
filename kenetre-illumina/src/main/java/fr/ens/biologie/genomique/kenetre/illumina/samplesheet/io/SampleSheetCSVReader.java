@@ -23,6 +23,7 @@
 
 package fr.ens.biologie.genomique.kenetre.illumina.samplesheet.io;
 
+import static fr.ens.biologie.genomique.kenetre.util.StringUtils.removeUTF8BOM;
 import static java.nio.charset.Charset.defaultCharset;
 
 import java.io.BufferedReader;
@@ -76,6 +77,12 @@ public class SampleSheetCSVReader implements SampleSheetReader, AutoCloseable {
     int count = 0;
     while ((line = this.reader.readLine()) != null) {
       count++;
+
+      // Remove BOM character if exists
+      if (count == 1) {
+        line = removeUTF8BOM(line);
+      }
+
       line = line.trim();
       if ("".equals(line)) {
         continue;

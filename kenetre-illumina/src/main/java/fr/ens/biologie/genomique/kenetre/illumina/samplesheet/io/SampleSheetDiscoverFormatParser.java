@@ -37,7 +37,7 @@ public class SampleSheetDiscoverFormatParser implements SampleSheetParser {
     }
 
     if (this.parser != null) {
-      parser.parseLine(fields);
+      this.parser.parseLine(fields);
       return;
     }
 

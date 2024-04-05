@@ -14,8 +14,6 @@ import fr.ens.biologie.genomique.kenetre.illumina.samplesheet.TableSection;
 
 public class SampleSheetV2Parser implements SampleSheetParser {
 
-  public static final String DATA_SECTION_NAME = "data";
-
   private final SampleSheet samplesheet;
 
   private PropertySection propertySection;
