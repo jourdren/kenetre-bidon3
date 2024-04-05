@@ -49,6 +49,8 @@ import java.util.Locale;
  */
 public final class StringUtils {
 
+  public static final String UTF8_BOM = "\uFEFF";
+
   /**
    * Get the basename of the filename.
    * @param filename The filename
@@ -1195,6 +1197,22 @@ public final class StringUtils {
     }
 
     return new BigInteger(1, md5Digest.digest()).toString(16);
+  }
+
+  /**
+   * Remove BOM character from an UTF-8 string.
+   * @param s input string
+   * @return a string with the BOM character
+   */
+  public static String removeUTF8BOM(String s) {
+
+    requireNonNull(s);
+
+    if (s.startsWith(UTF8_BOM)) {
+      return s.substring(1);
+    }
+
+    return s;
   }
 
   //
