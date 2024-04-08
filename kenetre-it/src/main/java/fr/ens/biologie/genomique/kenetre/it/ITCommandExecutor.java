@@ -24,14 +24,12 @@
 package fr.ens.biologie.genomique.kenetre.it;
 
 import static fr.ens.biologie.genomique.kenetre.it.ITLogger.getLogger;
-import static fr.ens.biologie.genomique.kenetre.util.StringUtils.toTimeHumanReadable;
 import static java.util.Collections.singleton;
 import static java.util.Objects.requireNonNull;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Field;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
@@ -42,7 +40,6 @@ import java.util.concurrent.TimeUnit;
 import com.google.common.base.Stopwatch;
 
 import fr.ens.biologie.genomique.kenetre.KenetreException;
-
 
 /**
  * The class represents an executor to command line.
@@ -131,9 +128,6 @@ public class ITCommandExecutor {
       final Process p = Runtime.getRuntime().exec(cmdLine,
           this.environmentVariables, this.outputTestDirectory);
 
-      // Init monitor and start
-      final MonitorThread monitor = new MonitorThread(p, desc, durationMax);
-
       // Save stdout
       if (stdoutFile != null) {
         new CopyProcessOutput(p.getInputStream(), stdoutFile, "stdout").start();
@@ -147,29 +141,15 @@ public class ITCommandExecutor {
       // Wait the end of the process
       exitValue = p.waitFor();
 
-      // Stop monitor thread
-      monitor.interrupt();
-
       cmdResult.setExitValue(exitValue);
 
       // Execution script fail, create an exception
       if (exitValue != 0) {
 
-        if (monitor.isKilledProcess()) {
-
-          cmdResult.asInterruptedProcess();
-          cmdResult.setException(
-              new KenetreException("\tKill process.\n\tCommand line: "
-                  + cmdLine + "\n\tDirectory: " + this.outputTestDirectory
-                  + "\n\tMessage: " + monitor.getMessage()));
-
-        } else {
-
-          cmdResult.setException(new KenetreException("\tCommand line: "
-              + cmdLine + "\n\tDirectory: " + this.outputTestDirectory
-              + "\n\tMessage: bad exit value: " + exitValue));
-          cmdResult.setErrorFileOnProcess(stderrFile);
-        }
+        cmdResult.setException(new KenetreException("\tCommand line: "
+            + cmdLine + "\n\tDirectory: " + this.outputTestDirectory
+            + "\n\tMessage: bad exit value: " + exitValue));
+        cmdResult.setErrorFileOnProcess(stderrFile);
 
       } else if (exitValue == 0 && !isApplicationCmdLine) {
         // Success execution, remove standard and error output file
@@ -291,153 +271,4 @@ public class ITCommandExecutor {
 
   }
 
-  //
-  // Internal class
-  //
-  /**
-   * This class create a monitor thread on script process to stop him if
-   * overtake runtime maximum period set in configuration file or use default
-   * value in ITFactory class.
-   * @author Sandrine Perrin
-   * @since 2.0
-   */
-  private static final class MonitorThread extends Thread {
-
-    /** Script process. */
-    private final Process p;
-
-    /** PID on the process. */
-    private int pid = -1;
-
-    /** Duration max in minutes. */
-    private final int durationMaxInMinutes;
-
-    /** Description on script. */
-    private final String desc;
-
-    /** Process is killed . */
-    private boolean killedProcess = false;
-
-    /** Process is kill by command unix. */
-    private boolean killByCmd = false;
-
-    /** Process is kill by method destroy on process. */
-    private boolean killByMethodDestroy = false;
-
-    public void run() {
-
-      // try {
-      // // TODO
-      // System.out.println("start monitor on script " + desc);
-      //
-      // // Sleep
-      // sleep(durationMaxInMinutes * 60 * 1000);
-      //
-      // System.out.println("end period allowed");
-      // } catch (InterruptedException e) {
-      // // TODO Auto-generated catch block
-      // // e.printStackTrace();
-      // }
-      //
-      // // Destroy process if always running
-      // destroyProcessScript();
-    }
-
-    /**
-     * Destroy process script, in first step use command Unix kill -9, if it is
-     * failed call destroy method from process class.
-     */
-    void destroyProcessScript() {
-
-      // try {
-      // killedProcess = true;
-      // killByCmd = true;
-      //
-      // // Retrieve PID on children process (corresponding to java runtime pid
-      // // for Eoulsan) DON'T WORK
-      // final String n =
-      // ProcessUtils.execToString("ps x -o \"%p %r %y %x %c \" | grep \"^"
-      // + this.pid + "\" | cut -f 2 -d ' '");
-      //
-      // System.out.println("CMD KILL: kill -TERM " + pid + " " + n);
-      // // Kill process
-      // ProcessUtils.exec("kill -TERM " + pid + " " + n, true);
-      //
-      // // TODO
-      // System.out.println("process was killed");
-      //
-      // } catch (Throwable e) {
-      //
-      // killedProcess = true;
-      // killByMethodDestroy = true;
-      //
-      // // Destroy process
-      // this.p.destroy();
-      // }
-    }
-
-    /**
-     * Gets the pid.
-     * @return the pid
-     */
-    int getPID() {
-
-      try {
-
-        Field f = p.getClass().getDeclaredField("pid");
-        f.setAccessible(true);
-
-        return (int) f.get(p);
-
-      } catch (Throwable e) {
-        e.printStackTrace();
-      }
-
-      return -1;
-    }
-
-    //
-    // Getter
-    //
-    /**
-     * Checks if is killed process.
-     * @return true, if is killed process
-     */
-    public boolean isKilledProcess() {
-      return killedProcess;
-    }
-
-    /**
-     * Gets the message for report.
-     * @return the message
-     */
-    public String getMessage() {
-      return "script process on "
-          + this.desc + " with pid " + pid + " has been killed "
-          + (killByCmd
-              ? "by command kill -TERM"
-              : (killByMethodDestroy
-                  ? "by method process.destroy" : "other mean"))
-          + " after "
-          + toTimeHumanReadable(this.durationMaxInMinutes * 60 * 1000);
-    }
-
-    /**
-     * Constructor.
-     * @param processScript the process on script
-     * @param desc the description script
-     * @param durationMaxInMinutes the duration maximum in minutes
-     */
-    public MonitorThread(final Process processScript, final String desc,
-        final int durationMaxInMinutes) {
-
-      this.p = processScript;
-      this.desc = desc;
-      this.durationMaxInMinutes = durationMaxInMinutes;
-      this.pid = getPID();
-
-      // Start thread
-      this.start();
-    }
-  }
 }
