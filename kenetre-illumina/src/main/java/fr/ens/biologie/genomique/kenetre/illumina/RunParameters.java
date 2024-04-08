@@ -28,15 +28,25 @@ import fr.ens.biologie.genomique.kenetre.util.XMLUtils;
  */
 public class RunParameters {
 
+  private static final String UNKNOWN_VALUE = "Unknown";
+
+  private final String runParametersVersion;
   private final String applicationName;
   private final String applicationVersion;
   private final String rtaVersion;
   private final int rtaMajorVersion;
-  private final String sequencerFamily;
 
   //
   // Getters
   //
+
+  /**
+   * Get the version of the format of the file.
+   * @return the version of the format of the file
+   */
+  public String getRunParametersVersion() {
+    return this.runParametersVersion;
+  }
 
   /**
    * Get application name.
@@ -75,7 +85,26 @@ public class RunParameters {
    * @return the sequencer family
    */
   public String getSequencerFamily() {
-    return this.sequencerFamily;
+
+    if (this.applicationName != null) {
+      return this.applicationName.substring(0,
+          this.applicationName.indexOf(' '));
+    } else {
+      return UNKNOWN_VALUE;
+    }
+  }
+
+  /**
+   * Get the sequencer model.
+   * @return the sequencer model
+   */
+  public String getSequencerModel() {
+
+    if (this.applicationName != null) {
+      return this.applicationName.replace("Control Software", "").trim();
+    } else {
+      return UNKNOWN_VALUE;
+    }
   }
 
   //
@@ -85,10 +114,10 @@ public class RunParameters {
   @Override
   public String toString() {
 
-    return "RunParameters{applicationName="
-        + this.applicationName + ", applicationVersion=" + applicationVersion
-        + ", rtaVersion=" + rtaVersion + ", sequencerFamily=" + sequencerFamily
-        + "}";
+    return "RunParameters{runParametersVersion="
+        + runParametersVersion + ", applicationName=" + this.applicationName
+        + ", applicationVersion=" + applicationVersion + ", rtaVersion="
+        + rtaVersion + "}";
   }
 
   //
@@ -165,15 +194,19 @@ public class RunParameters {
 
     for (Element e : XMLUtils.getElementsByTagName(document, "RunParameters")) {
 
+      String runParametersVersion = getTagValue(e, "RunParametersVersion");
+
       return getTagValue(e, "RtaVersion") == null
-          ? parseRTA12(e) : parseRTA3(e);
+          ? parseRTA12(runParametersVersion, e)
+          : parseRTA3(runParametersVersion, e);
     }
 
     throw new KenetreRuntimeException(
         "Invalid format of the RunParameters.xml file");
   }
 
-  private static RunParameters parseRTA12(Element e) {
+  private static RunParameters parseRTA12(final String runParametersVersion,
+      Element e) {
 
     String rtaVersion = getTagValue(e, "RTAVersion");
 
@@ -190,7 +223,8 @@ public class RunParameters {
       if (rtaVersion == null) {
         rtaVersion = getTagValue(setupElement, "RTAVersion");
       }
-      return new RunParameters(applicationName, applicationVersion, rtaVersion);
+      return new RunParameters(runParametersVersion, applicationName,
+          applicationVersion, rtaVersion);
     }
 
     throw new KenetreRuntimeException(
@@ -198,13 +232,15 @@ public class RunParameters {
 
   }
 
-  private static RunParameters parseRTA3(Element e) {
+  private static RunParameters parseRTA3(final String runParametersVersion,
+      Element e) {
 
     String rtaVersion = getTagValue(e, "RtaVersion");
     String applicationName = getTagValue(e, "ApplicationName");
     String applicationVersion = getTagValue(e, "ApplicationVersion");
 
-    return new RunParameters(applicationName, applicationVersion, rtaVersion);
+    return new RunParameters(runParametersVersion, applicationName,
+        applicationVersion, rtaVersion);
   }
 
   //
@@ -214,19 +250,15 @@ public class RunParameters {
   /**
    * Private constructor.
    */
-  private RunParameters(final String applicationName,
-      final String applicationVersion, final String rtaVersion) {
+  private RunParameters(final String runParametersVersion,
+      final String applicationName, final String applicationVersion,
+      final String rtaVersion) {
 
+    this.runParametersVersion =
+        runParametersVersion != null ? runParametersVersion : UNKNOWN_VALUE;
     this.applicationName = applicationName;
     this.applicationVersion = applicationVersion;
     this.rtaVersion = rtaVersion;
-
-    if (applicationName != null) {
-      this.sequencerFamily =
-          applicationName.substring(0, applicationName.indexOf(' '));
-    } else {
-      this.sequencerFamily = "Unknown";
-    }
 
     int rtaMajorVersion = -1;
 
