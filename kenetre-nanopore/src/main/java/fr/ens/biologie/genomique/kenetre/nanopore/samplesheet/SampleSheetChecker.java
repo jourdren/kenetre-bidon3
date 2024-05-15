@@ -18,6 +18,7 @@ import java.util.Set;
 import com.google.common.base.Splitter;
 
 import fr.ens.biologie.genomique.kenetre.KenetreException;
+import fr.ens.biologie.genomique.kenetre.nanopore.samplesheet.SampleSheet.Barcode;
 
 /**
  * This class allow to check Nanopore product code (e.g. flow cells, sequencing
@@ -197,6 +198,15 @@ public class SampleSheetChecker {
           throw new KenetreException("Unknown expansion kit: " + e);
         }
       }
+    }
+
+    Set<String> aliases = new HashSet<>();
+    for (Barcode b : sampleSheet.getBarcodes()) {
+      String a = b.getAlias();
+      if (aliases.contains(a)) {
+        throw new KenetreException("Duplicate alias found: " + a);
+      }
+      aliases.add(a);
     }
 
   }
