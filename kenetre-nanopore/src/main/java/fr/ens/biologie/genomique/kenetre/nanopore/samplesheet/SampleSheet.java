@@ -868,7 +868,7 @@ public class SampleSheet {
         }
 
         sb.append(',');
-        sb.append(b.getAlias());
+        sb.append(quoteStringWithComma(b.getAlias()));
 
         if (isType) {
           sb.append(',');
@@ -882,7 +882,7 @@ public class SampleSheet {
           sb.append(',');
           String d = b.getDescription();
           if (d != null) {
-            sb.append(d.toString());
+            sb.append(quoteStringWithComma(d.toString()));
           }
         }
       }
@@ -915,11 +915,11 @@ public class SampleSheet {
     }
 
     if (isSampleId()) {
-      sb.append(getSampleId());
+      sb.append(quoteStringWithComma(getSampleId()));
       sb.append(',');
     }
 
-    sb.append(getExperimentId());
+    sb.append(quoteStringWithComma(getExperimentId()));
     sb.append(',');
     sb.append(getFlowCellProductCode());
     sb.append(',');
@@ -994,6 +994,23 @@ public class SampleSheet {
     }
 
     return null;
+  }
+
+  /**
+   * Quote only string containing comma
+   * @param String string to process
+   */
+  private static String quoteStringWithComma(final String s) {
+
+    if (s == null) {
+      return "";
+    }
+
+    if (s.contains(",")) {
+      return "\"" + s + "\"";
+    }
+
+    return s;
   }
 
   //
