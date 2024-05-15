@@ -45,6 +45,7 @@ public class SampleSheet {
     private final String externalBarcode;
     private String alias;
     private BarcodeType type;
+    private String description;
 
     //
     // Getters
@@ -95,6 +96,15 @@ public class SampleSheet {
       return this.type;
     }
 
+    /**
+     * Get the description of the sample.
+     * @return the description of the sample
+     */
+    public String getDescription() {
+
+      return this.description;
+    }
+
     //
     // Setters
     //
@@ -123,6 +133,17 @@ public class SampleSheet {
       } catch (IllegalArgumentException e) {
         throw new IllegalArgumentException("Invalid type: " + type);
       }
+    }
+
+    /**
+     * Set the description.
+     * @param description the description to set
+     */
+    public void setDescripton(String description) {
+
+      requireNonNull(description);
+
+      this.description = description;
     }
 
     //
@@ -187,7 +208,8 @@ public class SampleSheet {
           && Objects.equals(this.internalBarcode, other.internalBarcode)
           && Objects.equals(this.externalBarcode, other.externalBarcode)
           && Objects.equals(this.alias, other.alias)
-          && Objects.equals(this.type, other.type);
+          && Objects.equals(this.type, other.type)
+          && Objects.equals(this.description, other.description);
     }
 
     @Override
@@ -195,7 +217,7 @@ public class SampleSheet {
       return "Barcode [barcode="
           + barcode + ", internalBarcode=" + internalBarcode
           + ", externalBarcode=" + externalBarcode + ", alias=" + alias
-          + ", type=" + type + "]";
+          + ", type=" + type + ", description=" + description + "]";
     }
 
     //
@@ -657,6 +679,23 @@ public class SampleSheet {
     return false;
   }
 
+  /**
+   * Test if a description field exists.
+   * @return true if a description field exists
+   */
+  public boolean isDescriptionField() {
+
+    for (Barcode b : getBarcodes()) {
+
+      if (b.getDescription() != null) {
+        return true;
+      }
+
+    }
+
+    return false;
+  }
+
   //
   // Other methods
   //
@@ -797,7 +836,12 @@ public class SampleSheet {
 
       if (isTypeField()) {
         sb.append(',');
-        sb.append("");
+        sb.append("type");
+      }
+
+      if (isDescriptionField()) {
+        sb.append(',');
+        sb.append("description");
       }
 
     }
@@ -806,6 +850,7 @@ public class SampleSheet {
 
     if (isBarcode()) {
       boolean isType = isTypeField();
+      boolean isDesc = isDescriptionField();
 
       for (Barcode b : getBarcodes()) {
 
@@ -830,6 +875,14 @@ public class SampleSheet {
           BarcodeType t = b.getType();
           if (t != null) {
             sb.append(t.toString().toLowerCase());
+          }
+        }
+
+        if (isDesc) {
+          sb.append(',');
+          String d = b.getDescription();
+          if (d != null) {
+            sb.append(d.toString());
           }
         }
       }

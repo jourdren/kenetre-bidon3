@@ -29,6 +29,7 @@ public class SampleSheetParser {
   private static final String BARCODE_FIELDNAME = "barcode";
   private static final String INTERNAL_BARCODE_FIELDNAME = "internal_barcode";
   private static final String EXTERNAL_BARCODE_FIELDNAME = "external_barcode";
+  private static final String DESCRIPTION_FIELDNAME = "description";
 
   private final SampleSheet samplesheet = new SampleSheet();
   private Map<String, Integer> fieldPositions = new HashMap<>();
@@ -65,13 +66,13 @@ public class SampleSheetParser {
         EXPERIMENT_ID_FIELDNAME, FLOW_CELL_PRODUCT_CODE_FIELDNAME,
         KIT_FIELDNAME}) {
 
-      if (fieldPositions.containsKey(field)) {
+      if (this.fieldPositions.containsKey(field)) {
 
         int posField = fieldPositions.get(field);
         if (posField >= fields.size()) {
           continue;
         }
-        String newValue = fields.get(posField);
+        String newValue = fields.get(posField).trim();
         String oldValue = get(this.samplesheet, field);
         if (oldValue != null && !oldValue.equals(newValue)) {
           throw new IOException(
@@ -83,35 +84,40 @@ public class SampleSheetParser {
     }
 
     // Handle barcodes
-    if (fieldPositions.containsKey(ALIAS_FIELDNAME)) {
+    if (this.fieldPositions.containsKey(ALIAS_FIELDNAME)) {
 
       String alias =
-          getValue(fields, ALIAS_FIELDNAME, fieldPositions, lineNumber);
+          getValue(fields, ALIAS_FIELDNAME, this.fieldPositions, lineNumber);
 
       Barcode b;
 
-      if (fieldPositions.containsKey(BARCODE_FIELDNAME)) {
+      if (this.fieldPositions.containsKey(BARCODE_FIELDNAME)) {
 
-        String barcode =
-            getValue(fields, BARCODE_FIELDNAME, fieldPositions, lineNumber);
+        String barcode = getValue(fields, BARCODE_FIELDNAME,
+            this.fieldPositions, lineNumber);
         b = this.samplesheet.addBarcode(barcode, alias);
 
       } else {
 
         String internalBarcode = getValue(fields, INTERNAL_BARCODE_FIELDNAME,
-            fieldPositions, lineNumber);
+            this.fieldPositions, lineNumber);
         String externalBarcode = getValue(fields, EXTERNAL_BARCODE_FIELDNAME,
-            fieldPositions, lineNumber);
+            this.fieldPositions, lineNumber);
         b = this.samplesheet.addBarcode(internalBarcode, externalBarcode,
             alias);
       }
 
-      if (fieldPositions.containsKey(TYPE_FIELDNAME)) {
+      if (this.fieldPositions.containsKey(TYPE_FIELDNAME)) {
         String type =
-            getValue(fields, TYPE_FIELDNAME, fieldPositions, lineNumber);
+            getValue(fields, TYPE_FIELDNAME, this.fieldPositions, lineNumber);
         if (type != null && !type.isBlank()) {
           b.setType(type);
         }
+      }
+
+      if (this.fieldPositions.containsKey(DESCRIPTION_FIELDNAME)) {
+        b.setDescripton(getValue(fields, DESCRIPTION_FIELDNAME,
+            this.fieldPositions, lineNumber));
       }
 
     }
@@ -129,7 +135,7 @@ public class SampleSheetParser {
 
     for (String field : fields) {
 
-      switch (field.toLowerCase()) {
+      switch (field.trim().toLowerCase()) {
       case PROTOCOL_RUN_ID_FIELDNAME:
       case FLOW_CELL_ID_FIELDNAME:
       case POSITION_ID_FIELDNAME:
@@ -142,6 +148,7 @@ public class SampleSheetParser {
       case BARCODE_FIELDNAME:
       case INTERNAL_BARCODE_FIELDNAME:
       case EXTERNAL_BARCODE_FIELDNAME:
+      case DESCRIPTION_FIELDNAME:
         break;
 
       default:
