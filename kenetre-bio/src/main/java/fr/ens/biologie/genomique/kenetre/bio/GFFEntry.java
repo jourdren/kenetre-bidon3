@@ -399,6 +399,25 @@ public class GFFEntry {
     return this.attributes.remove(attributeName) != null;
   }
 
+  /**
+   * Set the values of the entry from the values of another entry.
+   * @param entry entry to set
+   */
+  public final void set(GFFEntry entry) {
+
+    requireNonNull(entry);
+
+    this.seqId = entry.seqId;
+    this.source = entry.source;
+    this.type = entry.type;
+    this.start = entry.start;
+    this.end = entry.end;
+    this.score = entry.score;
+    this.strand = entry.strand;
+    this.phase = entry.phase;
+    this.attributes.putAll(entry.attributes);
+  }
+
   //
   // Other methods
   //
