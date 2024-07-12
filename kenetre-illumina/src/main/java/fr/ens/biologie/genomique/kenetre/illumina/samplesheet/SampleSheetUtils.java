@@ -10,18 +10,22 @@ import static fr.ens.biologie.genomique.kenetre.illumina.samplesheet.Sample.SAMP
 import static fr.ens.biologie.genomique.kenetre.illumina.samplesheet.Sample.SAMPLE_REF_FIELD_NAME;
 import static fr.ens.biologie.genomique.kenetre.illumina.samplesheet.SampleSheet.BCL2FASTQ_DEMUX_TABLE_NAME;
 import static fr.ens.biologie.genomique.kenetre.illumina.samplesheet.SampleSheet.BCLCONVERT_DEMUX_TABLE_NAME;
+import static java.util.Arrays.asList;
 import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import fr.ens.biologie.genomique.kenetre.KenetreException;
 import fr.ens.biologie.genomique.kenetre.KenetreRuntimeException;
@@ -630,7 +634,24 @@ public class SampleSheetUtils {
   public static void removeBclConvertDataForbiddenFields(
       SampleSheet samplesheet) throws KenetreException {
 
+    removeBclConvertDataForbiddenFields(samplesheet,
+        asList(Sample.LANE_FIELD_NAME, Sample.SAMPLE_ID_FIELD_NAME,
+            Sample.INDEX1_FIELD_NAME, Sample.INDEX2_FIELD_NAME,
+            Sample.PROJECT_FIELD_NAME));
+  }
+
+  /**
+   * Remove forbidden fields in BCLConvert_Data section.
+   * @param samplesheet sample sheet to process
+   * @param fieldsToKeep a collection with the field to keep
+   * @throws KenetreException if the section does not exists
+   */
+  public static void removeBclConvertDataForbiddenFields(
+      SampleSheet samplesheet, Collection<String> fieldsToKeep)
+      throws KenetreException {
+
     requireNonNull(samplesheet);
+    requireNonNull(fieldsToKeep);
 
     if (!samplesheet.containsSection(BCLCONVERT_DEMUX_TABLE_NAME)) {
       throw new KenetreException("No section "
@@ -640,23 +661,18 @@ public class SampleSheetUtils {
     TableSection demuxTable =
         samplesheet.getTableSection(BCLCONVERT_DEMUX_TABLE_NAME);
 
+    Set<String> validFields =
+        fieldsToKeep.stream().filter(Objects::nonNull).map(String::toLowerCase)
+            .collect(Collectors.toCollection(HashSet::new));
+
     for (String fieldName : demuxTable.getSamplesFieldNames()) {
 
-      switch (fieldName.toLowerCase().trim()) {
+      if (validFields.contains(fieldName.toLowerCase().trim())) {
+        continue;
+      }
 
-      case Sample.LANE_FIELD_NAME:
-      case Sample.SAMPLE_ID_FIELD_NAME:
-      case Sample.INDEX1_FIELD_NAME:
-      case Sample.INDEX2_FIELD_NAME:
-      case Sample.PROJECT_FIELD_NAME:
-        break;
-
-      default:
-
-        for (Sample s : demuxTable.getSamples()) {
-          s.remove(fieldName);
-        }
-        break;
+      for (Sample s : demuxTable.getSamples()) {
+        s.remove(fieldName);
       }
     }
   }
@@ -671,8 +687,26 @@ public class SampleSheetUtils {
       SampleSheet samplesheet, String otherSectionName)
       throws KenetreException {
 
+    moveBclConvertDataForbiddenFieldsInNewSection(samplesheet, otherSectionName,
+        asList(Sample.LANE_FIELD_NAME, Sample.SAMPLE_ID_FIELD_NAME,
+            Sample.INDEX1_FIELD_NAME, Sample.INDEX2_FIELD_NAME,
+            Sample.PROJECT_FIELD_NAME));
+  }
+
+  /**
+   * Move the forbidden fields in BCLConvert_Data section.
+   * @param samplesheet sample sheet to process
+   * @param otherSectionName other section name
+   * @param fieldsToKeep a collection with the field to keep
+   * @throws KenetreException if the section does not exists
+   */
+  public static void moveBclConvertDataForbiddenFieldsInNewSection(
+      SampleSheet samplesheet, String otherSectionName,
+      Collection<String> fieldsToKeep) throws KenetreException {
+
     requireNonNull(samplesheet);
     requireNonNull(otherSectionName);
+    requireNonNull(fieldsToKeep);
 
     if (!samplesheet.containsSection(BCLCONVERT_DEMUX_TABLE_NAME)) {
       throw new KenetreException("No section "
@@ -688,31 +722,36 @@ public class SampleSheetUtils {
         samplesheet.getTableSection(BCLCONVERT_DEMUX_TABLE_NAME);
     TableSection otherTable = samplesheet.addTableSection(otherSectionName);
 
+    Set<String> validFields =
+        fieldsToKeep.stream().filter(Objects::nonNull).map(String::toLowerCase)
+            .collect(Collectors.toCollection(HashSet::new));
+
     for (Sample s : demuxTable.getSamples()) {
 
       Sample newSample = otherTable.addSample();
 
       for (String fieldName : s.getFieldNames()) {
 
+        // Add the required field in the new section
         switch (fieldName.toLowerCase().trim()) {
 
         case Sample.LANE_FIELD_NAME:
         case Sample.SAMPLE_ID_FIELD_NAME:
         case Sample.PROJECT_FIELD_NAME:
-
           newSample.set(fieldName, s.get(fieldName));
-          break;
-
-        case Sample.INDEX1_FIELD_NAME:
-        case Sample.INDEX2_FIELD_NAME:
           break;
 
         default:
-          newSample.set(fieldName, s.get(fieldName));
-          s.remove(fieldName);
           break;
-
         }
+
+        if (validFields.contains(fieldName.toLowerCase().trim())) {
+          continue;
+        }
+
+        // Move the field
+        newSample.set(fieldName, s.get(fieldName));
+        s.remove(fieldName);
       }
     }
   }
