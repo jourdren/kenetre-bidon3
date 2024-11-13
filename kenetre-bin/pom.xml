@@ -23,6 +23,12 @@
       <scope>compile</scope>
     </dependency>
     <dependency>
+      <groupId>fr.ens.biologie.genomique</groupId>
+      <artifactId>kenetre-bio</artifactId>
+      <version>${project.version}</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
       <version>${guava.version}</version>
