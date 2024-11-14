@@ -1,12 +1,10 @@
 package fr.ens.biologie.genomique.kenetre.bin.action;
 
-import static fr.ens.biologie.genomique.kenetre.io.CompressionType.create;
-import static fr.ens.biologie.genomique.kenetre.io.CompressionType.open;
 import static org.apache.commons.cli.Option.builder;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,6 +23,9 @@ import fr.ens.biologie.genomique.kenetre.bio.io.FastqReader;
 import fr.ens.biologie.genomique.kenetre.bio.io.FastqWriter;
 import fr.ens.biologie.genomique.kenetre.bio.readfilter.MultiReadFilterBuilder;
 import fr.ens.biologie.genomique.kenetre.bio.readfilter.ReadFilter;
+import fr.ens.biologie.genomique.kenetre.io.CompressionType;
+import fr.ens.biologie.genomique.kenetre.util.LocalReporter;
+import fr.ens.biologie.genomique.kenetre.util.Reporter;
 
 /**
  * This program allow to filter FASTQ files.
@@ -33,12 +34,16 @@ import fr.ens.biologie.genomique.kenetre.bio.readfilter.ReadFilter;
  */
 public class FilterReadsAction implements Action {
 
+  private static final String COUNTER_GROUP = "reads_filtering";
+
   private File inputFile;
   private File inputFile1;
   private File inputFile2;
   private File outputFile;
   private File outputFile1;
   private File outputFile2;
+  private FastqFormat format = FastqFormat.FASTQ_SANGER;
+  private boolean printStats = true;
 
   @Override
   public String getName() {
@@ -51,6 +56,46 @@ public class FilterReadsAction implements Action {
 
     return "This program filters reads";
   }
+
+  @Override
+  public boolean isHidden() {
+
+    return false;
+  }
+
+  @Override
+  public void action(List<String> arguments) {
+
+    try {
+
+      // Parse command line and create filter
+      MultiReadFilterBuilder filterBuilder = new MultiReadFilterBuilder();
+      filterBuilder.addParameters(parseOptions(arguments));
+      ReadFilter filter = filterBuilder.getReadFilter();
+
+      Reporter reporter = new LocalReporter();
+
+      if (this.inputFile != null) {
+        filterFile(this.inputFile, this.outputFile, reporter, filter,
+            this.format);
+      } else {
+        filterFile(this.inputFile1, this.inputFile2, this.outputFile1,
+            this.outputFile2, reporter, filter, this.format);
+      }
+
+      if (this.printStats) {
+        System.err.println(reporter);
+      }
+
+    } catch (KenetreException | IOException e) {
+      error("Error: " + e.getMessage());
+    }
+
+  }
+
+  //
+  // Command line parsing
+  //
 
   /**
    * Create options for command line
@@ -80,11 +125,15 @@ public class FilterReadsAction implements Action {
     options.addOption(builder("o2").longOpt("output2").hasArg().argName("file")
         .desc("paired-end output 2").build());
 
-    options.addOption(builder("f").longOpt("flow-cell-type").hasArg()
-        .argName("type").desc("flow cell type").build());
+    options.addOption(builder("f").longOpt("fastq-format").hasArg()
+        .argName("format")
+        .desc(
+            "FASTQ format (sanger,  solexa, fastq-illumina-1.3, fastq-illumina-1.5), default: sanger")
+        .build());
 
     options.addOption("s", "stdin", false, "stdin input");
     options.addOption("t", "stdout", false, "stdout output");
+    options.addOption("n", "no-stats", false, "stdout output");
 
     // Help option
     options.addOption("h", "help", false, "display this help");
@@ -92,115 +141,12 @@ public class FilterReadsAction implements Action {
     return options;
   }
 
-  @Override
-  public void action(List<String> arguments) {
-
-    try {
-      MultiReadFilterBuilder filterBuilder = new MultiReadFilterBuilder();
-      filterBuilder.addParameters(parseOptions(arguments));
-      ReadFilter filter = filterBuilder.getReadFilter();
-
-      if (this.inputFile != null) {
-        filterFile(this.inputFile, this.outputFile, filter,
-            FastqFormat.FASTQ_SANGER);
-      } else {
-        filterFile(this.inputFile1, this.inputFile2, this.outputFile1,
-            this.outputFile2, filter, FastqFormat.FASTQ_SANGER);
-      }
-
-    } catch (KenetreException | IOException e) {
-      error("Error: " + e.getMessage());
-    }
-
-  }
-
-  private static void filterFile(final File inFile, final File outFile,
-      final ReadFilter filter, final FastqFormat fastqFormat)
-      throws IOException {
-
-    try (FastqReader reader = new FastqReader(open(inFile));
-        FastqWriter writer = new FastqWriter(create(outFile))) {
-
-      for (final ReadSequence read : reader) {
-
-        // Set Fastq format
-        read.setFastqFormat(fastqFormat);
-
-        if (filter.accept(read)) {
-          writer.write(read);
-        }
-
-      }
-      reader.throwException();
-
-    } catch (BadBioEntryException e) {
-
-      throw new IOException("Invalid Fastq format: "
-          + e.getMessage() + " File: " + inFile + " Entry: " + e.getEntry());
-
-    }
-  }
-
-  private static void filterFile(final File inFile1, final File inFile2,
-      final File outFile1, final File outFile2, final ReadFilter filter,
-      final FastqFormat fastqFormat) throws IOException {
-
-    try (FastqReader reader2 = new FastqReader(open(inFile2));
-        FastqWriter writer1 = new FastqWriter(create(outFile1));
-        FastqWriter writer2 = new FastqWriter(create(outFile2));
-        FastqReader reader1 = new FastqReader(open(inFile1))) {
-      for (final ReadSequence read1 : reader1) {
-
-        // Test if the second read exists
-        if (!reader2.hasNext()) {
-          reader2.throwException();
-          throw new IOException("Unexcepted end of the second read file. "
-              + inFile1.getName() + " and " + inFile2.getName()
-              + " must have the same number of entries/lines.");
-        }
-
-        // Get the second read
-        final ReadSequence read2 = reader2.next();
-
-        // Set fastq format
-        read1.setFastqFormat(fastqFormat);
-        read2.setFastqFormat(fastqFormat);
-
-        if (filter.accept(read1, read2)) {
-          writer1.write(read1);
-          writer2.write(read2);
-        }
-      }
-      reader1.throwException();
-      reader2.throwException();
-
-      if (reader2.hasNext()) {
-        throw new IOException("Unexcepted end of the first read file. "
-            + inFile1.getName() + " and " + inFile2.getName()
-            + " must have the same number of entries/lines.");
-      }
-
-    } catch (BadBioEntryException e) {
-
-      throw new IOException("Invalid Fastq format: "
-          + e.getMessage() + " File 1: " + inFile1 + " File2:" + inFile2
-          + " Entry: " + e.getEntry());
-    }
-
-  }
-
-  @Override
-  public boolean isHidden() {
-
-    return false;
-  }
-
   private Map<String, String> parseOptions(List<String> arguments) {
 
     final Options options = makeOptions();
     final CommandLineParser parser = new DefaultParser();
 
-    Map<String, String> result = new HashMap<>();
+    Map<String, String> result = new LinkedHashMap<>();
 
     try {
 
@@ -221,6 +167,10 @@ public class FilterReadsAction implements Action {
         this.outputFile = new File("/dev/stdout");
       }
 
+      if (line.hasOption("n")) {
+        this.printStats = false;
+      }
+
       if (line.hasOption("i")) {
         this.inputFile = new File(line.getOptionValue("input"));
       }
@@ -234,7 +184,7 @@ public class FilterReadsAction implements Action {
       }
 
       if (line.hasOption("o")) {
-        this.inputFile = new File(line.getOptionValue("input"));
+        this.outputFile = new File(line.getOptionValue("output"));
       }
 
       if (line.hasOption("o1")) {
@@ -243,6 +193,16 @@ public class FilterReadsAction implements Action {
 
       if (line.hasOption("o2")) {
         this.inputFile1 = new File(line.getOptionValue("output2"));
+      }
+
+      if (line.hasOption("f")) {
+        this.format =
+            FastqFormat.getFormatFromName(line.getOptionValue("fastq-format"));
+
+        if (this.format == null) {
+          error("Error: Unknown FASTQ format: "
+              + line.getOptionValue("fastq-format"));
+        }
       }
 
       for (String arg : line.getArgList()) {
@@ -311,6 +271,118 @@ public class FilterReadsAction implements Action {
 
     System.err.println(msg);
     System.exit(1);
+  }
+
+  //
+  // Filtering code
+  //
+
+  /**
+   * Filter a file in single end mode.
+   * @param inFile input file
+   * @param outFile output file
+   * @param reporter reporter to use
+   * @param filter reads filter to use
+   * @param fastqFormat FastqFormat
+   * @throws IOException if an error occurs while filtering data
+   */
+  private static void filterFile(final File inFile, final File outFile,
+      final Reporter reporter, final ReadFilter filter,
+      final FastqFormat fastqFormat) throws IOException {
+
+    try (FastqReader reader = new FastqReader(CompressionType.open(inFile));
+        FastqWriter writer = new FastqWriter(CompressionType.create(outFile))) {
+      for (final ReadSequence read : reader) {
+
+        // Set Fastq format
+        read.setFastqFormat(fastqFormat);
+
+        reporter.incrCounter(COUNTER_GROUP, "input raw reads", 1);
+
+        if (filter.accept(read)) {
+
+          writer.write(read);
+          reporter.incrCounter(COUNTER_GROUP, "output accepted reads", 1);
+        } else {
+          reporter.incrCounter(COUNTER_GROUP, "reads rejected by filters", 1);
+        }
+
+      }
+      reader.throwException();
+
+    } catch (BadBioEntryException e) {
+
+      throw new IOException("Invalid Fastq format: "
+          + e.getMessage() + " File: " + inFile + " Entry: " + e.getEntry());
+
+    }
+  }
+
+  /**
+   * Filter a file in pair-end mode.
+   * @param inFile1 first input file
+   * @param inFile2 second input file
+   * @param outFile1 first output file
+   * @param outFile2 second output file
+   * @param reporter reporter to use
+   * @param filter reads filter to use
+   * @param fastqFormat FastqFormat
+   * @throws IOException if an error occurs while filtering data
+   */
+  private static void filterFile(final File inFile1, final File inFile2,
+      final File outFile1, final File outFile2, final Reporter reporter,
+      final ReadFilter filter, final FastqFormat fastqFormat)
+      throws IOException {
+
+    try (FastqReader reader2 = new FastqReader(CompressionType.open(inFile2));
+        FastqWriter writer1 = new FastqWriter(CompressionType.create(outFile1));
+        FastqWriter writer2 = new FastqWriter(CompressionType.create(outFile2));
+        FastqReader reader1 = new FastqReader(CompressionType.open(inFile1))) {
+      for (final ReadSequence read1 : reader1) {
+
+        // Test if the second read exists
+        if (!reader2.hasNext()) {
+          reader2.throwException();
+          throw new IOException("Unexcepted end of the second read file. "
+              + inFile1.getName() + " and " + inFile2.getName()
+              + " must have the same number of entries/lines.");
+        }
+
+        // Get the second read
+        final ReadSequence read2 = reader2.next();
+
+        // Set fastq format
+        read1.setFastqFormat(fastqFormat);
+        read2.setFastqFormat(fastqFormat);
+
+        reporter.incrCounter(COUNTER_GROUP, "input raw reads", 1);
+
+        if (filter.accept(read1, read2)) {
+          writer1.write(read1);
+          writer2.write(read2);
+          reporter.incrCounter(COUNTER_GROUP, "output accepted reads", 1);
+        } else {
+          reporter.incrCounter(COUNTER_GROUP, "reads rejected by filters", 1);
+        }
+
+      }
+      reader1.throwException();
+      reader2.throwException();
+
+      if (reader2.hasNext()) {
+        throw new IOException("Unexcepted end of the first read file. "
+            + inFile1.getName() + " and " + inFile2.getName()
+            + " must have the same number of entries/lines.");
+      }
+
+    } catch (BadBioEntryException e) {
+
+      throw new IOException("Invalid Fastq format: "
+          + e.getMessage() + " File 1: " + inFile1 + " File2:" + inFile2
+          + " Entry: " + e.getEntry());
+
+    }
+
   }
 
 }
