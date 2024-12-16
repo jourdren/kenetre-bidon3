@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.Objects;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
+import org.apache.poi.ss.formula.CollaboratingWorkbooksEnvironment;
 import org.apache.poi.ss.formula.eval.NotImplementedException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
@@ -105,9 +107,13 @@ public class XLSToTSVAction implements Action {
       for (int i = 0; i < sheetNames.size(); i++) {
 
         List<String> lines = readTab(wb, evaluator, i);
-        Files.writeString(
-            new File(outputDirectory, sheetNames.get(i) + ".tsv").toPath(),
-            String.join("\n", lines) + '\n');
+        Path outputFile =
+            new File(outputDirectory, sheetNames.get(i) + ".tsv").toPath();
+        Files.writeString(outputFile, String.join("\n", lines) + '\n');
+
+        // Set the same last modified time as the original file
+        Files.setLastModifiedTime(outputFile,
+            Files.getLastModifiedTime(inputFile.toPath()));
       }
 
       wb.close();
@@ -173,7 +179,7 @@ public class XLSToTSVAction implements Action {
         }
 
         return Objects.toString(cellValue.getStringValue(), "");
-      } catch (NotImplementedException e) {
+      } catch (RuntimeException e) {
         return "";
       }
 
