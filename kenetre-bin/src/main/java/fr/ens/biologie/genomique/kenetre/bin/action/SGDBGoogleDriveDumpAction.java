@@ -4,17 +4,13 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.nio.file.attribute.FileTime;
 import java.security.GeneralSecurityException;
 import java.text.Normalizer;
@@ -23,6 +19,7 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -55,6 +52,7 @@ public class SGDBGoogleDriveDumpAction implements Action {
 
   private static final int MAX_FOLDER_FILE_COUNT = 1000;
   private static final int WAIT_AFTER_CREDENTIALS_IN_MS = 30000;
+  private static final int WAIT_AFTER_FAIL_IN_MS = 30000;
 
   /**
    * Global instance of the scopes required by this quickstart. If modifying
@@ -62,7 +60,8 @@ public class SGDBGoogleDriveDumpAction implements Action {
    */
   private static final List<String> SCOPES = Arrays
       .asList(DriveScopes.DRIVE_METADATA_READONLY, DriveScopes.DRIVE_READONLY);
-  private static String accessToken;
+
+  private static final String OK_LOG_MESSAGE = "OK";
 
   /**
    * Creates an authorized Credential object.
@@ -115,25 +114,10 @@ public class SGDBGoogleDriveDumpAction implements Action {
 
     if (exportMimeType != null) {
 
-      if (exportLinks != null && exportLinks.containsKey(exportMimeType)) {
-        URL url = new URL(exportLinks.get(exportMimeType));
-
-        // Open a connection(?) on the URL(??) and cast the response(???)
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestProperty("Authorization", "Bearer " + accessToken);
-
-        // This line makes the request
-        InputStream responseStream = connection.getInputStream();
-
-        java.nio.file.Files.copy(responseStream, localPath,
-            StandardCopyOption.REPLACE_EXISTING);
-
-      } else {
-        try (OutputStream outputStream =
-            new FileOutputStream(localPath.toFile())) {
-          service.files().export(driveFile.getId(), exportMimeType)
-              .executeMediaAndDownloadTo(outputStream);
-        }
+      try (OutputStream outputStream =
+          new FileOutputStream(localPath.toFile())) {
+        service.files().export(driveFile.getId(), exportMimeType)
+            .executeMediaAndDownloadTo(outputStream);
       }
 
     } else {
@@ -162,7 +146,7 @@ public class SGDBGoogleDriveDumpAction implements Action {
 
   @SuppressWarnings("unchecked")
   private static void saveDirectory(Drive service, String folderId,
-      Path outputPath) throws IOException {
+      Path outputPath, Map<String, String> log) throws IOException {
 
     FileList result = service.files().list()
         .setQ("\"" + folderId + "\" in parents")
@@ -217,7 +201,7 @@ public class SGDBGoogleDriveDumpAction implements Action {
           outputFilename = fileName;
           regularFile = false;
           saveDirectory(service, driveFile.getId(),
-              outputPath.resolve(outputFilename));
+              outputPath.resolve(outputFilename), log);
           break;
 
         // Excluded
@@ -252,12 +236,22 @@ public class SGDBGoogleDriveDumpAction implements Action {
                     (Map<String, String>) driveFile.get("exportLinks"));
                 success = true;
               } catch (IOException e) {
+
+                // Wait 30 seconds before retry
+                try {
+                  Thread.sleep(WAIT_AFTER_FAIL_IN_MS);
+                } catch (InterruptedException e1) {
+                }
+
                 if (count > 3) {
-                  throw e;
+                  log.put(driveFile.getName(), e.getMessage());
+                  break;
                 }
               }
             }
-
+            if (success) {
+              log.put(driveFile.getName(), OK_LOG_MESSAGE);
+            }
           }
         }
       }
@@ -330,7 +324,6 @@ public class SGDBGoogleDriveDumpAction implements Action {
           GoogleNetHttpTransport.newTrustedTransport();
       Credential credentials =
           getCredentials(credentialPath, HTTP_TRANSPORT, tokensPath);
-      accessToken = credentials.getAccessToken();
 
       // Wait few seconds
       try {
@@ -344,8 +337,27 @@ public class SGDBGoogleDriveDumpAction implements Action {
           new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, credentials)
               .setApplicationName(APPLICATION_NAME).build();
 
+      Map<String, String> log = new LinkedHashMap<>();
       // Save data
-      saveDirectory(service, folderId, Paths.get(outputPath));
+      saveDirectory(service, folderId, Paths.get(outputPath), log);
+
+      // Check if dump is a success
+      boolean success = true;
+      for (String v : log.values()) {
+        if (!OK_LOG_MESSAGE.equals(v)) {
+          success = false;
+        }
+      }
+
+      // Print on stderr files that has not been downloaded
+      if (!success) {
+        for (Map.Entry<String, String> e : log.entrySet()) {
+          if (!OK_LOG_MESSAGE.equals(e.getValue())) {
+            System.err.println(e.getKey() + "\t" + e.getValue());
+          }
+        }
+        System.exit(1);
+      }
 
     } catch (GeneralSecurityException | IOException e) {
       e.printStackTrace();
