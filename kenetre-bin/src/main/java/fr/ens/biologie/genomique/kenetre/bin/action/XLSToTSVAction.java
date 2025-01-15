@@ -14,6 +14,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.DefaultParser;
+import org.apache.commons.cli.HelpFormatter;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.ss.formula.CollaboratingWorkbooksEnvironment;
@@ -65,20 +71,55 @@ public class XLSToTSVAction implements Action {
   @Override
   public void action(List<String> arguments) {
 
-    if (arguments.size() != 2) {
-      System.err
-          .println("Syntax: " + getName() + " input_file output_directory");
-      System.exit(1);
+    boolean keepEmptyLines = false;
+
+    final CommandLineParser parser = new DefaultParser();
+    final String[] argsArray = arguments.toArray(new String[0]);
+
+    // Create Options object
+    final Options options = new Options();
+    options.addOption("k", "keep-empty-lines", false, "keep empty lines");
+    options.addOption("h", "help", false, "display this help");
+
+    try {
+      // parse the command line arguments
+      final CommandLine line = parser.parse(options, argsArray, true);
+
+      // Help option
+      if (line.hasOption("keep-empty-lines")) {
+        keepEmptyLines = true;
+      }
+
+      // Help option
+      if (line.hasOption("help") || line.getArgList().size() != 2) {
+        help(options);
+      }
+
+      convert(new File(line.getArgList().get(0)),
+          new File(line.getArgList().get(1)), keepEmptyLines);
+
+    } catch (ParseException e) {
+      Main.errorExit(e,
+          "Error while parsing command line arguments: " + e.getMessage());
     }
 
-    convert(new File(arguments.get(0)), new File(arguments.get(1)));
+  }
+
+  private void help(Options options) {
+
+    new HelpFormatter().printHelp(getName() + " input_file output_directory",
+        options);
+
+    System.exit(1);
+
   }
 
   //
   // Convert methods
   //
 
-  private static void convert(File inputFile, File outputDirectory) {
+  private static void convert(File inputFile, File outputDirectory,
+      boolean keepEmptyLines) {
 
     if (!inputFile.isFile()) {
       System.err.println("input file does not exists: " + inputFile);
@@ -106,7 +147,7 @@ public class XLSToTSVAction implements Action {
 
       for (int i = 0; i < sheetNames.size(); i++) {
 
-        List<String> lines = readTab(wb, evaluator, i);
+        List<String> lines = readTab(wb, evaluator, i, keepEmptyLines);
         Path outputFile =
             new File(outputDirectory, sheetNames.get(i) + ".tsv").toPath();
         Files.writeString(outputFile, String.join("\n", lines) + '\n');
@@ -270,7 +311,8 @@ public class XLSToTSVAction implements Action {
   }
 
   private static List<String> readTab(Workbook wb, FormulaEvaluator evaluator,
-      int sheetIndex) throws FileNotFoundException, IOException {
+      int sheetIndex, boolean keepEmptyLines)
+      throws FileNotFoundException, IOException {
 
     List<String> result = new ArrayList<>();
 
@@ -301,9 +343,10 @@ public class XLSToTSVAction implements Action {
       }
 
       // Fill the result
-      if (!isFieldsEmpty(fields)) {
+      if (keepEmptyLines || !isFieldsEmpty(fields)) {
         result.add(String.join("\t", fields));
       }
+
       fields.clear();
     }
 
