@@ -1,6 +1,7 @@
 package fr.ens.biologie.genomique.kenetre.nanopore.samplesheet.io;
 
 import java.io.IOException;
+import java.util.Collection;
 
 import fr.ens.biologie.genomique.kenetre.nanopore.samplesheet.SampleSheet;
 
@@ -10,6 +11,30 @@ import fr.ens.biologie.genomique.kenetre.nanopore.samplesheet.SampleSheet;
  * @author Laurent Jourdren
  */
 public interface SampleSheetReader extends AutoCloseable {
+
+  /**
+   * Allow to accept any field.
+   * @param allow the value to set
+   */
+  void allowAnyField(boolean allow);
+
+  /**
+   * Allow additional field name.
+   * @param fieldName field name to allow
+   */
+  void addAllowedField(String fieldName);
+
+  /**
+   * Allow additional field names.
+   * @param fieldNames field names to allow
+   */
+  void addAllowedFields(Collection<String> fieldNames);
+
+  /**
+   * Allow additional field names.
+   * @param fieldNames field names to allow
+   */
+  void addAllowedFields(String... fieldNames);
 
   /**
    * Read a sample sheet.

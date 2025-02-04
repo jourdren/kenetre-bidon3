@@ -1,9 +1,15 @@
 package fr.ens.biologie.genomique.kenetre.nanopore.samplesheet.io;
 
+import static java.util.Objects.requireNonNull;
+
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import fr.ens.biologie.genomique.kenetre.KenetreException;
 import fr.ens.biologie.genomique.kenetre.nanopore.samplesheet.SampleSheet;
@@ -34,6 +40,38 @@ public class SampleSheetParser {
   private final SampleSheet samplesheet = new SampleSheet();
   private Map<String, Integer> fieldPositions = new HashMap<>();
   private boolean header = true;
+  private boolean allowAnyfields = false;
+  private Set<String> allowedFields = new HashSet<>();
+
+  /**
+   * Allow to accept any field.
+   * @param allow the value to set
+   */
+  void allowAnyField(boolean allow) {
+    this.allowAnyfields = allow;
+  }
+
+  /**
+   * Allow additional field name.
+   * @param fieldName field name to allow
+   */
+  void addAllowedField(String fieldName) {
+
+    requireNonNull(fieldName);
+    this.allowedFields.add(fieldName.trim().toLowerCase());
+  }
+
+  /**
+   * Allow additional field names.
+   * @param fieldName field name to allow
+   */
+  void addAllowedFields(Collection<String> fieldNames) {
+
+    requireNonNull(fieldNames);
+    for (String fieldName : fieldNames) {
+      addAllowedField(fieldName);
+    }
+  }
 
   /**
    * Get the parsed sample sheet.
@@ -61,12 +99,13 @@ public class SampleSheetParser {
       return;
     }
 
-    for (String field : new String[] {PROTOCOL_RUN_ID_FIELDNAME,
-        FLOW_CELL_ID_FIELDNAME, POSITION_ID_FIELDNAME, SAMPLE_ID_FIELDNAME,
-        EXPERIMENT_ID_FIELDNAME, FLOW_CELL_PRODUCT_CODE_FIELDNAME,
-        KIT_FIELDNAME}) {
+    Set<String> barcodeFields = new HashSet<>(Arrays.asList(ALIAS_FIELDNAME,
+        BARCODE_FIELDNAME, INTERNAL_BARCODE_FIELDNAME,
+        EXTERNAL_BARCODE_FIELDNAME, TYPE_FIELDNAME, DESCRIPTION_FIELDNAME));
 
-      if (this.fieldPositions.containsKey(field)) {
+    for (String field : fieldPositions.keySet()) {
+
+      if (!barcodeFields.contains(field)) {
 
         int posField = fieldPositions.get(field);
         if (posField >= fields.size()) {
@@ -74,6 +113,7 @@ public class SampleSheetParser {
         }
         String newValue = fields.get(posField).trim();
         String oldValue = get(this.samplesheet, field);
+
         if (oldValue != null && !oldValue.equals(newValue)) {
           throw new IOException(
               "The field \"" + field + "\" cannot have multiple values");
@@ -135,7 +175,9 @@ public class SampleSheetParser {
 
     for (String field : fields) {
 
-      switch (field.trim().toLowerCase()) {
+      String trimmedField = field.trim().toLowerCase();
+
+      switch (trimmedField) {
       case PROTOCOL_RUN_ID_FIELDNAME:
       case FLOW_CELL_ID_FIELDNAME:
       case POSITION_ID_FIELDNAME:
@@ -152,7 +194,9 @@ public class SampleSheetParser {
         break;
 
       default:
-        throw new IOException("Unknown field in sample sheet: " + field);
+        if (!allowAnyfields && !this.allowedFields.contains(trimmedField)) {
+          throw new IOException("Unknown field in sample sheet: " + field);
+        }
 
       }
 
@@ -186,7 +230,7 @@ public class SampleSheetParser {
         }
       }
 
-      this.fieldPositions.put(field.toLowerCase(), fieldCount++);
+      this.fieldPositions.put(trimmedField, fieldCount++);
     }
   }
 
@@ -232,7 +276,7 @@ public class SampleSheetParser {
       return sampleSheet.getKit();
 
     default:
-      throw new IllegalArgumentException("Unknown field: " + fieldName);
+      return sampleSheet.getOtherField(fieldName);
     }
   }
 
@@ -270,7 +314,7 @@ public class SampleSheetParser {
       break;
 
     default:
-      throw new IllegalArgumentException("Unknown field: " + fieldName);
+      sampleSheet.setOtherField(fieldName, value);
     }
   }
 

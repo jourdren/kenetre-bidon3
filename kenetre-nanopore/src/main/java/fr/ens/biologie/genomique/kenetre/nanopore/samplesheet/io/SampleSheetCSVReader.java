@@ -23,14 +23,15 @@ import fr.ens.biologie.genomique.kenetre.nanopore.samplesheet.SampleSheet;
  * @since 0.20
  * @author Laurent Jourdren
  */
-public class SampleSheetCSVReader implements SampleSheetReader, AutoCloseable {
+public class SampleSheetCSVReader extends AbstractSampleSheetReader
+    implements AutoCloseable {
 
   private final BufferedReader reader;
 
   @Override
   public SampleSheet read() throws IOException {
 
-    SampleSheetParser parser = new SampleSheetParser();
+    final SampleSheetParser parser = newSampleSheetParser();
 
     int lineCount = 0;
     String line = null;

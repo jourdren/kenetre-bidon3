@@ -28,6 +28,7 @@ public class SampleSheet {
   private String experimentId;
   private String flowCellProductCode;
   private String kit;
+  private Map<String, String> otherFields = new LinkedHashMap<>();
 
   private final Map<String, Barcode> barcodes = new LinkedHashMap<>();
 
@@ -351,6 +352,25 @@ public class SampleSheet {
     return false;
   }
 
+  /**
+   * Get other field.
+   * @param fieldName field name
+   * @return the value for the field
+   */
+  public String getOtherField(String fieldName) {
+
+    return this.otherFields.get(fieldName);
+  }
+
+  /**
+   * Get other field names.
+   * @return a set with the other field names
+   */
+  public Set<String> getOtherFieldNames() {
+
+    return Collections.unmodifiableSet(this.otherFields.keySet());
+  }
+
   //
   // Setters
   //
@@ -453,6 +473,19 @@ public class SampleSheet {
   public void addExpansionKit(String expansionKit) {
 
     this.kit = kit + ' ' + checkExpansionKit(expansionKit);
+  }
+
+  /**
+   * Set other field.
+   * @param key field name
+   * @param value field value
+   */
+  public void setOtherField(String key, String value) {
+
+    requireNonNull(key);
+    requireNonNull(value);
+
+    this.otherFields.put(key, value);
   }
 
   //
@@ -819,6 +852,11 @@ public class SampleSheet {
     sb.append(',');
     sb.append("kit");
 
+    for (String field : this.otherFields.keySet()) {
+      sb.append(',');
+      sb.append(field);
+    }
+
     if (isBarcode()) {
 
       sb.append(',');
@@ -924,6 +962,11 @@ public class SampleSheet {
     sb.append(getFlowCellProductCode());
     sb.append(',');
     sb.append(getKit());
+
+    for (String field : this.otherFields.keySet()) {
+      sb.append(',');
+      sb.append(this.otherFields.get(field));
+    }
 
     return sb.toString();
 

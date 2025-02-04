@@ -29,14 +29,16 @@ import fr.ens.biologie.genomique.kenetre.nanopore.samplesheet.SampleSheet;
  * @since 0.20
  * @author Laurent Jourdren
  */
-public class SampleSheetXLSXReader implements SampleSheetReader, AutoCloseable {
+public class SampleSheetXLSXReader extends AbstractSampleSheetReader
+    implements AutoCloseable {
 
   private final InputStream is;
 
   @Override
   public SampleSheet read() throws IOException {
 
-    final SampleSheetParser parser = new SampleSheetParser();
+    final SampleSheetParser parser = newSampleSheetParser();
+
     // Create a workbook out of the input stream
     final XSSFWorkbook wb = new XSSFWorkbook(this.is);
 

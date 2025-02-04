@@ -30,14 +30,15 @@ import fr.ens.biologie.genomique.kenetre.nanopore.samplesheet.SampleSheet;
  * @since 0.20
  * @author Laurent Jourdren
  */
-public class SampleSheetXLSReader implements SampleSheetReader, AutoCloseable {
+public class SampleSheetXLSReader extends AbstractSampleSheetReader
+    implements AutoCloseable {
 
   private final InputStream is;
 
   @Override
   public SampleSheet read() throws IOException {
 
-    final SampleSheetParser parser = new SampleSheetParser();
+    final SampleSheetParser parser = newSampleSheetParser();
 
     // create a POIFSFileSystem object to read the data
     final POIFSFileSystem fs = new POIFSFileSystem(this.is);
