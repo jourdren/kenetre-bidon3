@@ -36,6 +36,7 @@ public class SampleSheetParser {
   private static final String INTERNAL_BARCODE_FIELDNAME = "internal_barcode";
   private static final String EXTERNAL_BARCODE_FIELDNAME = "external_barcode";
   private static final String DESCRIPTION_FIELDNAME = "description";
+  private static final String SAMPLE_REF_FIELDNAME = "sample_ref";
 
   private final SampleSheet samplesheet = new SampleSheet();
   private Map<String, Integer> fieldPositions = new HashMap<>();
@@ -99,9 +100,10 @@ public class SampleSheetParser {
       return;
     }
 
-    Set<String> barcodeFields = new HashSet<>(Arrays.asList(ALIAS_FIELDNAME,
-        BARCODE_FIELDNAME, INTERNAL_BARCODE_FIELDNAME,
-        EXTERNAL_BARCODE_FIELDNAME, TYPE_FIELDNAME, DESCRIPTION_FIELDNAME));
+    Set<String> barcodeFields =
+        new HashSet<>(Arrays.asList(ALIAS_FIELDNAME, BARCODE_FIELDNAME,
+            INTERNAL_BARCODE_FIELDNAME, EXTERNAL_BARCODE_FIELDNAME,
+            TYPE_FIELDNAME, DESCRIPTION_FIELDNAME, SAMPLE_REF_FIELDNAME));
 
     for (String field : fieldPositions.keySet()) {
 
