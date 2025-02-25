@@ -965,7 +965,7 @@ public class SampleSheet {
 
     for (String field : this.otherFields.keySet()) {
       sb.append(',');
-      sb.append(this.otherFields.get(field));
+      sb.append(quoteStringWithComma(this.otherFields.get(field)));
     }
 
     return sb.toString();
