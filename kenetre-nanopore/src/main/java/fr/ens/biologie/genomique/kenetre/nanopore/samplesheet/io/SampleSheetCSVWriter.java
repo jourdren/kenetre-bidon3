@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.nio.file.Path;
 
 import fr.ens.biologie.genomique.kenetre.nanopore.samplesheet.SampleSheet;
 
@@ -65,6 +66,16 @@ public class SampleSheetCSVWriter implements SampleSheetWriter, AutoCloseable {
   public SampleSheetCSVWriter(final File outputFile) throws IOException {
 
     this.writer = new FileWriter(outputFile, defaultCharset());
+  }
+
+  /**
+   * Public constructor.
+   * @param outputFile file to use
+   * @throws IOException if an error occurs while creating the file
+   */
+  public SampleSheetCSVWriter(final Path outputFile) throws IOException {
+
+    this(outputFile.toFile());
   }
 
   /**
