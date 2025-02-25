@@ -488,6 +488,14 @@ public class SampleSheet {
     this.otherFields.put(key, value);
   }
 
+  /**
+   * Remove other fields.
+   */
+  public void removeOtherFields() {
+
+    this.otherFields.clear();
+  }
+
   //
   // Barcode management
   //
@@ -653,6 +661,16 @@ public class SampleSheet {
     requireNonNull(internalBarcode);
     requireNonNull(externalBarcode);
     this.barcodes.remove(createKey(internalBarcode, externalBarcode));
+  }
+
+  /**
+   * Remove barcode descriptions.
+   */
+  public void removeBarcodeDescription() {
+
+    for (Barcode b : this.barcodes.values()) {
+      b.description = null;
+    }
   }
 
   //
