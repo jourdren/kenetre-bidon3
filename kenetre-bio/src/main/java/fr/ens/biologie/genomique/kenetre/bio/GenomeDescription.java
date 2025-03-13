@@ -25,7 +25,6 @@
 package fr.ens.biologie.genomique.kenetre.bio;
 
 import static fr.ens.biologie.genomique.kenetre.util.StringUtils.md5DigestToString;
-import static fr.ens.biologie.genomique.kenetre.util.Utils.newArrayList;
 import static java.util.Arrays.asList;
 import static java.util.Objects.requireNonNull;
 
@@ -33,11 +32,14 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -142,7 +144,8 @@ public class GenomeDescription {
    */
   public List<String> getSequencesNames() {
 
-    return Collections.unmodifiableList(newArrayList(this.sequences.keySet()));
+    return Collections
+        .unmodifiableList(new ArrayList<>(this.sequences.keySet()));
   }
 
   /**
@@ -176,6 +179,21 @@ public class GenomeDescription {
     }
 
     return count;
+  }
+
+  /**
+   * Convert Object to a map of chromosome lengths
+   * @return a Map object
+   */
+  public Map<String, Long> toMap() {
+
+    Map<String, Long> result = new LinkedHashMap<>();
+
+    for (Map.Entry<String, Long> e : this.sequences.entrySet()) {
+      result.put(e.getKey(), e.getValue());
+    }
+
+    return result;
   }
 
   //
@@ -223,6 +241,34 @@ public class GenomeDescription {
 
     requireNonNull(file, "File is null");
     save(FileUtils.createOutputStream(file));
+  }
+
+  /**
+   * Save genome description in UCSC TSV format.
+   * @param os OutputStream to use for TSV file
+   * @throws IOException if an error occurs while saving the genome description
+   */
+  public void saveTSV(final OutputStream os) throws IOException {
+
+    requireNonNull(os, "OutputStream is null");
+
+    try (Writer writer = new OutputStreamWriter(os)) {
+
+      for (Map.Entry<String, Long> e : toMap().entrySet()) {
+        writer.write(e.getKey() + '\t' + e.getValue() + '\n');
+      }
+    }
+  }
+
+  /**
+   * Save genome description in UCSC TSV format.
+   * @param os OutputStream to use for TSV file
+   * @throws IOException if an error occurs while saving the genome description
+   */
+  public void saveTSV(final File file) throws IOException {
+
+    requireNonNull(file, "File is null");
+    saveTSV(FileUtils.createOutputStream(file));
   }
 
   //
@@ -449,6 +495,56 @@ public class GenomeDescription {
     }
 
     genomeFastaIs.close();
+
+    return result;
+  }
+
+  /**
+   * Create a GenomeDescription object from a UCSC TSV file (two fields:
+   * chromosome name and chromosome length). No checksum will be computed when
+   * using this method.
+   * @param tsvFile TSV file
+   * @param filename name of the file of the input stream
+   * @return a genome description object
+   * @throws IOException if an error occurs while reading the GFF file
+   */
+  public static GenomeDescription createGenomeDescFromTSV(final File tsvFile)
+      throws IOException {
+
+    return createGenomeDescFromTSV(FileUtils.createInputStream(tsvFile),
+        tsvFile.getName());
+  }
+
+  /**
+   * Create a GenomeDescription object from a UCSC TSV file(two fields:
+   * chromosome name and chromosome length). No checksum will be computed when
+   * using this method.
+   * @param genomeFastaIs genome fasta input stream
+   * @param filename name of the file of the input stream
+   * @return a genome description object
+   * @throws IOException if an error occurs while reading the GFF file
+   */
+  public static GenomeDescription createGenomeDescFromTSV(
+      final InputStream tsvIs, final String filename) throws IOException {
+
+    requireNonNull(tsvIs, "The input stream of the UCSC TSV file is null");
+
+    final GenomeDescription result = new GenomeDescription();
+    result.setGenomeName(StringUtils.basename(filename));
+
+    try (BufferedReader reader =
+        new BufferedReader(new InputStreamReader(tsvIs))) {
+
+      for (String line : (Iterable<String>) reader.lines()::iterator) {
+        String[] fields = line.trim().split("\t");
+        if (fields.length != 2) {
+          continue;
+        }
+
+        result.addSequence(fields[0].trim(), Long.parseLong(fields[1]));
+      }
+
+    }
 
     return result;
   }
