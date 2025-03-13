@@ -3,3 +3,4 @@ fr.ens.biologie.genomique.kenetre.bin.action.XLSToTSVAction
 fr.ens.biologie.genomique.kenetre.bin.action.SGDBGoogleDriveDumpAction
 fr.ens.biologie.genomique.kenetre.bin.action.FilterReadsAction
 fr.ens.biologie.genomique.kenetre.bin.action.FilterSAMAction
+fr.ens.biologie.genomique.kenetre.bin.action.GenomeToTSVAction
