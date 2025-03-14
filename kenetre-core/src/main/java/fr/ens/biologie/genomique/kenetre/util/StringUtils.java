@@ -1215,6 +1215,30 @@ public final class StringUtils {
     return s;
   }
 
+  /**
+   * Compare two String.
+   * @param s1 first string to compare
+   * @param s2 second string to compare
+   * @return a int value like String.compareTo()
+   */
+  public static int compare(String s1, String s2) {
+
+    if (s1 == s2) {
+      return 0;
+    }
+
+    // Check if argument are null
+    if (s1 == null && s2 == null) {
+      return 0;
+    } else if (s1 == null) {
+      return -1;
+    } else if (s2 == null) {
+      return 1;
+    }
+
+    return s1.compareTo(s2);
+  }
+
   //
   // Constructor
   //
