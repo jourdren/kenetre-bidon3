@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -12,6 +13,7 @@ import java.util.Set;
 import com.google.common.base.Splitter;
 
 import fr.ens.biologie.genomique.kenetre.util.GuavaCompatibility;
+import fr.ens.biologie.genomique.kenetre.util.StringUtils;
 
 /**
  * This class define a BedEntry. <b>Warning</b>: the coordinates stored in the
@@ -20,7 +22,17 @@ import fr.ens.biologie.genomique.kenetre.util.GuavaCompatibility;
  * @author Laurent Jourdren
  * @since 2.2
  */
-public class BEDEntry {
+public class BEDEntry implements Comparable<BEDEntry> {
+
+  public static class DefaultBEDEntryComparator
+      implements Comparator<BEDEntry> {
+
+    @Override
+    public int compare(BEDEntry o1, BEDEntry o2) {
+
+      return BEDEntry.compare(o1, o2);
+    }
+  }
 
   private final EntryMetadata metadata;
   private String chromosomeName;
@@ -590,6 +602,36 @@ public class BEDEntry {
         && this.thickStart == that.thickStart && this.thickEnd == that.thickEnd
         && Objects.equals(this.rgbItem, that.rgbItem)
         && Objects.equals(this.blocks, that.blocks);
+  }
+
+  private static int compare(BEDEntry o1, BEDEntry o2) {
+
+    if (o1 == o2) {
+      return 0;
+    }
+
+    int result = StringUtils.compare(o1.chromosomeName, o2.chromosomeName);
+    if (result != 0) {
+      return result;
+    }
+
+    result = Integer.compare(o1.start, o2.start);
+    if (result != 0) {
+      return result;
+    }
+
+    result = Integer.compare(o1.end, o2.end);
+    if (result != 0) {
+      return result;
+    }
+
+    return StringUtils.compare(o1.name, o2.name);
+  }
+
+  @Override
+  public int compareTo(BEDEntry o) {
+
+    return compare(this, o);
   }
 
   //
