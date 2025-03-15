@@ -26,7 +26,7 @@ public class GenomeToTSVAction implements Action {
 
   @Override
   public String getDescription() {
-    return "Convert a Genome in FASTA format to UCSC TSV file";
+    return "Convert a Genome in FASTA format to UCSC TSV file.";
   }
 
   @Override
