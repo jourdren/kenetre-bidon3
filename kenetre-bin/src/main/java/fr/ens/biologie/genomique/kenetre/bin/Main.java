@@ -43,7 +43,7 @@ public class Main {
 
   /** Project email. */
   public static final String CONTACT_EMAIL =
-      APP_NAME_LOWER_CASE + "@biologie.ens.fr";
+      APP_NAME_LOWER_CASE + "@bio.ens.psl.eu";
 
   private static final String WEBSITE_URL =
       "https://github.com/GenomiqueENS/Kenetre";
