@@ -407,7 +407,7 @@ public class Main {
   public static void main(final String[] args) {
 
     if (main != null) {
-      throw new IllegalAccessError("Main method cannot be run twice.");
+      throw new IllegalAccessError("Main method cannot be run twice");
     }
 
     // Initialize the main class
