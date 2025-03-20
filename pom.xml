@@ -5,7 +5,7 @@
   <artifactId>kenetre</artifactId>
   <name>Kenetre</name>
   <packaging>pom</packaging>
-  <version>1.0</version>
+  <version>0.34-SNAPSHOT</version>
   <description>Common classes for Aozan and Eoulsan projects.</description>
   <url>https://github.com/GenomiqueENS/kenetre</url>
   <inceptionYear>2022</inceptionYear>
@@ -32,7 +32,7 @@
   </developers>
 
   <properties>
-    <revision>0.34-SNAPSHOT</revision>
+    <revision>${project.version}</revision>
     <java.version>11</java.version>
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
