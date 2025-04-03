@@ -11,9 +11,10 @@
   <version>0.36.0</version>
   <name>kenetre-bin</name>
   <url>https://github.com/GenomiqueENS/Kenetre</url>
-<properties>
+  <properties>
     <main.class>fr.ens.biologie.genomique.kenetre.bin.Main</main.class>
-</properties>
+    <maven.deploy.skip>false</maven.deploy.skip>
+  </properties>
   <dependencies>
     <dependency>
       <groupId>fr.ens.biologie.genomique</groupId>
