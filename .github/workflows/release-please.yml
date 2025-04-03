@@ -55,9 +55,3 @@ jobs:
           name: Package
           path: staging
           retention-days: 1
-
-      # Publish packages
-      - name: Publish package
-        run: mvn --batch-mode deploy
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
