@@ -1,5 +1,24 @@
 # Changelog
 
+## [0.41.0](https://github.com/jourdren/kenetre-bidon3/compare/v0.36.0...v0.41.0) (2025-04-03)
+
+
+### Features
+
+* add publish.yml. ([#49](https://github.com/jourdren/kenetre-bidon3/issues/49)) ([c8719d8](https://github.com/jourdren/kenetre-bidon3/commit/c8719d817a82e20e9bc072c09dddd6653056e792))
+* Fix maven deploy ([#45](https://github.com/jourdren/kenetre-bidon3/issues/45)) ([f73c515](https://github.com/jourdren/kenetre-bidon3/commit/f73c515cb69e9fcb42ac064262ea5ae53f1da837))
+* fix permissions in release-please.yml. ([#46](https://github.com/jourdren/kenetre-bidon3/issues/46)) ([6d68b75](https://github.com/jourdren/kenetre-bidon3/commit/6d68b75c42b2127d7ca663d38bc47e812fbb5808))
+* fix pom.xml. ([#42](https://github.com/jourdren/kenetre-bidon3/issues/42)) ([e75c25e](https://github.com/jourdren/kenetre-bidon3/commit/e75c25e5f710542ce4370b2ba6a4f28ac318f3dc))
+* remove unnecessary GitHub actions ([#39](https://github.com/jourdren/kenetre-bidon3/issues/39)) ([c38ed75](https://github.com/jourdren/kenetre-bidon3/commit/c38ed752ea12bf4b7685b01826315cdde30603a0))
+
+
+### Miscellaneous Chores
+
+* release 0.38.0 ([#40](https://github.com/jourdren/kenetre-bidon3/issues/40)) ([ba29754](https://github.com/jourdren/kenetre-bidon3/commit/ba297545606eb25ceb99c7d53d35a44d4cab065d))
+* release 0.39.0 ([#43](https://github.com/jourdren/kenetre-bidon3/issues/43)) ([0af068e](https://github.com/jourdren/kenetre-bidon3/commit/0af068e58c998ccc49cc2fd8d558466d6206cf77))
+* release 0.40.0 ([#47](https://github.com/jourdren/kenetre-bidon3/issues/47)) ([e1b1f02](https://github.com/jourdren/kenetre-bidon3/commit/e1b1f02a3722de8b1a40fdeae6540794f964d8f5))
+* release 0.41.0 ([#50](https://github.com/jourdren/kenetre-bidon3/issues/50)) ([d01d709](https://github.com/jourdren/kenetre-bidon3/commit/d01d709e48360f5231b380aed986d5a4d8eafd99))
+
 ## [0.36.0](https://github.com/jourdren/kenetre-bidon3/compare/v0.35.0...v0.36.0) (2025-04-03)
 
 
