@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.36.0](https://github.com/jourdren/kenetre-bidon3/compare/v0.35.0...v0.36.0) (2025-04-03)
+
+
+### Features
+
+* Add a new release-artifacts GitHub Action. ([#34](https://github.com/jourdren/kenetre-bidon3/issues/34)) ([9a2e2d6](https://github.com/jourdren/kenetre-bidon3/commit/9a2e2d6d746f8e40f434aaba6b0a36cdb02f909a))
+* Update release-please.yml ([#37](https://github.com/jourdren/kenetre-bidon3/issues/37)) ([719a9a7](https://github.com/jourdren/kenetre-bidon3/commit/719a9a751003216d133ba067607e308cdbb4c060))
+
+
+### Miscellaneous Chores
+
+* release 0.36.0 ([#35](https://github.com/jourdren/kenetre-bidon3/issues/35)) ([540a506](https://github.com/jourdren/kenetre-bidon3/commit/540a506557cea96bed0992bc79d3981b58725df8))
+
 ## 0.35.0 (2025-03-20)
 
 
