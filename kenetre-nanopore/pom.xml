@@ -11,6 +11,9 @@
   <version>0.36.0</version>
   <name>kenetre-nanopore</name>
   <url>https://github.com/GenomiqueENS/Kenetre</url>
+  <properties>
+    <maven.deploy.skip>false</maven.deploy.skip>
+  </properties>
   <repositories>
     <repository>
       <snapshots>
