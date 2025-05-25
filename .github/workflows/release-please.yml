@@ -65,6 +65,6 @@ jobs:
       # Publish asset
       - name: Publish jar asset
         shell: bash
-        run: gh upload ${GITHUB_REF_NAME} kenetre-bin/target/kenetre-bin-*-jar-with-dependencies.jar
+        run: gh release upload ${{ github.ref_name }} kenetre-bin/target/kenetre-bin-*-jar-with-dependencies.jar
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
