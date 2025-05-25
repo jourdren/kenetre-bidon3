@@ -22,10 +22,23 @@ jobs:
 
       # Checkout the repository
       - name: Checkout code
+        if: ${{ steps.release.outputs.release_created }}
         uses: actions/checkout@v4
+
+      # Debug Release Outputs
+      - name: Debug Release Outputs
+        run: |
+        echo "releases_created: ${{ steps.release.outputs.releases_created }}"
+        echo "release_created:  ${{ steps.release.outputs.release_created }}"
+        echo "tag_name:         ${{ steps.release.outputs.release_created }}"
+        echo "version:          ${{ steps.release.outputs.version }}"
+        echo "major:            ${{ steps.release.outputs.major }}"
+        echo "minor:            ${{ steps.release.outputs.minor }}"
+        echo "patch:            ${{ steps.release.outputs.patch }}"
 
       # Set up JDK
       - name: Set up JDK
+        if: ${{ steps.release.outputs.release_created }}
         uses: actions/setup-java@v4
         with:
           java-version: 11
@@ -33,6 +46,7 @@ jobs:
 
       # Cache Maven dependencies
       - name: Cache Maven dependencies
+        if: ${{ steps.release.outputs.release_created }}
         uses: actions/cache@v4
         with:
           path: ~/.m2
@@ -42,6 +56,7 @@ jobs:
 
       # Build the project with Maven
       - name: Build with Maven
+        if: ${{ steps.release.outputs.release_created }}
         run: mvn --batch-mode clean package -DskipTests
 
       # Copy artifacts
@@ -50,6 +65,7 @@ jobs:
 
       # Upload artifacts
       - name: Upload artifacts
+        if: ${{ steps.release.outputs.release_created }}
         uses: actions/upload-artifact@v4
         with:
           name: Package
@@ -58,13 +74,15 @@ jobs:
 
       # Publish packages
       - name: Publish package
+        if: ${{ steps.release.outputs.release_created }}
         run: mvn --batch-mode deploy
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       # Publish asset
       - name: Publish jar asset
+        if: ${{ steps.release.outputs.release_created }}
         shell: bash
-        run: if [ "${{ steps.release.outputs.release_created }}" == "true" ]; then gh release upload ${{ steps.release.outputs.tag_name }}  kenetre-bin/target/kenetre-bin-*-jar-with-dependencies.jar ; fi
+        run: gh release upload ${{ steps.release.outputs.tag_name }}  kenetre-bin/target/kenetre-bin-*-jar-with-dependencies.jar
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
