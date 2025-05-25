@@ -1,6 +1,6 @@
 # Changelog
 
-## [0.48.0](https://github.com/jourdren/kenetre-bidon3/compare/v0.47.0...v0.48.0) (2025-05-25)
+## [0.49.0](https://github.com/jourdren/kenetre-bidon3/compare/v0.47.0...v0.49.0) (2025-05-25)
 
 
 ### Features
@@ -17,6 +17,7 @@
 ### Miscellaneous Chores
 
 * release 0.48.0 ([#71](https://github.com/jourdren/kenetre-bidon3/issues/71)) ([aedd9cb](https://github.com/jourdren/kenetre-bidon3/commit/aedd9cbc47cae6045a0c5a71e3db68d5a550c16f))
+* release 0.49.0 ([#79](https://github.com/jourdren/kenetre-bidon3/issues/79)) ([c514401](https://github.com/jourdren/kenetre-bidon3/commit/c5144010130b4768e8e7ac01f55bc4ac2e2d4ca4))
 
 ## [0.47.0](https://github.com/jourdren/kenetre-bidon3/compare/v0.44.0...v0.47.0) (2025-05-25)
 
