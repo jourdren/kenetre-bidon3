@@ -31,7 +31,7 @@ jobs:
         run: |
           echo "releases_created: ${{ steps.release.outputs.releases_created }}"
           echo "release_created:  ${{ steps.release.outputs.release_created }}"
-          echo "tag_name:         ${{ steps.release.outputs.release_created }}"
+          echo "tag_name:         ${{ steps.release.outputs.tag_name }}"
           echo "version:          ${{ steps.release.outputs.version }}"
           echo "major:            ${{ steps.release.outputs.major }}"
           echo "minor:            ${{ steps.release.outputs.minor }}"
