@@ -1,5 +1,23 @@
 # Changelog
 
+## [0.48.0](https://github.com/jourdren/kenetre-bidon3/compare/v0.47.0...v0.48.0) (2025-05-25)
+
+
+### Features
+
+* update gh upload command. ([#70](https://github.com/jourdren/kenetre-bidon3/issues/70)) ([711e6b2](https://github.com/jourdren/kenetre-bidon3/commit/711e6b20a7d9247cfe5b760c43df4529c0e8bc19))
+* update gh upload command. ([#73](https://github.com/jourdren/kenetre-bidon3/issues/73)) ([32f35e9](https://github.com/jourdren/kenetre-bidon3/commit/32f35e97d60c16f2793faa7f6c41e08a133f6f33))
+* update gh upload command. ([#74](https://github.com/jourdren/kenetre-bidon3/issues/74)) ([508612f](https://github.com/jourdren/kenetre-bidon3/commit/508612f32b027f9204a0f9bd7694f8a96a4b80c4))
+* update gh upload command. ([#75](https://github.com/jourdren/kenetre-bidon3/issues/75)) ([a643ac8](https://github.com/jourdren/kenetre-bidon3/commit/a643ac8e9954e19b9cd87fa360f31e36e45f592d))
+* update gh upload command. ([#76](https://github.com/jourdren/kenetre-bidon3/issues/76)) ([4746b9d](https://github.com/jourdren/kenetre-bidon3/commit/4746b9d58ca6eb9a021e11e22444f46bae2dd16a))
+* update gh upload command. ([#77](https://github.com/jourdren/kenetre-bidon3/issues/77)) ([3e82b7e](https://github.com/jourdren/kenetre-bidon3/commit/3e82b7eed1e542bbc854d31150e83eb136aae0be))
+* update gh upload command. ([#78](https://github.com/jourdren/kenetre-bidon3/issues/78)) ([96055b1](https://github.com/jourdren/kenetre-bidon3/commit/96055b1a24380ae536ab06bbb7e9ceda857bd3e4))
+
+
+### Miscellaneous Chores
+
+* release 0.48.0 ([#71](https://github.com/jourdren/kenetre-bidon3/issues/71)) ([aedd9cb](https://github.com/jourdren/kenetre-bidon3/commit/aedd9cbc47cae6045a0c5a71e3db68d5a550c16f))
+
 ## [0.47.0](https://github.com/jourdren/kenetre-bidon3/compare/v0.44.0...v0.47.0) (2025-05-25)
 
 
