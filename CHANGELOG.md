@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.45.0](https://github.com/jourdren/kenetre-bidon3/compare/v0.44.0...v0.45.0) (2025-05-25)
+
+
+### Features
+
+* update gh upload command. ([#62](https://github.com/jourdren/kenetre-bidon3/issues/62)) ([b45f543](https://github.com/jourdren/kenetre-bidon3/commit/b45f54344f084e229db40c73b0ff33298d447849))
+
+
+### Miscellaneous Chores
+
+* release 0.45.0 ([#63](https://github.com/jourdren/kenetre-bidon3/issues/63)) ([f5384d1](https://github.com/jourdren/kenetre-bidon3/commit/f5384d1b7218e6a362f45673236908b41dd282af))
+
 ## [0.44.0](https://github.com/jourdren/kenetre-bidon3/compare/v0.43.0...v0.44.0) (2025-05-25)
 
 
