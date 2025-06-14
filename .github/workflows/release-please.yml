@@ -18,7 +18,6 @@ jobs:
         id: release
         with:
           release-type: maven
-          bump-minor-pre-major: true
 
       # Checkout the repository
       - name: Checkout code
