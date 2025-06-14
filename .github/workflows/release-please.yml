@@ -99,7 +99,7 @@ jobs:
       # Create an empty context for Docker build
       - name: Create empty context for docker build
         if: ${{ steps.release.outputs.release_created }}
-        run: mkdir -p docker-context && cp -p Dockerfile > docker-context/Dockerfile
+        run: mkdir -p docker-context && cp -p Dockerfile docker-context/Dockerfile
 
       # Build and push Docker image
       - name: Build and push Docker image
