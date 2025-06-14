@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.50.0](https://github.com/jourdren/kenetre-bidon3/compare/v0.49.0...v0.50.0) (2025-06-14)
+
+
+### Features
+
+* Add Docker build image ([#83](https://github.com/jourdren/kenetre-bidon3/issues/83)) ([066183d](https://github.com/jourdren/kenetre-bidon3/commit/066183d2d8f99869a65b733e5a8b36ecdda4ea69))
+* update gh upload command. ([#81](https://github.com/jourdren/kenetre-bidon3/issues/81)) ([71bdaeb](https://github.com/jourdren/kenetre-bidon3/commit/71bdaeb42a77796722c6d9a699fcc350d271da53))
+
+
+### Bug Fixes
+
+* fix release-please. ([#86](https://github.com/jourdren/kenetre-bidon3/issues/86)) ([056e6a2](https://github.com/jourdren/kenetre-bidon3/commit/056e6a22614812a9a486a22e9a0adb44789cbebc))
+
 ## [0.49.0](https://github.com/jourdren/kenetre-bidon3/compare/v0.47.0...v0.49.0) (2025-05-25)
 
 
