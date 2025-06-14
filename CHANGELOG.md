@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.53.0](https://github.com/jourdren/kenetre-bidon3/compare/v0.52.0...v0.53.0) (2025-06-14)
+
+
+### Features
+
+* update create empty context for Docker build, fix copy. ([#93](https://github.com/jourdren/kenetre-bidon3/issues/93)) ([e15ddf1](https://github.com/jourdren/kenetre-bidon3/commit/e15ddf1f357a0cd84d3b5f6ce666de9021f3383b))
+
+
+### Miscellaneous Chores
+
+* release 0.53.0 ([#94](https://github.com/jourdren/kenetre-bidon3/issues/94)) ([10ddd7e](https://github.com/jourdren/kenetre-bidon3/commit/10ddd7e8e257275242d1889df88749ef05d71a7f))
+
 ## [0.52.0](https://github.com/jourdren/kenetre-bidon3/compare/v0.51.0...v0.52.0) (2025-06-14)
 
 
