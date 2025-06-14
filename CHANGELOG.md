@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.52.0](https://github.com/jourdren/kenetre-bidon3/compare/v0.51.0...v0.52.0) (2025-06-14)
+
+
+### Features
+
+* update create empty context for Docker build. ([#89](https://github.com/jourdren/kenetre-bidon3/issues/89)) ([46acd9c](https://github.com/jourdren/kenetre-bidon3/commit/46acd9c19cb8a1c131b06c295416489575a86ba0))
+
 ## [0.50.0](https://github.com/jourdren/kenetre-bidon3/compare/v0.49.0...v0.50.0) (2025-06-14)
 
 
