@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.54.0](https://github.com/jourdren/kenetre-bidon3/compare/v0.53.0...v0.54.0) (2025-06-14)
+
+
+### Features
+
+* Add Dockerfile. ([#97](https://github.com/jourdren/kenetre-bidon3/issues/97)) ([d5bcaba](https://github.com/jourdren/kenetre-bidon3/commit/d5bcaba09bb704e0bebeae67ad274029b8e65aa6))
+
 ## [0.53.0](https://github.com/jourdren/kenetre-bidon3/compare/v0.52.0...v0.53.0) (2025-06-14)
 
 
