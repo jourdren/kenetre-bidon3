@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.55.0](https://github.com/jourdren/kenetre-bidon3/compare/v0.54.0...v0.55.0) (2025-06-24)
+
+
+### Features
+
+* do not skip anymore the deployement in parent pom. ([#101](https://github.com/jourdren/kenetre-bidon3/issues/101)) ([a2c22b4](https://github.com/jourdren/kenetre-bidon3/commit/a2c22b4f5665e4b3f6a61bd6a385c5701a1a786f))
+
+
+### Miscellaneous Chores
+
+* release 0.55.0 ([#102](https://github.com/jourdren/kenetre-bidon3/issues/102)) ([60f0268](https://github.com/jourdren/kenetre-bidon3/commit/60f026872a8c2a019bb9cf1f2c3606d61076caf2))
+
 ## [0.54.0](https://github.com/jourdren/kenetre-bidon3/compare/v0.53.0...v0.54.0) (2025-06-14)
 
 
