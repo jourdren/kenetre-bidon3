@@ -40,3 +40,7 @@ jobs:
       # Run tests
       - name: Run tests
         run: mvn --batch-mode test
+
+      # Tmate session
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
